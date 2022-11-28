@@ -42,4 +42,31 @@ public class UniCareerAdvisorDir {
         uniCareerAdvisorList.set(ind, updateUniCareerAdvisor);
         return uniCareerAdvisorList;
     }
+    
+    public UniCareerAdvisor searchById(Integer id){
+        for(UniCareerAdvisor uniCareerAdvisor : uniCareerAdvisorList){
+            if(uniCareerAdvisor.getId().equals(id)){
+                return uniCareerAdvisor;
+            }
+        }
+        return null;
+    }
+    
+    public UniCareerAdvisor searchByName(String name){
+        for(UniCareerAdvisor uniCareerAdvisor : uniCareerAdvisorList){
+            if(uniCareerAdvisor.getName().equals(name)){
+                return uniCareerAdvisor;
+            }
+        }
+        return null;
+    }
+    
+    public UniCareerAdvisor searchByDepartment(UniDepartment department){
+        for(UniCareerAdvisor uniCareerAdvisor : uniCareerAdvisorList){
+            if(uniCareerAdvisor.getDepartment().equals(department)){
+                return uniCareerAdvisor;
+            }
+        }
+        return null;
+    }
 }

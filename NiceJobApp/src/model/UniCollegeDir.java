@@ -42,4 +42,31 @@ public class UniCollegeDir {
         uniCollegeList.set(ind, updateUniCollege);
         return uniCollegeList;
     }
+    
+    public UniCollege searchById(Integer id){
+        for(UniCollege uniCollege : uniCollegeList){
+            if(uniCollege.getId().equals(id)){
+                return uniCollege;
+            }
+        }
+        return null;
+    }
+    
+    public UniCollege searchByName(String name){
+        for(UniCollege uniCollege : uniCollegeList){
+            if(uniCollege.getName().equals(name)){
+                return uniCollege;
+            }
+        }
+        return null;
+    }
+    
+    public UniCollege searchByUniversity(University university){
+        for(UniCollege uniCollege : uniCollegeList){
+            if(uniCollege.getUniversity().equals(university)){
+                return uniCollege;
+            }
+        }
+        return null;
+    }
 }

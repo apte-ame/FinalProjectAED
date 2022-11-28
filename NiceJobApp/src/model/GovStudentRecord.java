@@ -22,6 +22,87 @@ public class GovStudentRecord {
     private Long passportNumber;
     private LocalDate passportValidFrom;
     private LocalDate passportValidTill;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public UniStudent getStudent() {
+        return student;
+    }
+
+    public void setStudent(UniStudent student) {
+        this.student = student;
+    }
+
+    public Boolean getI20Status() {
+        return i20Status;
+    }
+
+    public void setI20Status(Boolean i20Status) {
+        this.i20Status = i20Status;
+    }
+
+    public String getVisaIssued() {
+        return visaIssued;
+    }
+
+    public void setVisaIssued(String visaIssued) {
+        this.visaIssued = visaIssued;
+    }
+
+    public LocalDate getVisaValidFrom() {
+        return visaValidFrom;
+    }
+
+    public void setVisaValidFrom(LocalDate visaValidFrom) {
+        this.visaValidFrom = visaValidFrom;
+    }
+
+    public LocalDate getVisaValidTill() {
+        return visaValidTill;
+    }
+
+    public void setVisaValidTill(LocalDate visaValidTill) {
+        this.visaValidTill = visaValidTill;
+    }
+
+    public String getPassportCountry() {
+        return passportCountry;
+    }
+
+    public void setPassportCountry(String passportCountry) {
+        this.passportCountry = passportCountry;
+    }
+
+    public Long getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(Long passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
+    public LocalDate getPassportValidFrom() {
+        return passportValidFrom;
+    }
+
+    public void setPassportValidFrom(LocalDate passportValidFrom) {
+        this.passportValidFrom = passportValidFrom;
+    }
+
+    public LocalDate getPassportValidTill() {
+        return passportValidTill;
+    }
+
+    public void setPassportValidTill(LocalDate passportValidTill) {
+        this.passportValidTill = passportValidTill;
+    }
+    
     
     
 }
