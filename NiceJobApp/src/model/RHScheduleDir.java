@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +33,60 @@ public class RHScheduleDir {
     public RHSchedule searchRHSchedule(RHSchedule searchRHSchedule){
         for(RHSchedule rhSchedule : rhScheduleList){
             if(rhSchedule.equals(searchRHSchedule)){
+                return rhSchedule;
+            }
+        }
+        return null;
+    }
+    
+    public RHSchedule searchById(Integer id){
+        for(RHSchedule rhSchedule : rhScheduleList){
+            if(rhSchedule.getId().equals(id)){
+                return rhSchedule;
+            }
+        }
+        return null;
+    }
+    
+    public RHSchedule searchByStudent(UniStudent student){
+        for(RHSchedule rhSchedule : rhScheduleList){
+            if(rhSchedule.getStudent().equals(student)){
+                return rhSchedule;
+            }
+        }
+        return null;
+    }
+    
+    public RHSchedule searchByRecruitingTeam(CompRecruitingTeam recruitingTeam){
+        for(RHSchedule rhSchedule : rhScheduleList){
+            if(rhSchedule.getRecruitingTeam().equals(recruitingTeam)){
+                return rhSchedule;
+            }
+        }
+        return null;
+    }
+    
+    public RHSchedule searchByJobPosting(RHJobPosting jobPosting){
+        for(RHSchedule rhSchedule : rhScheduleList){
+            if(rhSchedule.getJobPosting().equals(jobPosting)){
+                return rhSchedule;
+            }
+        }
+        return null;
+    }
+    
+    public RHSchedule searchByDate(LocalDate date){
+        for(RHSchedule rhSchedule : rhScheduleList){
+            if(rhSchedule.getDate().equals(date)){
+                return rhSchedule;
+            }
+        }
+        return null;
+    }
+    
+    public RHSchedule searchByTime(LocalTime time){
+        for(RHSchedule rhSchedule : rhScheduleList){
+            if(rhSchedule.getTime().equals(time)){
                 return rhSchedule;
             }
         }

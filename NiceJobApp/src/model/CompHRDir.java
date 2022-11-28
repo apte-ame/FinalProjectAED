@@ -37,6 +37,42 @@ public class CompHRDir {
         return null;
     }
     
+    public CompHR searchById(Integer id){
+        for(CompHR compHR : compHRList){
+            if(compHR.getId().equals(id)){
+                return compHR;
+            }
+        }
+        return null;
+    }
+    
+    public CompHR searchByName(String name){
+        for(CompHR compHR : compHRList){
+            if(compHR.getName().equals(name)){
+                return compHR;
+            }
+        }
+        return null;
+    }
+    
+    public CompHR searchByCompany(Company company){
+        for(CompHR compHR : compHRList){
+            if(compHR.getCompany().equals(company)){
+                return compHR;
+            }
+        }
+        return null;
+    }
+    
+    public CompHR searchByDepartment(CompDepartment department){
+        for(CompHR compHR : compHRList){
+            if(compHR.getDepartment().equals(department)){
+                return compHR;
+            }
+        }
+        return null;
+    }
+    
     public ArrayList<CompHR> updateCompHR(CompHR oldCompHR,CompHR updateCompHR){
         Integer ind = compHRList.indexOf(oldCompHR);
         compHRList.set(ind, updateCompHR);

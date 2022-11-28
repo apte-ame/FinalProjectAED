@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +32,69 @@ public class RHJobPostingDir {
     public RHJobPosting searchRHJobPosting(RHJobPosting searchRHJobPosting){
         for(RHJobPosting rhJobPosting : rhJobPostingList){
             if(rhJobPosting.equals(searchRHJobPosting)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchById(Integer id){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getId().equals(id)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchByPostName(String postName){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getPostName().equals(postName)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchByDepartment(CompDepartment companyDepartment){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getCompanyDepartment().equals(companyDepartment)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchByPostingValidFrom(LocalDate postingValidFrom){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getPostingValidFrom().equals(postingValidFrom)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchByPostingValidTill(LocalDate postingValidTill){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getPostingValidFrom().equals(postingValidTill)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchByDescription(String description){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getDescription().equals(description)){
+                return rhJobPosting;
+            }
+        }
+        return null;
+    }
+    
+    public RHJobPosting searchBySalaryRange(String salaryRange){
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getSalaryRange().equals(salaryRange)){
                 return rhJobPosting;
             }
         }
