@@ -37,6 +37,33 @@ public class CompDepartmentDir {
         return null;
     }
     
+    public CompDepartment searchByDepartmentId(Integer departmentId){
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getDepartmentId().equals(departmentId)){
+                return compDepartment;
+            }
+        }
+        return null;
+    }
+    
+    public CompDepartment searchByDepartmentName(String departmentName){
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getDepartmentName().equals(departmentName)){
+                return compDepartment;
+            }
+        }
+        return null;
+    }
+    
+    public CompDepartment searchByCompany(Company company){
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getCompany().equals(company)){
+                return compDepartment;
+            }
+        }
+        return null;
+    }
+    
     public ArrayList<CompDepartment> updateCompDepartment(CompDepartment oldCompDepartment,CompDepartment updateCompDepartment){
         Integer ind = compDepartmentList.indexOf(oldCompDepartment);
         compDepartmentList.set(ind, updateCompDepartment);

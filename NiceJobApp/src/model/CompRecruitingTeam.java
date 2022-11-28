@@ -14,4 +14,37 @@ public class CompRecruitingTeam {
     private String name;
     private Company company;
     private CompDepartment department;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public CompDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(CompDepartment department) {
+        this.department = department;
+    }
+        
 }

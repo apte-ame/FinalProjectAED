@@ -19,4 +19,53 @@ public class RHSchedule {
     private RHJobPosting jobPosting;
     private LocalDate date;
     private LocalTime time;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public UniStudent getStudent() {
+        return student;
+    }
+
+    public void setStudent(UniStudent student) {
+        this.student = student;
+    }
+
+    public CompRecruitingTeam getRecruitingTeam() {
+        return recruitingTeam;
+    }
+
+    public void setRecruitingTeam(CompRecruitingTeam recruitingTeam) {
+        this.recruitingTeam = recruitingTeam;
+    }
+
+    public RHJobPosting getJobPosting() {
+        return jobPosting;
+    }
+
+    public void setJobPosting(RHJobPosting jobPosting) {
+        this.jobPosting = jobPosting;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+    
 }
