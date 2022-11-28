@@ -42,4 +42,49 @@ public class GovernmentDir {
         governmentList.set(ind, updateGovernment);
         return governmentList;
     }
+    
+    public Government searchById(Integer id){
+        for(Government government : governmentList){
+            if(government.getId().equals(id)){
+                return government;
+            }
+        }
+        return null;
+    }
+    
+    public Government searchByName(String name){
+        for(Government government : governmentList){
+            if(government.getName().equals(name)){
+                return government;
+            }
+        }
+        return null;
+    }
+    
+    public Government searchByState(String state){
+        for(Government government : governmentList){
+            if(government.getState().equals(state)){
+                return government;
+            }
+        }
+        return null;
+    }
+    
+    public Government searchByCountry(String country){
+        for(Government government : governmentList){
+            if(government.getCountry().equals(country)){
+                return government;
+            }
+        }
+        return null;
+    }
+    
+    public Government searchByPincode(String pincode){
+        for(Government government : governmentList){
+            if(government.getPincode().equals(pincode)){
+                return government;
+            }
+        }
+        return null;
+    }
 }

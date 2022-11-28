@@ -42,4 +42,58 @@ public class UniversityDir {
         universityList.set(ind, updateUniversity);
         return universityList;
     }
+    
+    public University searchById(Integer id){
+        for(University university : universityList){
+            if(university.getId().equals(id)){
+                return university;
+            }
+        }
+        return null;
+    }
+    
+    public University searchByName(String name){
+        for(University university : universityList){
+            if(university.getName().equals(name)){
+                return university;
+            }
+        }
+        return null;
+    }
+    
+    public University searchByDistrict(String district){
+        for(University university : universityList){
+            if(university.getDistrict().equals(district)){
+                return university;
+            }
+        }
+        return null;
+    }
+    
+    public University searchByState(String state){
+        for(University university : universityList){
+            if(university.getState().equals(state)){
+                return university;
+            }
+        }
+        return null;
+    }
+    
+    public University searchByCountry(String country){
+        for(University university : universityList){
+            if(university.getCountry().equals(country)){
+                return university;
+            }
+        }
+        return null;
+    }
+    
+    public University searchByPincode(Long pincode){
+        for(University university : universityList){
+            if(university.getPincode().equals(pincode)){
+                return university;
+            }
+        }
+        return null;
+    }
 }
