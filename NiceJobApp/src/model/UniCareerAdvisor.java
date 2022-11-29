@@ -13,4 +13,30 @@ public class UniCareerAdvisor {
     private Integer id;
     private String name;
     private UniDepartment department;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UniDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(UniDepartment department) {
+        this.department = department;
+    }
+    
+    
 }

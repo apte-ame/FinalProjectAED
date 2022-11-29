@@ -10,8 +10,32 @@ package model;
  */
 public class UniDepartment {
     
-    private String id;
+    private Integer id;
     private String name;
     private UniCollege college;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UniCollege getCollege() {
+        return college;
+    }
+
+    public void setCollege(UniCollege college) {
+        this.college = college;
+    }
     
 }

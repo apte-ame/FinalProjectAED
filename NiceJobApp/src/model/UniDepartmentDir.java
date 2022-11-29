@@ -42,4 +42,31 @@ public class UniDepartmentDir {
         uniDepartmentList.set(ind, updateUniDepartment);
         return uniDepartmentList;
     }
+    
+    public UniDepartment searchById(Integer id){
+        for(UniDepartment uniDepartment : uniDepartmentList){
+            if(uniDepartment.getId().equals(id)){
+                return uniDepartment;
+            }
+        }
+        return null;
+    }
+    
+    public UniDepartment searchByName(String name){
+        for(UniDepartment uniDepartment : uniDepartmentList){
+            if(uniDepartment.getName().equals(name)){
+                return uniDepartment;
+            }
+        }
+        return null;
+    }
+    
+    public UniDepartment searchByCollege(UniCollege college){
+        for(UniDepartment uniDepartment : uniDepartmentList){
+            if(uniDepartment.getCollege().equals(college)){
+                return uniDepartment;
+            }
+        }
+        return null;
+    }
 }
