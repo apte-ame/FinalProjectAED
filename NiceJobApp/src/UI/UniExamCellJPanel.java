@@ -4,17 +4,24 @@
  */
 package UI;
 
+import javax.swing.JSplitPane;
+
 /**
  *
  * @author naini
  */
-public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
+public class UniExamCellJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Uni_ExamCell_JPanel
      */
-    public Uni_ExamCell_JPanel() {
+    JSplitPane splitPane;
+    
+    
+    public UniExamCellJPanel(JSplitPane splitPaneMain) {
         initComponents();
+        
+        splitPane = splitPaneMain;
     }
 
     /**
@@ -77,11 +84,11 @@ public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "NUID", "Student Name", "Contact", "Email ID", "Semester", "Course", "GPA", "Work Eligible"
+                "College ID", "Student Name", "Contact No", "Email ID", "Semesters Completed", "Course", "GPA", "Work Eligible"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -97,6 +104,12 @@ public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
         CLG_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "College of Engineering", "College of Professional Studies" }));
 
         DEPT_jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electrical Engineering", "Software Comuter Engineering", "MultiDisciplinary", "Project Management", "Regulatory Affairs" }));
+
+        nuid_txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuid_txtActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("STUDENT NAME");
 
@@ -117,15 +130,15 @@ public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel10.setText("NUID");
+        jLabel10.setText("COLLEGE ID");
 
-        jLabel11.setText("CONTACT");
+        jLabel11.setText("CONTACT NO.");
 
         jLabel12.setText("EMAIL ID");
 
         jLabel13.setFont(new java.awt.Font("Swis721 BlkCn BT", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("SEMESTER");
+        jLabel13.setText("SEMESTERS COMPLETED");
 
         jLabel14.setText("COURSE");
 
@@ -226,24 +239,26 @@ public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Work_R_btn2)
-                                            .addComponent(Work_R_btn1))
-                                        .addGap(165, 165, 165))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(semester_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(course_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(gpa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(203, 203, 203))))
+                                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(semester_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(course_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(gpa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(203, 203, 203))
+                                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                                .addGap(36, 36, 36)
+                                                .addComponent(Work_R_btn1)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(Work_R_btn2)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(kGradientPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,10 +333,9 @@ public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
                 .addGap(2, 2, 2)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Work_R_btn1)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Work_R_btn2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel16)
+                    .addComponent(Work_R_btn2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -353,6 +367,10 @@ public class Uni_ExamCell_JPanel extends javax.swing.JPanel {
     private void Work_R_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Work_R_btn1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Work_R_btn1ActionPerformed
+
+    private void nuid_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuid_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuid_txtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
