@@ -4,17 +4,23 @@
  */
 package UI;
 
+import javax.swing.JSplitPane;
+
 /**
  *
  * @author naini
  */
-public class Uni_Advisor_JPanel extends javax.swing.JPanel {
+public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Uni_ExamCell_JPanel
      */
-    public Uni_Advisor_JPanel() {
+    JSplitPane splitPane;
+    
+    public UniCareerAdvisorJPanel(JSplitPane splitPaneMain) {
         initComponents();
+        
+        splitPane = splitPaneMain;
     }
 
     /**
