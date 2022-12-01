@@ -14,6 +14,14 @@ public class UniversityDir {
     
     ArrayList<University> universityList;
 
+    public ArrayList<University> getUniversityList() {
+        return universityList;
+    }
+
+    public void setUniversityList(ArrayList<University> universityList) {
+        this.universityList = universityList;
+    }
+    
     public UniversityDir() {
         universityList = new ArrayList<>();
     }

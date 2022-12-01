@@ -90,10 +90,14 @@
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="contact_txt" min="-2" max="-2" attributes="0"/>
-                                              <Component id="studentname_txt" min="-2" max="-2" attributes="0"/>
-                                              <Component id="email_txt" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="nuid_txt6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtContactNo" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtStudentName" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtEmailId" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="txtCollegeId" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Component id="jLabel13" min="-2" pref="125" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -107,7 +111,6 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel13" min="-2" pref="125" max="-2" attributes="0"/>
                                               <Component id="jLabel14" min="-2" pref="125" max="-2" attributes="0"/>
                                               <Component id="jLabel15" min="-2" pref="125" max="-2" attributes="0"/>
                                               <Component id="jLabel16" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
@@ -134,18 +137,10 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Work_R_btn2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="Work_R_btn1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="Work_R_btn2" min="-2" max="-2" attributes="0"/>
+                              <Component id="Work_R_btn1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -182,30 +177,30 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                      <Component id="nuid_txt6" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCollegeId" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="studentname_txt" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtStudentName" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="contact_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtContactNo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="email_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtEmailId" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="166" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="nuid_txt" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="semester_txt" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -217,9 +212,7 @@
                               <Component id="gpa_txt" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="Work_R_btn1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -392,15 +385,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Adv_view_btnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="studentname_txt">
+        <Component class="javax.swing.JTextField" name="txtStudentName">
         </Component>
-        <Component class="javax.swing.JTextField" name="contact_txt">
+        <Component class="javax.swing.JTextField" name="txtContactNo">
         </Component>
-        <Component class="javax.swing.JTextField" name="email_txt">
+        <Component class="javax.swing.JTextField" name="txtEmailId">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
-            <Property name="text" type="java.lang.String" value="NUID"/>
+            <Property name="text" type="java.lang.String" value="College Id"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -417,7 +410,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="course_txt">
         </Component>
-        <Component class="javax.swing.JTextField" name="nuid_txt6">
+        <Component class="javax.swing.JTextField" name="txtCollegeId">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -427,7 +420,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SEMESTER"/>
+            <Property name="text" type="java.lang.String" value="Intake"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
@@ -442,8 +435,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="gpa_txt">
-        </Component>
-        <Component class="javax.swing.JSlider" name="jSlider1">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>

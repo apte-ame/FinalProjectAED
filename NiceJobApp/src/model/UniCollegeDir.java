@@ -14,6 +14,14 @@ public class UniCollegeDir {
     
     ArrayList<UniCollege> uniCollegeList;
 
+    public ArrayList<UniCollege> getUniCollegeList() {
+        return uniCollegeList;
+    }
+
+    public void setUniCollegeList(ArrayList<UniCollege> uniCollegeList) {
+        this.uniCollegeList = uniCollegeList;
+    }
+    
     public UniCollegeDir() {
         uniCollegeList = new ArrayList<>();
     }
