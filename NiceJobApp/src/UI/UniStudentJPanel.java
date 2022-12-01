@@ -38,7 +38,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         Stu_name_txt = new javax.swing.JTextField();
         Stu_name_txt1 = new javax.swing.JTextField();
         Stu_name_txt2 = new javax.swing.JTextField();
@@ -117,7 +117,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         kGradientPanel3.setkGradientFocus(1200);
         kGradientPanel3.setkStartColor(new java.awt.Color(255, 204, 255));
 
-        jLabel2.setText("NAME");
+        lblName.setText("NAME");
 
         button1.setText("MAKE PROFILE");
 
@@ -218,7 +218,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                                             .addGroup(kGradientPanel3Layout.createSequentialGroup()
                                                 .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel2)
+                                                    .addComponent(lblName)
                                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(34, 34, 34)))
                                         .addGap(18, 18, 18)
@@ -308,7 +308,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                                     .addGroup(kGradientPanel3Layout.createSequentialGroup()
                                         .addGroup(kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(Stu_name_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2))
+                                            .addComponent(lblName))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel5)
                                         .addGap(3, 3, 3))
@@ -724,7 +724,6 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -749,5 +748,6 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel3;
     private keeptoo.KGradientPanel kGradientPanel4;
+    private javax.swing.JLabel lblName;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,14 @@ public class UniDepartmentDir {
     
     ArrayList<UniDepartment> uniDepartmentList;
 
+    public ArrayList<UniDepartment> getUniDepartmentList() {
+        return uniDepartmentList;
+    }
+
+    public void setUniDepartmentList(ArrayList<UniDepartment> uniDepartmentList) {
+        this.uniDepartmentList = uniDepartmentList;
+    }
+
     public UniDepartmentDir() {
         uniDepartmentList = new ArrayList<>();
     }
