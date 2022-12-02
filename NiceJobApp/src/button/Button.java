@@ -10,7 +10,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
-import swing.shadow.ShadowRenderer;
+import shadow.ShadowRenderer;
 import swing.shadow.util.RippleEffect;
 
 public class Button extends JButton {
