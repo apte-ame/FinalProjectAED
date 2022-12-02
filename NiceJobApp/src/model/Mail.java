@@ -5,7 +5,6 @@
 package model;
 
 
-import java.lang.System.Logger;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import java.util.Properties;
