@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 
@@ -18,12 +19,14 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
+    Connection conn = null;
     
-    public GovernmentLoginJPanel(JSplitPane splitPaneMain, String choiceMain) {
+    public GovernmentLoginJPanel(JSplitPane splitPane, String choice, Connection conn) {
         initComponents();
         
-        splitPane = splitPaneMain;
-        choice = choiceMain;
+        this.splitPane = splitPane;
+        this.choice = choice;
+        this.conn = conn;
         
     }
 
@@ -173,13 +176,13 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
         String password = "";
         
         if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("student")){
-            UniStudentJPanel studentPanel = new UniStudentJPanel(splitPane);
+            UniStudentJPanel studentPanel = new UniStudentJPanel(splitPane, conn);
             splitPane.setRightComponent(studentPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("advisor")){
-            UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane);
+            UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
             splitPane.setRightComponent(advisorPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
-            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane);
+            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn);
             splitPane.setRightComponent(examCellPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
             
