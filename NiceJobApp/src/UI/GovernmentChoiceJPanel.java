@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JSplitPane;
 
 /**
@@ -17,12 +18,14 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
+    Connection conn = null;
 
     
-    public GovernmentChoiceJPanel(JSplitPane splitPaneMain) {
+    public GovernmentChoiceJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
-        splitPane = splitPaneMain;
+        this.splitPane = splitPane;
+        this.conn = conn;
     }
 
     /**
@@ -154,21 +157,21 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
     private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
         // TODO add your handling code here:
         choice = "student";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnStudentActionPerformed
 
     private void btnAdvisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisorActionPerformed
         // TODO add your handling code here:
         choice = "advisor";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnAdvisorActionPerformed
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
         choice = "admin";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 

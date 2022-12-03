@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JSplitPane;
 
 /**
@@ -17,12 +18,13 @@ public class ChoiceJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
-
+    Connection conn = null;
     
-    public ChoiceJPanel(JSplitPane splitPaneMain) {
+    public ChoiceJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
-        splitPane = splitPaneMain;
+        this.splitPane = splitPane;
+        this.conn = conn;
     }
 
     /**
@@ -50,7 +52,7 @@ public class ChoiceJPanel extends javax.swing.JPanel {
 
         btnExamDept.setBackground(new java.awt.Color(0, 204, 204));
         btnExamDept.setForeground(new java.awt.Color(0, 51, 204));
-        btnExamDept.setText("EXAM DEPARTMENT");
+        btnExamDept.setText("Exam Department");
         btnExamDept.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnExamDept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +62,7 @@ public class ChoiceJPanel extends javax.swing.JPanel {
 
         btnStudent.setBackground(new java.awt.Color(0, 204, 204));
         btnStudent.setForeground(new java.awt.Color(0, 51, 204));
-        btnStudent.setText("STUDENT LOGIN");
+        btnStudent.setText("Student Login");
         btnStudent.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +72,7 @@ public class ChoiceJPanel extends javax.swing.JPanel {
 
         btnAdvisor.setBackground(new java.awt.Color(0, 204, 204));
         btnAdvisor.setForeground(new java.awt.Color(0, 51, 204));
-        btnAdvisor.setText("CAREER ADVISOR");
+        btnAdvisor.setText("Career Advisor");
         btnAdvisor.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnAdvisor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +82,7 @@ public class ChoiceJPanel extends javax.swing.JPanel {
 
         btnSystemAdmin.setBackground(new java.awt.Color(0, 204, 204));
         btnSystemAdmin.setForeground(new java.awt.Color(0, 51, 204));
-        btnSystemAdmin.setText("SYSTEM ADMIN");
+        btnSystemAdmin.setText("System Admin");
         btnSystemAdmin.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnSystemAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,76 +99,77 @@ public class ChoiceJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExamDept, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(228, 228, 228))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdvisor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStudent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExamDept, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSystemAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(159, 159, 159))
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(133, 133, 133)
                 .addComponent(jLabel3)
-                .addGap(364, 364, 364))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExamDept, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(164, 164, 164))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
         // TODO add your handling code here:
         choice = "student";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnStudentActionPerformed
 
     private void btnAdvisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisorActionPerformed
         // TODO add your handling code here:
         choice = "advisor";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnAdvisorActionPerformed
 
     private void btnExamDeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExamDeptActionPerformed
         // TODO add your handling code here:
         choice = "examCell";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnExamDeptActionPerformed
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
         choice = "admin";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 

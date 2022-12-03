@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JSplitPane;
 
 /**
@@ -17,11 +18,13 @@ public class MainJPanel extends javax.swing.JPanel {
      */
     
     JSplitPane splitPane;
+    Connection conn = null;
     
-    public MainJPanel(JSplitPane splitPaneMain) {
+    public MainJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
-        splitPane = splitPaneMain;
+        this.splitPane = splitPane;
+        this.conn = conn;
         
     }
 
@@ -54,15 +57,15 @@ public class MainJPanel extends javax.swing.JPanel {
         kGradientPanel4.setkEndColor(new java.awt.Color(255, 255, 255));
         kGradientPanel4.setkStartColor(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ebrima", 1, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 204, 204));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ENTERPRISE ACCESS");
+        jLabel2.setText("Enterprise Access");
 
         btnUniversity.setBackground(new java.awt.Color(254, 93, 124));
         btnUniversity.setForeground(new java.awt.Color(255, 255, 255));
-        btnUniversity.setText("UNIVERSITY");
-        btnUniversity.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
+        btnUniversity.setText("University");
+        btnUniversity.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         btnUniversity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUniversityActionPerformed(evt);
@@ -71,18 +74,18 @@ public class MainJPanel extends javax.swing.JPanel {
 
         btnRecruitmentHub.setBackground(new java.awt.Color(254, 93, 124));
         btnRecruitmentHub.setForeground(new java.awt.Color(255, 255, 255));
-        btnRecruitmentHub.setText("RECRUITEMENT HUB");
-        btnRecruitmentHub.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
+        btnRecruitmentHub.setText("Recruitment Hub");
+        btnRecruitmentHub.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
 
         btnGovernment.setBackground(new java.awt.Color(254, 93, 124));
         btnGovernment.setForeground(new java.awt.Color(255, 255, 255));
-        btnGovernment.setText("GOVERNMENT");
-        btnGovernment.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
+        btnGovernment.setText("Government");
+        btnGovernment.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
 
         btnCompany.setBackground(new java.awt.Color(254, 93, 124));
         btnCompany.setForeground(new java.awt.Color(255, 255, 255));
-        btnCompany.setText("COMPANY");
-        btnCompany.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
+        btnCompany.setText("Company");
+        btnCompany.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/2.png"))); // NOI18N
 
@@ -108,19 +111,19 @@ public class MainJPanel extends javax.swing.JPanel {
                     .addComponent(btnCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRecruitmentHub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUniversity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGovernment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         kGradientPanel4Layout.setVerticalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel4Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(kGradientPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,46 +147,40 @@ public class MainJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(74, 74, 74)
                 .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115))))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUniversityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUniversityActionPerformed
         // TODO add your handling code here:
-        ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane);
+        ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(choicePanel);
     }//GEN-LAST:event_btnUniversityActionPerformed
 

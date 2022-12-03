@@ -4,6 +4,10 @@
  */
 package UI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author naini
@@ -13,10 +17,13 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    Connection conn = null;
+    
     public MainJFrame() {
         initComponents();
-        MainJPanel mainPanel = new MainJPanel(splitPane);
-        TopJPanel topPanel = new TopJPanel();
+        establishConnection();
+        MainJPanel mainPanel = new MainJPanel(splitPane, conn);
+        TopJPanel topPanel = new TopJPanel(splitPane, conn);
         splitPane.setLeftComponent(topPanel);
         splitPane.setRightComponent(mainPanel);
         
@@ -122,4 +129,17 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JPanel workJPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void establishConnection(){
+        try{
+                String url1 = "jdbc:mysql://remotemysql.com:3306/X3utimq6Oc";
+                String user = "X3utimq6Oc";
+                String password = "YhPSJWB1Qu";
+
+                conn = DriverManager.getConnection(url1, user, password);             
+        }catch(SQLException ex){
+                System.out.println("An error occurred. Maybe user/password is invalid");
+                ex.printStackTrace();
+        }        
+    }
 }

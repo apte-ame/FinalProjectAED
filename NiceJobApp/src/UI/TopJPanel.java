@@ -4,6 +4,22 @@
  */
 package UI;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.SwingConstants;
+import static javax.swing.plaf.basic.BasicButtonUI.createUI;
+
 /**
  *
  * @author User
@@ -13,8 +29,16 @@ public class TopJPanel extends javax.swing.JPanel {
     /**
      * Creates new form topJPanel
      */
-    public TopJPanel() {
+    JSplitPane splitPane;
+    Connection conn = null;
+    
+    
+    public TopJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
+        
+        this.splitPane = splitPane;
+        this.conn = conn;
+        
     }
 
     /**
@@ -28,17 +52,17 @@ public class TopJPanel extends javax.swing.JPanel {
 
         headerJPanel = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        button3 = new button.Button();
+        btnHome = new button.Button();
         button4 = new button.Button();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(255, 0, 255));
         kGradientPanel1.setkGradientFocus(1200);
         kGradientPanel1.setkStartColor(new java.awt.Color(0, 0, 255));
 
-        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/1_title.png"))); // NOI18N
-        button3.addActionListener(new java.awt.event.ActionListener() {
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/1_title.png"))); // NOI18N
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button3ActionPerformed(evt);
+                btnHomeActionPerformed(evt);
             }
         });
 
@@ -54,38 +78,40 @@ public class TopJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(853, Short.MAX_VALUE)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addContainerGap(933, Short.MAX_VALUE)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102))
+                .addGap(21, 21, 21))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 17, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                    .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout headerJPanelLayout = new javax.swing.GroupLayout(headerJPanel);
         headerJPanel.setLayout(headerJPanelLayout);
         headerJPanelLayout.setHorizontalGroup(
             headerJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(headerJPanelLayout.createSequentialGroup()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         headerJPanelLayout.setVerticalGroup(
             headerJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1084, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -94,7 +120,7 @@ public class TopJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
+            .addGap(0, 94, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -103,17 +129,40 @@ public class TopJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button3ActionPerformed
-
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_button4ActionPerformed
 
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+        // TODO add your handling code here:
+        JPanel panel = new JPanel();
+        panel.setSize(new Dimension(250, 100));
+        panel.setLayout(null);
+        JLabel label1 = new JLabel("The file may contain virus.");
+        label1.setVerticalAlignment(SwingConstants.BOTTOM);
+        label1.setBounds(20, 20, 200, 30);
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(label1);
+        JLabel label2 = new JLabel("Do you still want to save it?");
+        label2.setVerticalAlignment(SwingConstants.TOP);
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+        label2.setBounds(20, 80, 200, 20);
+
+        panel.add(label2);
+
+        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to return to the homepage?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if(res == 0) {
+            MainJPanel mainPanel = new MainJPanel(splitPane, conn);
+            splitPane.setRightComponent(mainPanel);
+        }
+        else{
+            //Pressed No
+        }
+    }//GEN-LAST:event_btnHomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button button3;
+    private button.Button btnHome;
     private button.Button button4;
     private javax.swing.JPanel headerJPanel;
     private keeptoo.KGradientPanel kGradientPanel1;
