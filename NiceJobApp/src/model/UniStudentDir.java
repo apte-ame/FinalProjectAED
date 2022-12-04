@@ -18,6 +18,16 @@ public class UniStudentDir {
     public UniStudentDir() {
         uniStudentList = new ArrayList<>();
     }
+
+    public ArrayList<UniStudent> getUniStudentList() {
+        return uniStudentList;
+    }
+
+    public void setUniStudentList(ArrayList<UniStudent> uniStudentList) {
+        this.uniStudentList = uniStudentList;
+    }
+    
+    
     
     public UniStudent addUniStudent(){
         UniStudent newUniStudent = new UniStudent();
@@ -53,13 +63,14 @@ public class UniStudentDir {
         return null;
     }
     
-    public UniStudent searchByName(String name){
+    public ArrayList<UniStudent> searchByName(String name){
+        ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
         for(UniStudent uniStudent : uniStudentList){
             if(uniStudent.getName().equals(name)){
-                return uniStudent;
+                resultStudents.add(uniStudent);
             }
         }
-        return null;
+        return resultStudents;
     }
     
     public UniStudent searchByAge(Integer age){
@@ -71,13 +82,14 @@ public class UniStudentDir {
         return null;
     }
     
-    public UniStudent searchByDepartment(UniDepartment department){
+    public ArrayList<UniStudent> searchByDepartment(UniDepartment department){
+        ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
         for(UniStudent uniStudent : uniStudentList){
             if(uniStudent.getDepartment().equals(department)){
-                return uniStudent;
+                resultStudents.add(uniStudent);
             }
         }
-        return null;
+        return resultStudents;
     }
     
     public UniStudent searchByStartDate(LocalDate startDate){
@@ -98,13 +110,34 @@ public class UniStudentDir {
         return null;
     }
     
-    public UniStudent searchByCourse(String course){
+    public ArrayList<UniStudent> searchByCourse(String course){
+        ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
         for(UniStudent uniStudent : uniStudentList){
             if(uniStudent.getCourse().equals(course)){
-                return uniStudent;
+                resultStudents.add(uniStudent);
             }
         }
-        return null;
+        return resultStudents;
+    }
+    
+    public ArrayList<UniStudent> searchBySemester(Integer sem){
+        ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
+        for(UniStudent uniStudent : uniStudentList){
+            if(uniStudent.getSemester().equals(sem)){
+                resultStudents.add(uniStudent);
+            }
+        }
+        return resultStudents;
+    }
+    
+    public ArrayList<UniStudent> searchByIntake(String intake){
+        ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
+        for(UniStudent uniStudent : uniStudentList){
+            if(uniStudent.getIntake().equals(intake)){
+                resultStudents.add(uniStudent);
+            }
+        }
+        return resultStudents;
     }
     
     public UniStudent searchByCareerAdvisor(UniCareerAdvisor careerAdvisor){
@@ -143,9 +176,9 @@ public class UniStudentDir {
         return null;
     }
     
-    public UniStudent searchByStudentGovId(Integer studentGovId){
+    public UniStudent searchBySevisId(String sevisId){
         for(UniStudent uniStudent : uniStudentList){
-            if(uniStudent.getStudentGovId().equals(studentGovId)){
+            if(uniStudent.getSevisId().equals(sevisId)){
                 return uniStudent;
             }
         }

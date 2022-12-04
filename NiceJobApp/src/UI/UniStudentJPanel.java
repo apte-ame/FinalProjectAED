@@ -7,6 +7,7 @@ package UI;
 import com.raven.datechooser.SelectedDate;
 import java.awt.Font;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 
 /**
@@ -41,7 +42,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         back_btn = new button.Button();
-        profilejTabbedPane = new javax.swing.JTabbedPane();
+        studentTabbedPane = new javax.swing.JTabbedPane();
         panelStudentProfile = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
         txtUniversity = new javax.swing.JTextField();
@@ -73,7 +74,6 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         txtGPA = new javax.swing.JTextField();
         lblImage = new javax.swing.JLabel();
         btnUpload = new javax.swing.JButton();
-        btnReplace = new javax.swing.JButton();
         btnUpload1 = new javax.swing.JButton();
         lblDob1 = new javax.swing.JLabel();
         lblGPA1 = new javax.swing.JLabel();
@@ -120,13 +120,22 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             }
         });
 
-        profilejTabbedPane.setBackground(new java.awt.Color(204, 255, 204));
-        profilejTabbedPane.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        studentTabbedPane.setBackground(new java.awt.Color(204, 255, 204));
+        studentTabbedPane.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
 
         panelStudentProfile.setPreferredSize(new java.awt.Dimension(900, 500));
 
         kGradientPanel2.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel2.setkStartColor(new java.awt.Color(204, 255, 204));
+
+        txtUniversity.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtUniversity.setEnabled(false);
+
+        txtEmailId.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtEmailId.setEnabled(false);
+
+        txtContactNo.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtContactNo.setEnabled(false);
 
         lblCollege.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblCollege.setText("College");
@@ -147,10 +156,10 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblContactNo.setText("Contact No.");
 
         cmbGender.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Non Binary", "Prefer not to say" }));
+        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Prefer not to say" }));
 
         cmbNationality.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "USA", "India", "China", "Nepal", "Canada", "UK", "Others" }));
+        cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "USA", "India", "China", "Canada", "Others" }));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         jLabel8.setText("Academic Details");
@@ -165,18 +174,42 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblDepartment.setText("Department");
 
         lblDob.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblDob.setText("Date of Birth");
+        lblDob.setText("Age");
 
         nxtSavebtn.setText("Update");
+        nxtSavebtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        nxtSavebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nxtSavebtnActionPerformed(evt);
+            }
+        });
 
         lblUniversity.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblUniversity.setText("University");
 
+        txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStudentName.setEnabled(false);
+
+        txtCollege.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCollege.setEnabled(false);
+
+        txtDepartment.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtDepartment.setEnabled(false);
+
         lblCourse.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblCourse.setText("Course");
 
+        txtCourse.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCourse.setEnabled(false);
+
         lblExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblExpGradDate.setText("Expected Grad. Date");
+
+        txtExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtExpGradDate.setEnabled(false);
+
+        txtGPA.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtGPA.setEnabled(false);
 
         lblImage.setBackground(new java.awt.Color(150, 150, 150));
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -189,15 +222,6 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadActionPerformed(evt);
-            }
-        });
-
-        btnReplace.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        btnReplace.setText("Replace");
-        btnReplace.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnReplace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReplaceActionPerformed(evt);
             }
         });
 
@@ -240,32 +264,30 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDob, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(cmbGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                         .addComponent(txtEmailId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                         .addComponent(cmbNationality, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(txtStudentName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblUniversity))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCollege, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblDepartment, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblUniversity, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCourse, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblExpGradDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblGPA, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                        .addGap(145, 145, 145)
-                                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblGPA1)
-                                            .addComponent(lblDepartment)
-                                            .addComponent(lblCollege)
-                                            .addComponent(lblCourse)
-                                            .addComponent(lblExpGradDate)
-                                            .addComponent(lblGPA)))
-                                    .addComponent(btnUpload)
-                                    .addComponent(btnReplace)
-                                    .addComponent(btnUpload1))))
-                        .addGap(14, 14, 14)
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnUpload1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblGPA1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,7 +301,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGap(796, 796, 796)
                         .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(190, 190, 190)
                 .addComponent(jLabel2)
@@ -325,9 +347,9 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblExpGradDate))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblGPA)
-                            .addComponent(txtGPA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtGPA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblGPA)))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEmailId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -344,34 +366,27 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cmbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblGender)))))
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
+                                    .addComponent(lblGender))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblDob))))
+                .addGap(5, 5, 5)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnUpload))
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lblGPA1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpload1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReplace))
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDob1)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                            .addComponent(lblGPA1)
+                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                .addComponent(btnUpload)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUpload1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
 
         kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblCourse, txtCollege, txtContactNo, txtCourse, txtDepartment, txtDob, txtEmailId, txtUniversity});
@@ -392,7 +407,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                 .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        profilejTabbedPane.addTab("STUDENT PROFILE", panelStudentProfile);
+        studentTabbedPane.addTab("STUDENT PROFILE", panelStudentProfile);
 
         kGradientPanel4.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel4.setkStartColor(new java.awt.Color(204, 255, 204));
@@ -577,9 +592,9 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -661,7 +676,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        profilejTabbedPane.addTab("JD WATCH", panelJDWatch);
+        studentTabbedPane.addTab("JD WATCH", panelJDWatch);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -669,7 +684,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(profilejTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(studentTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -681,7 +696,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(profilejTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(studentTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
@@ -699,16 +714,19 @@ public class UniStudentJPanel extends javax.swing.JPanel {
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
         // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if(res == 0) {
+            ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
+            splitPane.setRightComponent(choicePanel);
+        }
+        else{
+            //Pressed No
+        }
     }//GEN-LAST:event_back_btnActionPerformed
 
     private void btnUpload1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpload1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUpload1ActionPerformed
-
-    private void btnReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReplaceActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnReplaceActionPerformed
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
         // TODO add your handling code here:
@@ -726,11 +744,14 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStartDateActionPerformed
 
+    private void nxtSavebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nxtSavebtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nxtSavebtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button back_btn;
     private button.Button btnApply;
-    private javax.swing.JButton btnReplace;
     private button.Button btnResetFilter;
     private button.Button btnSearch;
     private javax.swing.JButton btnUpload;
@@ -778,7 +799,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private button.Button nxtSavebtn;
     private javax.swing.JPanel panelJDWatch;
     private javax.swing.JPanel panelStudentProfile;
-    private javax.swing.JTabbedPane profilejTabbedPane;
+    private javax.swing.JTabbedPane studentTabbedPane;
     private javax.swing.JTable tblJobListings;
     private javax.swing.JTextArea txtAreaJobDescription;
     private javax.swing.JTextField txtCollege;

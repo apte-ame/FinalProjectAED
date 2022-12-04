@@ -23,9 +23,57 @@ public class UniStudent {
     private String emailId;
     private Long contactNo;
     private Boolean workEligibilityFlag;
-    private Integer studentGovId;
     private String countryOfOrigin;
+    private String sevisId;
+    private Double gpa;
+    private String intake;
+    private Integer semester;
+    private String password;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
+    
+    public Integer getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Integer semester) {
+        this.semester = semester;
+    }
+
+    public String getIntake() {
+        return intake;
+    }
+
+    public void setIntake(String intake) {
+        this.intake = intake;
+    }
+    
+    public Double getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(Double gpa) {
+        this.gpa = gpa;
+    }
+
+    
+    public String getSevisId() {
+        return sevisId;
+    }
+
+    public void setSevisId(String sevisId) {
+        this.sevisId = sevisId;
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -114,20 +162,17 @@ public class UniStudent {
         this.workEligibilityFlag = workEligibilityFlag;
     }
 
-    public Integer getStudentGovId() {
-        return studentGovId;
-    }
-
-    public void setStudentGovId(Integer studentGovId) {
-        this.studentGovId = studentGovId;
-    }
-
     public String getCountryOfOrigin() {
         return countryOfOrigin;
     }
 
     public void setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
+    }
+
+    @Override
+    public String toString() {
+        return sevisId;
     }
     
     
