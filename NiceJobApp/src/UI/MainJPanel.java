@@ -86,6 +86,11 @@ public class MainJPanel extends javax.swing.JPanel {
         btnCompany.setForeground(new java.awt.Color(255, 255, 255));
         btnCompany.setText("Company");
         btnCompany.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        btnCompany.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompanyActionPerformed(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/2.png"))); // NOI18N
 
@@ -183,6 +188,12 @@ public class MainJPanel extends javax.swing.JPanel {
         ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(choicePanel);
     }//GEN-LAST:event_btnUniversityActionPerformed
+
+    private void btnCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompanyActionPerformed
+        // TODO add your handling code here:
+        CompanyChoiceJPanel companychoicePanel = new CompanyChoiceJPanel(splitPane);
+        splitPane.setRightComponent(companychoicePanel);
+    }//GEN-LAST:event_btnCompanyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
