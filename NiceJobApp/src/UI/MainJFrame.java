@@ -7,6 +7,7 @@ package UI;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -132,11 +133,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public void establishConnection(){
         try{
-                String url1 = "jdbc:mysql://remotemysql.com:3306/X3utimq6Oc";
+                String url1 = "jdbc:mysql://remotemysql.com:3306/X3utimq6Oc?autoConnect=true";
                 String user = "X3utimq6Oc";
                 String password = "YhPSJWB1Qu";
 
-                conn = DriverManager.getConnection(url1, user, password);             
+                conn = DriverManager.getConnection(url1, user, password); 
+                
+                String queryNewStudent = "SET SESSION wait_timeout=31536000;";
+                Statement st = conn.createStatement();
+                st.executeUpdate(queryNewStudent);   
+                st.close();
         }catch(SQLException ex){
                 System.out.println("An error occurred. Maybe user/password is invalid");
                 ex.printStackTrace();
