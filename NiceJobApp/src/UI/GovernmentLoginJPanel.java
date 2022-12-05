@@ -176,8 +176,8 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
         String password = "";
         
         if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("student")){
-            UniStudentJPanel studentPanel = new UniStudentJPanel(splitPane, conn);
-            splitPane.setRightComponent(studentPanel);
+            
+            
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("advisor")){
             UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
             splitPane.setRightComponent(advisorPanel);

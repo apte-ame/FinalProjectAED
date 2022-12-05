@@ -4,11 +4,12 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JSplitPane;
 
 /**
  *
- * @author naini
+ * @author Aditya, Ameya, Nainil
  */
 public class CompanyChoiceJPanel extends javax.swing.JPanel {
 
@@ -17,12 +18,13 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
-
+    Connection conn = null;
     
-    public CompanyChoiceJPanel(JSplitPane splitPaneMain) {
+    public CompanyChoiceJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
-        splitPane = splitPaneMain;
+        this.splitPane = splitPane;
+        this.conn = conn;
     }
 
     /**
@@ -149,21 +151,21 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
     private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
         // TODO add your handling code here:
         choice = "student";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        CompanyLoginJPanel loginPanel = new CompanyLoginJPanel(splitPane, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnStudentActionPerformed
 
     private void btnAdvisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisorActionPerformed
         // TODO add your handling code here:
         choice = "advisor";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnAdvisorActionPerformed
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
         choice = "admin";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
+        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 

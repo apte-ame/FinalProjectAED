@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JSplitPane;
 
 /**
@@ -17,12 +18,13 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
-
+    Connection conn = null;
     
-    public CompanyLoginJPanel(JSplitPane splitPaneMain) {
+    public CompanyLoginJPanel(JSplitPane splitPaneMain, Connection conn) {
         initComponents();
         
         splitPane = splitPaneMain;
+        this.conn = conn;
     }
 
     /**
@@ -157,6 +159,8 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
     private void buttonGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient1ActionPerformed
         // TODO add your handling code here:
+        CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane);
+        splitPane.setRightComponent(departmentPanel);
     }//GEN-LAST:event_buttonGradient1ActionPerformed
 
     private void hideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMouseClicked

@@ -167,9 +167,9 @@ public class UniStudentDir {
         return null;
     }
     
-    public UniStudent searchByWorkEligibilityFlag(Boolean workEligibilityFlag){
+    public UniStudent searchByJdWatchAccess(Boolean jdWatchAccess){
         for(UniStudent uniStudent : uniStudentList){
-            if(uniStudent.getWorkEligibilityFlag().equals(workEligibilityFlag)){
+            if(uniStudent.getJdWatchAccess().equals(jdWatchAccess)){
                 return uniStudent;
             }
         }

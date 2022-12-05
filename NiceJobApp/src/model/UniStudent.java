@@ -22,14 +22,46 @@ public class UniStudent {
     private UniCareerAdvisor careerAdvisor;
     private String emailId;
     private Long contactNo;
-    private Boolean workEligibilityFlag;
+    private Boolean jdWatchAccess;
     private String countryOfOrigin;
     private String sevisId;
     private Double gpa;
     private String intake;
     private Integer semester;
     private String password;
+    private String comments;
+    private String gender;
+    private String academicSummary;
 
+    public String getAcademicSummary() {
+        return academicSummary;
+    }
+
+    public void setAcademicSummary(String academicSummary) {
+        this.academicSummary = academicSummary;
+    }
+    
+    
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+    
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+    
+    
     public String getPassword() {
         return password;
     }
@@ -154,12 +186,12 @@ public class UniStudent {
         this.contactNo = contactNo;
     }
 
-    public Boolean getWorkEligibilityFlag() {
-        return workEligibilityFlag;
+    public Boolean getJdWatchAccess() {
+        return jdWatchAccess;
     }
 
-    public void setWorkEligibilityFlag(Boolean workEligibilityFlag) {
-        this.workEligibilityFlag = workEligibilityFlag;
+    public void setJdWatchAccess(Boolean jdWatchAccess) {
+        this.jdWatchAccess = jdWatchAccess;
     }
 
     public String getCountryOfOrigin() {
