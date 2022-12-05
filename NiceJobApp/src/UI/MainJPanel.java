@@ -191,7 +191,7 @@ public class MainJPanel extends javax.swing.JPanel {
 
     private void btnCompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompanyActionPerformed
         // TODO add your handling code here:
-        CompanyChoiceJPanel companychoicePanel = new CompanyChoiceJPanel(splitPane);
+        CompanyChoiceJPanel companychoicePanel = new CompanyChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(companychoicePanel);
     }//GEN-LAST:event_btnCompanyActionPerformed
 

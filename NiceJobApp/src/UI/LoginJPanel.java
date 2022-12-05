@@ -5,8 +5,22 @@
 package UI;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import model.UniCollege;
+import model.UniCollegeDir;
+import model.UniDepartment;
+import model.UniDepartmentDir;
+import model.UniStudent;
+import model.UniStudentDir;
+import model.University;
+import model.UniversityDir;
 
 /**
  *
@@ -20,6 +34,13 @@ public class LoginJPanel extends javax.swing.JPanel {
     JSplitPane splitPane;
     String choice = "";
     Connection conn = null;
+    String masterPassword = "#monga235";
+    
+    UniStudent selectedStudent = new UniStudent();
+    UniCollegeDir uniColleges = new UniCollegeDir();
+    UniversityDir universities = new UniversityDir();
+    UniDepartmentDir uniDepartments = new UniDepartmentDir();
+    UniStudentDir uniStudents = new UniStudentDir();
     
     public LoginJPanel(JSplitPane splitPane, String choice, Connection conn) {
         initComponents();
@@ -27,6 +48,9 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.splitPane = splitPane;
         this.choice = choice;
         this.conn = conn;
+        
+        getAllUniversityData();
+        getAllStudents();
         
     }
 
@@ -162,10 +186,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         String username = "";
         String password = "";
         
-        if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("student")){
-            UniStudentJPanel studentPanel = new UniStudentJPanel(splitPane, conn);
-            splitPane.setRightComponent(studentPanel);
-        }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("advisor")){
+        if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("advisor")){
             UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
             splitPane.setRightComponent(advisorPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
@@ -174,7 +195,18 @@ public class LoginJPanel extends javax.swing.JPanel {
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
             
         }else{
-            JOptionPane.showMessageDialog(this, "Incorrect username or password\nPlease try again");
+            selectedStudent = uniStudents.searchBySevisId(txtUsername.getText());
+            if(selectedStudent == null){
+                JOptionPane.showMessageDialog(this, "User does not exist");
+            }else{
+                if(selectedStudent.getPassword().equals(new String(passwordField.getPassword())) || masterPassword.equals(new String(passwordField.getPassword()))){
+                    UniStudentJPanel studentPanel = new UniStudentJPanel(splitPane, conn, selectedStudent);
+                    splitPane.setRightComponent(studentPanel);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
+                }
+            }
+            
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -194,4 +226,118 @@ public class LoginJPanel extends javax.swing.JPanel {
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    public void getAllUniversityData(){
+         try {
+                //Universities
+                String queryUniversity = "SELECT * FROM university";
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(queryUniversity);                
+                while (rs.next())
+                {
+                    University university = universities.addUniversity();
+                    university.setId(rs.getInt("id"));
+                    university.setName(rs.getString("name"));
+                    university.setDistrict(rs.getString("district"));
+                    university.setState(rs.getString("state"));
+                    university.setCountry(rs.getString("country"));
+                    university.setPincode(rs.getLong("pincode"));
+                }
+                st.close();
+
+                //Colleges
+                String queryCollege = "SELECT * FROM uni_college";
+                Statement stCollege = conn.createStatement();
+                ResultSet rsCollege = stCollege.executeQuery(queryCollege);                
+                while (rsCollege.next())
+                {
+                    UniCollege college = uniColleges.addUniCollege();
+                    college.setId(rsCollege.getInt("id"));
+                    college.setName(rsCollege.getString("name"));
+
+                    for(University uni : universities.getUniversityList()){
+                        if(uni.getId() == rsCollege.getInt("university_id")){
+                            college.setUniversity(uni);
+                        }
+                    }
+
+                }
+                stCollege.close();
+
+                //Departments
+                String queryDepartment = "SELECT * FROM uni_department";
+                Statement stDepartment = conn.createStatement();
+                ResultSet rsDepartment = stDepartment.executeQuery(queryDepartment);                
+                while (rsDepartment.next())
+                {
+                    UniDepartment dept = uniDepartments.addUniDepartment();
+                    dept.setId(rsDepartment.getInt("id"));
+                    dept.setName(rsDepartment.getString("name"));
+
+                    for(UniCollege college : uniColleges.getUniCollegeList()){
+                        if(college.getId() == rsDepartment.getInt("uni_college_id")){
+                            dept.setCollege(college);
+                        }
+                    }
+
+                }
+                stDepartment.close();
+
+            } catch (SQLException ex) {
+                System.out.println("An error occurred. Maybe user/password is invalid");
+                ex.printStackTrace();
+        }       
+    }
+    
+    public void getAllStudents(){
+        try {
+            String queryStudents = "SELECT * FROM uni_student";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryStudents);                
+                while (rs.next())
+                {
+                    UniStudent student = uniStudents.addUniStudent();
+                    
+                    student.setName(rs.getString("name"));
+                    student.setSevisId(rs.getString("student_gov_id"));
+                    student.setContactNo(rs.getLong("contact_no"));
+                    student.setEmailId(rs.getString("email"));
+                    student.setGpa(rs.getDouble("gpa"));
+                    student.setIntake(rs.getString("intake"));
+                    student.setSemester(rs.getInt("semester"));
+                    student.setCourse(rs.getString("course"));
+                    student.setJdWatchAccess(rs.getBoolean("jd_watch_eligible"));
+                    student.setPassword(rs.getString("password"));
+                    
+                    //new fields
+                    if(rs.getString("country_of_origin")!=null){
+                        student.setCountryOfOrigin(rs.getString("country_of_origin"));
+                    }
+                    if(rs.getString("gender")!=null){
+                        student.setGender(rs.getString("gender"));
+                    }
+                    if(Integer.valueOf(rs.getInt("age"))!=null){
+                        student.setAge(rs.getInt("age"));
+                    }
+                    if(rs.getString("academic_summary")!=null){
+                        student.setAcademicSummary(rs.getString("academic_summary"));
+                    }
+                    if(rs.getString("start_date") != null){
+                        student.setStartDate(LocalDate.parse(rs.getString("start_date")));
+                    }
+                    if(rs.getString("end_date") != null){
+                        student.setEndDate(LocalDate.parse(rs.getString("end_date")));
+                    }
+                    if(rs.getString("comments") != null){
+                        student.setComments(rs.getString("comments"));
+                    }
+                    
+                    UniDepartment department = uniDepartments.searchById(rs.getInt("uni_department_id"));
+                    student.setDepartment(department);
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

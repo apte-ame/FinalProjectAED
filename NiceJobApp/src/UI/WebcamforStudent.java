@@ -20,14 +20,14 @@ import jnafilechooser.api.JnaFileChooser;
  *
  * @author naini
  */
-public class UniStudentJPanel extends javax.swing.JPanel {
+public class WebcamforStudent extends javax.swing.JPanel {
 
     /**
      * Creates new form Uni_ExamCell_JPanel
      */
     JSplitPane splitPane;
     
-    public UniStudentJPanel(JSplitPane splitPaneMain) {
+    public WebcamforStudent(JSplitPane splitPaneMain) {
         initComponents();
         
         splitPane = splitPaneMain;

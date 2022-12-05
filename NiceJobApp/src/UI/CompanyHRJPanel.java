@@ -24,7 +24,7 @@ import waypoint.WaypointRender;
 
 /**
  *
- * @author naini
+ * @author Aditya, Ameya, Nainil
  */
 public class CompanyHRJPanel extends javax.swing.JPanel {
 
