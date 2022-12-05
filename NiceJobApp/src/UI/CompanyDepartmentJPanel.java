@@ -8,7 +8,7 @@ import javax.swing.JSplitPane;
 
 /**
  *
- * @author naini
+ * @author Aditya, Ameya, Nainil
  */
 public class CompanyDepartmentJPanel extends javax.swing.JPanel {
 
@@ -35,25 +35,62 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel2 = new javax.swing.JLabel();
-        deptComboBox = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        studentTabbedPane = new javax.swing.JTabbedPane();
+        panelPostOpenings = new javax.swing.JPanel();
+        kGradientPanel4 = new keeptoo.KGradientPanel();
+        kGradientPanel5 = new keeptoo.KGradientPanel();
+        cmbLevel = new javax.swing.JComboBox<>();
+        jLabel31 = new javax.swing.JLabel();
+        btnApply = new button.Button();
+        cmbRole = new javax.swing.JComboBox<>();
+        cmbLocation = new javax.swing.JComboBox<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblJobListings = new javax.swing.JTable();
+        txtSalaryOffered = new javax.swing.JTextField();
+        lblSalaryOffered = new javax.swing.JLabel();
+        lblPosition = new javax.swing.JLabel();
+        lblJobDescription = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaJobDescription = new javax.swing.JTextArea();
+        lblSalaryOffered1 = new javax.swing.JLabel();
+        lblSalaryOffered2 = new javax.swing.JLabel();
+        lblSalaryOffered3 = new javax.swing.JLabel();
+        lblStartDate = new javax.swing.JLabel();
+        txtStartDate = new javax.swing.JTextField();
+        cmbPosition = new javax.swing.JComboBox<>();
+        btnApply1 = new button.Button();
+        btnAdd = new button.Button();
+        btnDelete = new button.Button();
+        btnSearch = new button.Button();
+        btnRefreshTable = new button.Button();
+        btnViewSelected = new button.Button();
+        btnClear = new button.Button();
+        panelStudentProfile = new javax.swing.JPanel();
+        kGradientPanel2 = new keeptoo.KGradientPanel();
+        txtUniversity = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        Nametxt3 = new javax.swing.JTextField();
-        Nametxt4 = new javax.swing.JTextField();
-        roleComboBox = new javax.swing.JComboBox<>();
-        levelComboBox = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        button1 = new button.Button();
-        button2 = new button.Button();
+        lblGPA = new javax.swing.JLabel();
+        nxtSavebtn = new button.Button();
+        lblUniversity = new javax.swing.JLabel();
+        txtStudentName = new javax.swing.JTextField();
+        lblCourse = new javax.swing.JLabel();
+        txtCourse = new javax.swing.JTextField();
+        lblExpGradDate = new javax.swing.JLabel();
+        txtExpGradDate = new javax.swing.JTextField();
+        txtGPA = new javax.swing.JTextField();
+        lblImage = new javax.swing.JLabel();
+        lblPhoto = new javax.swing.JLabel();
+        lblAcadSummary = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaAcadSummary = new javax.swing.JTextArea();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblStudentDetails = new javax.swing.JTable();
+        btnSearch2 = new button.Button();
+        btnRefreshTable1 = new button.Button();
+        btnClear1 = new button.Button();
+        btnViewSelected1 = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -62,152 +99,606 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(217, 247, 228));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(100, 630));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Seamless Industry Logo.png"))); // NOI18N
+        studentTabbedPane.setBackground(new java.awt.Color(204, 255, 204));
+        studentTabbedPane.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
 
-        deptComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Strategy", "Procurement", "IT team", "Supply Chain", "Marketing" }));
-        deptComboBox.setSelectedIndex(-1);
+        kGradientPanel4.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel4.setkStartColor(new java.awt.Color(204, 255, 204));
 
-        jLabel1.setText("LEVEL");
+        kGradientPanel5.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel5.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel5.setPreferredSize(new java.awt.Dimension(850, 531));
 
-        jLabel3.setText("ROLE");
+        cmbLevel.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst", " " }));
 
-        jLabel4.setText("DEPARTMENT");
+        jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        jLabel31.setText("Job Profile");
 
-        jLabel5.setText("PREFERRED LOCATION");
+        btnApply.setText("Post Opening");
+        btnApply.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
 
-        jLabel6.setText("SKILL");
+        cmbRole.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Software Developer", "Web Designer", "Data Analyst", "Business Analyst", "Data Scientist", "Data Engineer", "Project Manager" }));
 
-        jLabel7.setText("NOTES");
+        cmbLocation.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York", "Chicago", "San Francisco", "Los Angeles", "Seattle" }));
 
-        jLabel8.setText("PREFERRED COLLEGE");
+        tblJobListings.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        tblJobListings.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Job ID", "Job Title", "Location", "Role", "Level", "Position", "Start Date", "Salary per Hr"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Software Developer", "UI/UX Developer", "Engineer", "Sr. Engineer", "Management", "Internal" }));
-        roleComboBox.setSelectedIndex(-1);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblJobListings);
+        if (tblJobListings.getColumnModel().getColumnCount() > 0) {
+            tblJobListings.getColumnModel().getColumn(0).setResizable(false);
+        }
 
-        levelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Intern", "Analyst", "Associate", "Manager", "Senior Manager", " " }));
-        levelComboBox.setSelectedIndex(-1);
+        txtSalaryOffered.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSalaryOffered.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalaryOfferedActionPerformed(evt);
+            }
+        });
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblSalaryOffered.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalaryOffered.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSalaryOffered.setText("Salary per Hr");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblPosition.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblPosition.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPosition.setText("Position");
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblJobDescription.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblJobDescription.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblJobDescription.setText("Job Description");
 
-        jLabel9.setText("JOB DESCRIPTION");
+        txtAreaJobDescription.setColumns(20);
+        txtAreaJobDescription.setRows(5);
+        jScrollPane1.setViewportView(txtAreaJobDescription);
 
-        button1.setText("SEND TO HR");
+        lblSalaryOffered1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalaryOffered1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSalaryOffered1.setText("Location");
 
-        button2.setText("SAVE REQUIREMENT");
+        lblSalaryOffered2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalaryOffered2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSalaryOffered2.setText("Role");
+
+        lblSalaryOffered3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalaryOffered3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSalaryOffered3.setText("Level");
+
+        lblStartDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblStartDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblStartDate.setText("Start Date");
+
+        txtStartDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStartDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStartDateActionPerformed(evt);
+            }
+        });
+
+        cmbPosition.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Intern", "Full-Time ", " " }));
+
+        btnApply1.setText("Update Opening");
+        btnApply1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+
+        btnAdd.setBackground(new java.awt.Color(204, 255, 204));
+        btnAdd.setForeground(new java.awt.Color(0, 0, 255));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_5.png"))); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnAdd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(204, 255, 204));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_6.png"))); // NOI18N
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setBackground(new java.awt.Color(204, 255, 204));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnRefreshTable.setBackground(new java.awt.Color(204, 255, 204));
+        btnRefreshTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableActionPerformed(evt);
+            }
+        });
+
+        btnViewSelected.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSelectedActionPerformed(evt);
+            }
+        });
+
+        btnClear.setBackground(new java.awt.Color(204, 255, 204));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout kGradientPanel5Layout = new javax.swing.GroupLayout(kGradientPanel5);
+        kGradientPanel5.setLayout(kGradientPanel5Layout);
+        kGradientPanel5Layout.setHorizontalGroup(
+            kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnApply1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                .addGap(0, 104, Short.MAX_VALUE)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(cmbLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cmbRole, 0, 185, Short.MAX_VALUE))))
+                            .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                    .addComponent(lblSalaryOffered3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cmbLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                    .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                    .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(38, 38, 38)
+                        .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblJobDescription, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81))
+            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnApply, btnApply1});
+
+        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
+
+        kGradientPanel5Layout.setVerticalGroup(
+            kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addGap(15, 15, 15)))
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblJobDescription))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalaryOffered3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnApply1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
+        );
+
+        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApply, btnApply1});
+
+        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
+
+        javax.swing.GroupLayout kGradientPanel4Layout = new javax.swing.GroupLayout(kGradientPanel4);
+        kGradientPanel4.setLayout(kGradientPanel4Layout);
+        kGradientPanel4Layout.setHorizontalGroup(
+            kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        kGradientPanel4Layout.setVerticalGroup(
+            kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelPostOpeningsLayout = new javax.swing.GroupLayout(panelPostOpenings);
+        panelPostOpenings.setLayout(panelPostOpeningsLayout);
+        panelPostOpeningsLayout.setHorizontalGroup(
+            panelPostOpeningsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPostOpeningsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelPostOpeningsLayout.setVerticalGroup(
+            panelPostOpeningsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPostOpeningsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 505, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        studentTabbedPane.addTab("POST OPENINGS", panelPostOpenings);
+
+        panelStudentProfile.setPreferredSize(new java.awt.Dimension(900, 500));
+
+        kGradientPanel2.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel2.setkStartColor(new java.awt.Color(204, 255, 204));
+
+        txtUniversity.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtUniversity.setEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        jLabel10.setText("Personal Details");
+
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        jLabel8.setText("Academic Details");
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel9.setText("Student Name");
+
+        lblGPA.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblGPA.setText("GPA ");
+
+        nxtSavebtn.setText("Update");
+        nxtSavebtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        nxtSavebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nxtSavebtnActionPerformed(evt);
+            }
+        });
+
+        lblUniversity.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity.setText("University");
+
+        txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStudentName.setEnabled(false);
+
+        lblCourse.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblCourse.setText("Course");
+
+        txtCourse.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCourse.setEnabled(false);
+
+        lblExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblExpGradDate.setText("Expected Grad. Date");
+
+        txtExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtExpGradDate.setEnabled(false);
+
+        txtGPA.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtGPA.setEnabled(false);
+
+        lblImage.setBackground(new java.awt.Color(150, 150, 150));
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setText("No Image");
+        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblPhoto.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblPhoto.setText("Photo");
+
+        lblAcadSummary.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblAcadSummary.setText("Summary");
+
+        txtAreaAcadSummary.setColumns(20);
+        txtAreaAcadSummary.setRows(5);
+        jScrollPane2.setViewportView(txtAreaAcadSummary);
+
+        tblStudentDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Sevis ID", "Student Name", "Contact No", "Email ID", "Intake", "Course", "GPA", "Semester"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tblStudentDetails);
+
+        btnSearch2.setBackground(new java.awt.Color(204, 255, 204));
+        btnSearch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
+        btnSearch2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch2ActionPerformed(evt);
+            }
+        });
+
+        btnRefreshTable1.setBackground(new java.awt.Color(204, 255, 204));
+        btnRefreshTable1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
+        btnRefreshTable1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTable1ActionPerformed(evt);
+            }
+        });
+
+        btnClear1.setBackground(new java.awt.Color(204, 255, 204));
+        btnClear1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
+        btnClear1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClear1ActionPerformed(evt);
+            }
+        });
+
+        btnViewSelected1.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelected1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelected1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSelected1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
+        kGradientPanel2.setLayout(kGradientPanel2Layout);
+        kGradientPanel2Layout.setHorizontalGroup(
+            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6)
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addGap(50, 50, 50))
+                                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel9)
+                                                    .addComponent(lblPhoto)
+                                                    .addComponent(lblUniversity))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(txtStudentName)
+                                                    .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(73, 73, 73))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel2Layout.createSequentialGroup()
+                                        .addComponent(btnRefreshTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)))
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(187, 187, 187))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblCourse, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblGPA, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblExpGradDate, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtGPA, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(169, 169, 169))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                                                .addComponent(lblAcadSummary)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(1, 1, 1)
+                                        .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())))))))
+        );
+
+        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear1, btnRefreshTable1, btnSearch2, btnViewSelected1});
+
+        kGradientPanel2Layout.setVerticalGroup(
+            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRefreshTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)))
+                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUniversity))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPhoto)
+                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCourse))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblExpGradDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtGPA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblGPA))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAcadSummary)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
+
+        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear1, btnRefreshTable1, btnSearch2, btnViewSelected1});
+
+        javax.swing.GroupLayout panelStudentProfileLayout = new javax.swing.GroupLayout(panelStudentProfile);
+        panelStudentProfile.setLayout(panelStudentProfileLayout);
+        panelStudentProfileLayout.setHorizontalGroup(
+            panelStudentProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStudentProfileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelStudentProfileLayout.setVerticalGroup(
+            panelStudentProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStudentProfileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        studentTabbedPane.addTab("VIEW APPLICANTS", panelStudentProfile);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(Nametxt3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                .addComponent(Nametxt4, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(129, 129, 129))
-                            .addComponent(button1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(113, 113, 113))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                    .addContainerGap(640, Short.MAX_VALUE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(327, 327, 327)))
+                .addContainerGap()
+                .addComponent(studentTabbedPane)
+                .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deptComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(22, 22, 22)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(levelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(Nametxt3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(Nametxt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
-            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                    .addContainerGap(463, Short.MAX_VALUE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(121, 121, 121)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(studentTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1043, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,27 +706,144 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtSalaryOfferedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalaryOfferedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalaryOfferedActionPerformed
+
+    private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStartDateActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
+
+    private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewSelectedActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnViewSelected1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelected1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnViewSelected1ActionPerformed
+
+    private void btnClear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClear1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnClear1ActionPerformed
+
+    private void btnRefreshTable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTable1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnRefreshTable1ActionPerformed
+
+    private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_btnSearch2ActionPerformed
+
+    private void nxtSavebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nxtSavebtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nxtSavebtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Nametxt3;
-    private javax.swing.JTextField Nametxt4;
-    private button.Button button1;
-    private button.Button button2;
-    private javax.swing.JComboBox<String> deptComboBox;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private button.Button btnAdd;
+    private button.Button btnAdd1;
+    private button.Button btnApply;
+    private button.Button btnApply1;
+    private button.Button btnApply2;
+    private button.Button btnApply3;
+    private button.Button btnClear;
+    private button.Button btnClear1;
+    private button.Button btnDelete;
+    private button.Button btnDelete1;
+    private button.Button btnRefreshTable;
+    private button.Button btnRefreshTable1;
+    private button.Button btnSearch;
+    private button.Button btnSearch1;
+    private button.Button btnSearch2;
+    private button.Button btnViewSelected;
+    private button.Button btnViewSelected1;
+    private javax.swing.JComboBox<String> cmbLevel;
+    private javax.swing.JComboBox<String> cmbLevel1;
+    private javax.swing.JComboBox<String> cmbLocation;
+    private javax.swing.JComboBox<String> cmbLocation1;
+    private javax.swing.JComboBox<String> cmbPosition;
+    private javax.swing.JComboBox<String> cmbPosition1;
+    private javax.swing.JComboBox<String> cmbRole;
+    private javax.swing.JComboBox<String> cmbRole1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JComboBox<String> levelComboBox;
-    private javax.swing.JComboBox<String> roleComboBox;
+    private keeptoo.KGradientPanel kGradientPanel2;
+    private keeptoo.KGradientPanel kGradientPanel4;
+    private keeptoo.KGradientPanel kGradientPanel5;
+    private keeptoo.KGradientPanel kGradientPanel6;
+    private javax.swing.JLabel lblAcadSummary;
+    private javax.swing.JLabel lblCourse;
+    private javax.swing.JLabel lblExpGradDate;
+    private javax.swing.JLabel lblGPA;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblJobDescription;
+    private javax.swing.JLabel lblJobDescription1;
+    private javax.swing.JLabel lblPhoto;
+    private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblPosition1;
+    private javax.swing.JLabel lblSalaryOffered;
+    private javax.swing.JLabel lblSalaryOffered1;
+    private javax.swing.JLabel lblSalaryOffered2;
+    private javax.swing.JLabel lblSalaryOffered3;
+    private javax.swing.JLabel lblSalaryOffered4;
+    private javax.swing.JLabel lblSalaryOffered5;
+    private javax.swing.JLabel lblSalaryOffered6;
+    private javax.swing.JLabel lblSalaryOffered7;
+    private javax.swing.JLabel lblStartDate;
+    private javax.swing.JLabel lblStartDate1;
+    private javax.swing.JLabel lblUniversity;
+    private button.Button nxtSavebtn;
+    private javax.swing.JPanel panelPostOpenings;
+    private javax.swing.JPanel panelStudentProfile;
+    private javax.swing.JTabbedPane studentTabbedPane;
+    private javax.swing.JTable tblJobListings;
+    private javax.swing.JTable tblJobListings1;
+    private javax.swing.JTable tblStudentDetails;
+    private javax.swing.JTextArea txtAreaAcadSummary;
+    private javax.swing.JTextArea txtAreaJobDescription;
+    private javax.swing.JTextArea txtAreaJobDescription1;
+    private javax.swing.JTextField txtCourse;
+    private javax.swing.JTextField txtExpGradDate;
+    private javax.swing.JTextField txtGPA;
+    private javax.swing.JTextField txtSalaryOffered;
+    private javax.swing.JTextField txtSalaryOffered1;
+    private javax.swing.JTextField txtStartDate;
+    private javax.swing.JTextField txtStartDate1;
+    private javax.swing.JTextField txtStudentName;
+    private javax.swing.JTextField txtUniversity;
     // End of variables declaration//GEN-END:variables
 }
