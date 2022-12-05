@@ -4,13 +4,42 @@
  */
 package UI;
 
+import static UI.UniExamCellJPanel.generateRandomPassword;
+import static UI.UniExamCellJPanel.isCellNumberValid;
+import static UI.UniExamCellJPanel.isEmailValid;
+import static UI.UniExamCellJPanel.isSevisIdValid;
 import com.raven.datechooser.SelectedDate;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import model.UniCollege;
+import model.UniCollegeDir;
+import model.UniDepartment;
+import model.UniDepartmentDir;
+import model.UniStudent;
+import model.UniStudentDir;
+import model.University;
+import model.UniversityDir;
 
 /**
  *
@@ -24,13 +53,28 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
     JSplitPane splitPane;
     Connection conn = null;
     
+    UniStudent selectedStudent = new UniStudent();
+    UniCollegeDir uniColleges = new UniCollegeDir();
+    UniversityDir universities = new UniversityDir();
+    UniDepartmentDir uniDepartments = new UniDepartmentDir();
+    UniStudentDir uniStudents = new UniStudentDir();
+
+    Integer selectedRow = -1;
+    Integer selectedCollegeId = 0;
+    
     public UniCareerAdvisorJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
         this.splitPane = splitPane;
         this.conn = conn;
         
+        getAllUniversityData();
+        getAllStudents();
+        populateStudentTable(uniStudents);
+        clearAllFields();
         tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+        
+        
     }
 
     /**
@@ -49,17 +93,15 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudentDetails = new javax.swing.JTable();
         txtIntake = new javax.swing.JTextField();
-        button1 = new button.Button();
-        button2 = new button.Button();
-        button3 = new button.Button();
-        button4 = new button.Button();
-        button5 = new button.Button();
-        button6 = new button.Button();
+        btnSearch = new button.Button();
+        btnViewAll = new button.Button();
+        btnClear = new button.Button();
+        btnViewSelected = new button.Button();
         txtStudentName = new javax.swing.JTextField();
         txtSemester = new javax.swing.JTextField();
-        course_txt = new javax.swing.JTextField();
+        txtSevisId = new javax.swing.JTextField();
         txtGPA = new javax.swing.JTextField();
-        button7 = new button.Button();
+        btnLogout = new button.Button();
         jLabel1 = new javax.swing.JLabel();
         lblStudentName = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -74,16 +116,19 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         radioBtnJdwEl = new javax.swing.JRadioButton();
         lblStudentName1 = new javax.swing.JLabel();
         lblStudentName2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAreaComments = new javax.swing.JTextArea();
+        lblSemester1 = new javax.swing.JLabel();
+        txtDepartment = new javax.swing.JTextField();
+        lblSemester2 = new javax.swing.JLabel();
+        txtCourse = new javax.swing.JTextField();
 
-        dateChooser2.setDateFormat("MM-dd-yyyy");
+        dateChooser2.setDateFormat("yyyy-MM-dd");
         dateChooser2.setTextRefernce(txtExpectedStartDate);
 
-        dateChooser1.setDateFormat("MM-dd-yyyy");
+        dateChooser1.setDateFormat("yyyy-MM-dd");
         dateChooser1.setTextRefernce(txtExpectedEndDate);
         dateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -103,19 +148,20 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 51, 51));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1005, 700));
 
+        tblStudentDetails.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "College ID", "Student Name", "Intake", "Semester", "GPA", "JDWatch Eligible"
+                "Sevis ID", "Student Name", "Intake", "Semester", "Department", "Course", "GPA", "JDWatch Access"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -125,64 +171,75 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblStudentDetails);
 
         txtIntake.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtIntake.setEnabled(false);
         txtIntake.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIntakeActionPerformed(evt);
             }
         });
 
-        button1.setBackground(new java.awt.Color(204, 255, 204));
-        button1.setForeground(new java.awt.Color(0, 0, 255));
-        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_5.png"))); // NOI18N
-        button1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        button1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setBackground(new java.awt.Color(204, 255, 204));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
-        button2.setBackground(new java.awt.Color(204, 255, 204));
-        button2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_6.png"))); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnViewAll.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
+        btnViewAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnViewAllActionPerformed(evt);
             }
         });
 
-        button3.setBackground(new java.awt.Color(204, 255, 204));
-        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
-
-        button4.setBackground(new java.awt.Color(204, 255, 204));
-        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
-
-        button5.setBackground(new java.awt.Color(204, 255, 204));
-        button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
-
-        button6.setBackground(new java.awt.Color(204, 255, 204));
-        button6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
-        button6.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setBackground(new java.awt.Color(204, 255, 204));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button6ActionPerformed(evt);
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnViewSelected.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSelectedActionPerformed(evt);
             }
         });
 
         txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStudentName.setEnabled(false);
+        txtStudentName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStudentNameActionPerformed(evt);
+            }
+        });
 
         txtSemester.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSemester.setEnabled(false);
         txtSemester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSemesterActionPerformed(evt);
             }
         });
 
-        course_txt.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSevisId.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSevisId.setEnabled(false);
 
         txtGPA.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtGPA.setEnabled(false);
 
-        button7.setBackground(new java.awt.Color(204, 204, 255));
-        button7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        button7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnLogout.setBackground(new java.awt.Color(204, 204, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnLogout.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/MASS(100 × 50 px) (1).png"))); // NOI18N
 
@@ -204,7 +261,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         lblCollegeId.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblCollegeId.setForeground(new java.awt.Color(255, 255, 255));
         lblCollegeId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCollegeId.setText("College ID");
+        lblCollegeId.setText("Sevis ID");
 
         lblGPA.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblGPA.setForeground(new java.awt.Color(255, 255, 255));
@@ -247,9 +304,6 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         lblStudentName2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblStudentName2.setText("Student Academic Details");
 
-        jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jButton1.setText("Save");
-
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -263,10 +317,36 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("JDWatch Eligible");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        txtAreaComments.setColumns(20);
+        txtAreaComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtAreaComments.setRows(5);
+        jScrollPane3.setViewportView(txtAreaComments);
+
+        lblSemester1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSemester1.setForeground(new java.awt.Color(255, 255, 255));
+        lblSemester1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSemester1.setText("Department");
+
+        txtDepartment.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtDepartment.setEnabled(false);
+        txtDepartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDepartmentActionPerformed(evt);
+            }
+        });
+
+        lblSemester2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSemester2.setForeground(new java.awt.Color(255, 255, 255));
+        lblSemester2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSemester2.setText("Course");
+
+        txtCourse.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCourse.setEnabled(false);
+        txtCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCourseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -275,31 +355,13 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUpdate))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGap(95, 95, 95)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -307,15 +369,19 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                                     .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblGPA, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
+                                    .addComponent(jLabel9)
+                                    .addComponent(lblSemester1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSemester2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtIntake, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtGPA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtSemester, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(txtIntake, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                    .addComponent(txtGPA, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(course_txt)
-                                        .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtSevisId)
+                                        .addComponent(txtStudentName, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                                    .addComponent(txtDepartment)
+                                    .addComponent(txtCourse))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblComments, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,20 +393,26 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                                     .addComponent(txtExpectedStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtExpectedEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(radioBtnJdwEl)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(40, 40, 40)))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnUpdate)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblStudentName2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(92, 92, 92)
+                                .addComponent(lblStudentName1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(40, 40, 40))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnViewAll, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblStudentName2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
-                .addComponent(lblStudentName1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
         );
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {course_txt, txtGPA, txtIntake, txtSemester, txtStudentName});
-
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnUpdate, jButton1});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtDepartment, txtGPA, txtIntake, txtSemester, txtSevisId, txtStudentName});
 
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,24 +420,22 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, Short.MAX_VALUE)
-                        .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, Short.MAX_VALUE)
+                        .addComponent(btnViewAll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblStudentName2)
                     .addComponent(lblStudentName1))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStudentName)
@@ -373,7 +443,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                     .addComponent(txtExpectedStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(course_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSevisId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCollegeId)
                     .addComponent(jLabel14)
                     .addComponent(txtExpectedEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -387,42 +457,40 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(txtIntake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtIntake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16))
                             .addComponent(lblSemester)
                             .addComponent(radioBtnJdwEl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSemester1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSemester2)))
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {course_txt, txtGPA, txtIntake, txtSemester, txtStudentName});
-
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnUpdate, jButton1});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtDepartment, txtGPA, txtIntake, txtSemester, txtSevisId, txtStudentName});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -430,17 +498,19 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIntakeActionPerformed
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button1ActionPerformed
-
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
-
-    private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button6ActionPerformed
+        selectedRow = tblStudentDetails.getSelectedRow();
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row");
+            return;
+        }else{
+            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+            UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
+            displayStudent(student);
+            selectedStudent = student;
+        }
+    }//GEN-LAST:event_btnViewSelectedActionPerformed
 
     private void txtSemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSemesterActionPerformed
         // TODO add your handling code here:
@@ -460,23 +530,207 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        
+        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+        UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
+        
+        if(student.getGpa() < 3.2 && radioBtnJdwEl.isSelected()){
+            int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to grant access? \nStudent GPA is less than 3.20", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if(res == 0) {
+                updateStudent(student);
+            }
+            else{
+               JOptionPane.showMessageDialog(this, "Update Cancelled"); 
+            }
+        }else{
+            updateStudent(student);
+        }
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if(res == 0) {
+            ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
+            splitPane.setRightComponent(choicePanel);
+        }
+        else{
+            //Pressed No
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void txtDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDepartmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDepartmentActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Please select a field:"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Name");
+        model.addElement("Sevis Id");
+        model.addElement("Intake");
+        model.addElement("Course");
+        model.addElement("Semester");
+        model.addElement("Department");
+        JComboBox comboBox = new JComboBox(model);
+        panel.add(comboBox);
+
+        int resultField = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(resultField == JOptionPane.OK_OPTION){
+            String fieldSelected = comboBox.getSelectedItem().toString();
+
+            DefaultComboBoxModel modelIntake = new DefaultComboBoxModel();
+            
+            LocalDate today = LocalDate.now();
+            Integer year = today.getYear();
+            ArrayList<Integer> listYears = new ArrayList<Integer>();
+            for(int i = year - 2; i < year+1; i++){
+                listYears.add(i);
+            }
+
+            ArrayList<String> terms = new ArrayList<String>();
+            terms.add("Spring");
+            terms.add("Summer");
+            terms.add("Fall");
+
+            ArrayList<String> termsYears = new ArrayList<String>();
+            for(Integer i : listYears){
+                for(String j: terms){
+                    termsYears.add(j + " " + String.valueOf(i));
+                }
+            }
+
+            for(String str : termsYears){
+                modelIntake.addElement(str);
+            }
+            
+            JComboBox comboBoxIntake = new JComboBox(modelIntake);
+            
+            DefaultComboBoxModel depts = new DefaultComboBoxModel();
+            for(UniDepartment dept : uniDepartments.getUniDepartmentList()){
+                if(dept.getCollege().getId() == selectedCollegeId){
+                    depts.addElement(dept.getName());
+                }
+            }
+            JComboBox comboBoxDepts = new JComboBox(depts);
+
+            DefaultComboBoxModel sems = new DefaultComboBoxModel();
+            for(Integer i = 1; i < 5; i++){
+                sems.addElement(i.toString());
+            }
+            JComboBox comboBoxSems = new JComboBox(sems);
+            
+            JTextField txtField = new JTextField("");
+            
+            panel.add(new JLabel("Value:"));
+            
+            if(fieldSelected.equalsIgnoreCase("Intake")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxIntake);
+            }else if(fieldSelected.equalsIgnoreCase("Department")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxDepts);
+            }else if(fieldSelected.equalsIgnoreCase("Semester")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxSems);
+            }else{
+                comboBox.setEnabled(false);
+                panel.add(txtField);
+            }
+
+            int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(resultValue == JOptionPane.OK_OPTION) {
+
+                String fieldValue;
+                if(fieldSelected.equalsIgnoreCase("Intake")){
+                    fieldValue = comboBoxIntake.getSelectedItem().toString();
+                } else if(fieldSelected.equalsIgnoreCase("Department")){
+                    fieldValue = comboBoxDepts.getSelectedItem().toString();
+                } else if(fieldSelected.equalsIgnoreCase("Semester")){
+                    fieldValue = comboBoxSems.getSelectedItem().toString();
+                } else {
+                    fieldValue = txtField.getText();
+                }
+
+                if(fieldValue.equalsIgnoreCase("")){
+                    JOptionPane.showMessageDialog(this, "Please enter a value");
+                }else if(fieldSelected.equalsIgnoreCase("Sevis Id") && !isSevisIdValid(fieldValue)){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid Sevis Id");
+                }else if(fieldSelected.equalsIgnoreCase("Name") && !isNameValid(fieldValue)){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid Name");
+                }else if(fieldSelected.equalsIgnoreCase("Course") && !isCourseNameValid(fieldValue)){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid Course Name");
+                }else{
+                    UniStudentDir resultStudentDir = new UniStudentDir();
+                    ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
+                    
+                    if(fieldSelected.equalsIgnoreCase("Name")){
+                        resultStudents = uniStudents.searchByName(fieldValue);
+                    }else if(fieldSelected.equalsIgnoreCase("Sevis Id")){
+                        resultStudents.add(uniStudents.searchBySevisId(fieldValue));
+                    }else if(fieldSelected.equalsIgnoreCase("Intake")){
+                        resultStudents = uniStudents.searchByIntake(fieldValue);
+                    }else if(fieldSelected.equalsIgnoreCase("Course")){
+                        resultStudents = uniStudents.searchByCourse(fieldValue);
+                    }else if(fieldSelected.equalsIgnoreCase("Semester")){
+                        resultStudents = uniStudents.searchBySemester(Integer.valueOf(fieldValue));
+                    }else if(fieldSelected.equalsIgnoreCase("Department")){
+                        UniDepartment department = uniDepartments.searchByName(fieldValue);
+                        resultStudents = uniStudents.searchByDepartment(department);
+                    }else{
+                        resultStudents = null;
+                    }
+
+                    if(resultStudents.isEmpty()){
+                        JOptionPane.showMessageDialog(this, "No Results Found");
+                        populateStudentTable(uniStudents);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Entries found");
+                        resultStudentDir.setUniStudentList(resultStudents);
+                        populateStudentTable(resultStudentDir);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Search Cancelled");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Search Cancelled");
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnViewAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAllActionPerformed
+        // TODO add your handling code here:
+        populateStudentTable(uniStudents);
+    }//GEN-LAST:event_btnViewAllActionPerformed
+
+    private void txtCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCourseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCourseActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clearAllFields();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void txtStudentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStudentNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStudentNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private button.Button btnClear;
+    private button.Button btnLogout;
+    private button.Button btnSearch;
     private javax.swing.JButton btnUpdate;
-    private button.Button button1;
-    private button.Button button2;
-    private button.Button button3;
-    private button.Button button4;
-    private button.Button button5;
-    private button.Button button6;
-    private button.Button button7;
-    private javax.swing.JTextField course_txt;
+    private button.Button btnViewAll;
+    private button.Button btnViewSelected;
     private javax.swing.JTextField course_txt1;
     private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -484,22 +738,328 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel lblCollegeId;
     private javax.swing.JLabel lblComments;
     private javax.swing.JLabel lblGPA;
     private javax.swing.JLabel lblSemester;
+    private javax.swing.JLabel lblSemester1;
+    private javax.swing.JLabel lblSemester2;
     private javax.swing.JLabel lblStudentName;
     private javax.swing.JLabel lblStudentName1;
     private javax.swing.JLabel lblStudentName2;
     private javax.swing.JRadioButton radioBtnJdwEl;
     private javax.swing.JTable tblStudentDetails;
+    private javax.swing.JTextArea txtAreaComments;
+    private javax.swing.JTextField txtCourse;
+    private javax.swing.JTextField txtDepartment;
     private javax.swing.JTextField txtExpectedEndDate;
     private javax.swing.JTextField txtExpectedStartDate;
     private javax.swing.JTextField txtGPA;
     private javax.swing.JTextField txtIntake;
     private javax.swing.JTextField txtSemester;
+    private javax.swing.JTextField txtSevisId;
     private javax.swing.JTextField txtStudentName;
     // End of variables declaration//GEN-END:variables
+
+    public void getAllStudents(){
+        try {
+            String queryStudents = "SELECT * FROM uni_student";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryStudents);                
+                while (rs.next())
+                {
+                    UniStudent student = uniStudents.addUniStudent();
+                    
+                    student.setName(rs.getString("name"));
+                    student.setSevisId(rs.getString("student_gov_id"));
+                    student.setContactNo(rs.getLong("contact_no"));
+                    student.setEmailId(rs.getString("email"));
+                    student.setGpa(rs.getDouble("gpa"));
+                    student.setIntake(rs.getString("intake"));
+                    student.setSemester(rs.getInt("semester"));
+                    student.setCourse(rs.getString("course"));
+                    student.setJdWatchAccess(rs.getBoolean("jd_watch_eligible"));
+                    
+                    if(rs.getString("start_date") != null){
+                        student.setStartDate(LocalDate.parse(rs.getString("start_date")));
+                    }
+                    if(rs.getString("end_date") != null){
+                        student.setEndDate(LocalDate.parse(rs.getString("end_date")));
+                    }
+                    if(rs.getString("comments") != null){
+                        student.setComments(rs.getString("comments"));
+                    }
+                    
+                    UniDepartment department = uniDepartments.searchById(rs.getInt("uni_department_id"));
+                    student.setDepartment(department);
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getAllUniversityData(){
+         try {
+                //Universities
+                String queryUniversity = "SELECT * FROM university";
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(queryUniversity);                
+                while (rs.next())
+                {
+                    University university = universities.addUniversity();
+                    university.setId(rs.getInt("id"));
+                    university.setName(rs.getString("name"));
+                    university.setDistrict(rs.getString("district"));
+                    university.setState(rs.getString("state"));
+                    university.setCountry(rs.getString("country"));
+                    university.setPincode(rs.getLong("pincode"));
+                }
+                st.close();
+
+                //Colleges
+                String queryCollege = "SELECT * FROM uni_college";
+                Statement stCollege = conn.createStatement();
+                ResultSet rsCollege = stCollege.executeQuery(queryCollege);                
+                while (rsCollege.next())
+                {
+                    UniCollege college = uniColleges.addUniCollege();
+                    college.setId(rsCollege.getInt("id"));
+                    college.setName(rsCollege.getString("name"));
+
+                    for(University uni : universities.getUniversityList()){
+                        if(uni.getId() == rsCollege.getInt("university_id")){
+                            college.setUniversity(uni);
+                        }
+                    }
+
+                }
+                stCollege.close();
+
+                //Departments
+                String queryDepartment = "SELECT * FROM uni_department";
+                Statement stDepartment = conn.createStatement();
+                ResultSet rsDepartment = stDepartment.executeQuery(queryDepartment);                
+                while (rsDepartment.next())
+                {
+                    UniDepartment dept = uniDepartments.addUniDepartment();
+                    dept.setId(rsDepartment.getInt("id"));
+                    dept.setName(rsDepartment.getString("name"));
+
+                    for(UniCollege college : uniColleges.getUniCollegeList()){
+                        if(college.getId() == rsDepartment.getInt("uni_college_id")){
+                            dept.setCollege(college);
+                        }
+                    }
+
+                }
+                stDepartment.close();
+
+            } catch (SQLException ex) {
+                System.out.println("An error occurred. Maybe user/password is invalid");
+                ex.printStackTrace();
+        }       
+    }
+    
+    public void populateStudentTable(UniStudentDir uniStudents){
+        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+        tableModel.setRowCount(0);
+        
+        for(UniStudent student : uniStudents.getUniStudentList()){
+            Object row[] = new Object[8];
+            row[0] = student;
+            row[1] = student.getName();
+            row[2] = student.getIntake();
+            row[3] = student.getSemester().toString();
+            row[4] = student.getDepartment().getName();
+            row[5] = student.getCourse();
+            row[6] = student.getGpa();
+            if(student.getJdWatchAccess()){
+                row[7] = "Granted";
+            }else{
+                row[7] = "Denied";
+            }
+            
+            tableModel.addRow(row);
+        }
+    }
+    
+    public void updateStudent(UniStudent oldStudent){
+        UniStudent newStudent = new UniStudent();
+        newStudent = oldStudent;
+        
+        newStudent.setStartDate(LocalDate.parse(txtExpectedStartDate.getText()));
+        newStudent.setEndDate(LocalDate.parse(txtExpectedEndDate.getText()));
+        newStudent.setComments(txtAreaComments.getText());
+        newStudent.setJdWatchAccess(radioBtnJdwEl.isSelected());
+        
+        uniStudents.updateUniStudent(oldStudent, newStudent);
+        
+        updateStudentToDb(oldStudent, newStudent);
+        clearAllFields();
+        populateStudentTable(uniStudents);
+    }
+    
+    public void displayStudent(UniStudent student){
+        txtStudentName.setText(student.getName());
+        txtSevisId.setText(student.getSevisId());
+        txtGPA.setText(student.getGpa().toString());
+        txtIntake.setText(student.getIntake());
+        txtSemester.setText(student.getSemester().toString());
+        txtDepartment.setText(student.getDepartment().getName());
+        txtCourse.setText(student.getCourse());
+        
+        if(student.getStartDate()!=null){
+            txtExpectedStartDate.setText(student.getStartDate().toString());
+        }else{
+            txtExpectedStartDate.setText(getExpectedStartDate(student).toString());
+        }
+        
+        if(student.getEndDate()!=null){
+            txtExpectedEndDate.setText(student.getEndDate().toString());
+        }else{
+            txtExpectedEndDate.setText(getExpectedEndDate(student).toString());
+        }
+        
+        if(student.getJdWatchAccess()){
+            radioBtnJdwEl.setSelected(true);
+        }else{
+            radioBtnJdwEl.setSelected(false);
+        }
+        
+        if(student.getComments()!=null){
+            txtAreaComments.setText(student.getComments());
+        }else{
+            txtAreaComments.setText("");
+        }
+        
+        if(student.getGpa() < 3.2){
+            txtGPA.setDisabledTextColor(Color.RED);
+            txtGPA.setFont(new Font( "Trebuchet MS" , Font.BOLD, 18 ));
+        }else{
+            txtGPA.setDisabledTextColor(Color.GRAY);
+            txtGPA.setFont(new Font( "Trebuchet MS" , Font.PLAIN, 15 ));
+        }
+        
+        btnUpdate.setEnabled(true);
+    }
+    
+    public void clearAllFields(){
+        txtStudentName.setText("");
+        txtSevisId.setText("");
+        txtGPA.setText("");
+        txtIntake.setText("");
+        txtSemester.setText("");
+        txtDepartment.setText("");
+        txtCourse.setText("");
+        
+        txtExpectedStartDate.setText("");
+        txtExpectedEndDate.setText("");
+        txtAreaComments.setText("");
+        radioBtnJdwEl.setSelected(false);
+        
+        btnUpdate.setEnabled(false);
+    }
+    
+    public boolean isNameValid(String str) {
+        String regex = "^[a-zA-Z0-9 ]{0,30}$";
+        Pattern pattern = Pattern.compile(regex);
+        
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+    
+    public boolean isCourseNameValid(String str) {
+        String regex = "^[a-zA-Z0-9 ]{0,100}$";
+        Pattern pattern = Pattern.compile(regex);
+        
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+    
+    public LocalDate getExpectedStartDate(UniStudent student){
+        LocalDate today = LocalDate.now();
+        Integer month = today.getMonthValue();
+        Integer year = today.getYear();
+        
+        LocalDate expectedStart = LocalDate.now();
+        if(student.getSemester()==1 || student.getSemester()==3){
+            Integer monthsAdv = ((month + 3) % 12) / 4;
+            Integer yearAdv = year;
+            if(monthsAdv >= 13){
+                yearAdv+=1;
+            }
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-01-01";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-05-01";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-09-01";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }else{
+            expectedStart = today;
+        }
+        return expectedStart;
+    }
+    
+    public LocalDate getExpectedEndDate(UniStudent student){
+        LocalDate today = LocalDate.now();
+        Integer month = today.getMonthValue();
+        Integer year = today.getYear();
+        
+        LocalDate expectedStart = LocalDate.now();
+        if(student.getSemester()==1 || student.getSemester()==3){
+            Integer monthsAdv = ((month + 3) % 12) / 4;
+            Integer yearAdv = year;
+            if(month >= 9){
+                yearAdv+=1;
+            }
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-04-30";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-08-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-12-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }else{
+            Integer monthsAdv = ((month - 1) % 12) / 4;
+            Integer yearAdv = year;
+            
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-04-30";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-08-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-12-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }
+        return expectedStart;
+    }
+    
+    public void updateStudentToDb(UniStudent oldStudent, UniStudent student){
+        try {
+            String jdWatchStr = "0";
+            if(student.getJdWatchAccess()){
+                jdWatchStr = "1";
+            }
+            String queryNewStudent = "UPDATE uni_student SET start_date = '" + student.getStartDate().toString() + "' , end_date = '" + student.getEndDate().toString() + "'"
+                    + ", comments = '" + student.getComments() + "', jd_watch_eligible = '" + jdWatchStr + "' WHERE "
+                    + "student_gov_id = '" + oldStudent.getSevisId() + "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
