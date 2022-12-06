@@ -4,7 +4,28 @@
  */
 package UI;
 
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JSplitPane;
+import model.CompDepartment;
+import model.CompDepartmentDir;
+import model.Company;
+import model.CompanyDir;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,13 +37,22 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
      * Creates new form Choice_JPanel
      */
     JSplitPane splitPane;
+    Connection conn = null;
     String choice = "";
-
+    CompDepartmentDir compDeptDir = new CompDepartmentDir();
+    CompanyDir compDir = new CompanyDir();
+    Integer selectedRow = -1;
     
-    public CompanyDepartmentJPanel(JSplitPane splitPaneMain) {
+    
+    public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn) {
         initComponents();
-        
+        btnPostListing.setEnabled(false);
         splitPane = splitPaneMain;
+        this.conn = conn;
+        getAllDepartments();
+        populateJobListingsTable(compDeptDir);
+        clearAllFields();
+        tblJobListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
     }
 
     /**
@@ -34,6 +64,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooser2 = new com.raven.datechooser.DateChooser();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         studentTabbedPane = new javax.swing.JTabbedPane();
         panelPostOpenings = new javax.swing.JPanel();
@@ -41,7 +72,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         kGradientPanel5 = new keeptoo.KGradientPanel();
         cmbLevel = new javax.swing.JComboBox<>();
         jLabel31 = new javax.swing.JLabel();
-        btnApply = new button.Button();
+        btnPostListing = new button.Button();
         cmbRole = new javax.swing.JComboBox<>();
         cmbLocation = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -58,13 +89,15 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         lblStartDate = new javax.swing.JLabel();
         txtStartDate = new javax.swing.JTextField();
         cmbPosition = new javax.swing.JComboBox<>();
-        btnApply1 = new button.Button();
+        btnUpdate = new button.Button();
         btnAdd = new button.Button();
         btnDelete = new button.Button();
         btnSearch = new button.Button();
         btnRefreshTable = new button.Button();
         btnViewSelected = new button.Button();
         btnClear = new button.Button();
+        lblJobTitle = new javax.swing.JLabel();
+        txtJobTitle = new javax.swing.JTextField();
         panelStudentProfile = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
         txtUniversity = new javax.swing.JTextField();
@@ -92,6 +125,9 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         btnClear1 = new button.Button();
         btnViewSelected1 = new button.Button();
 
+        dateChooser2.setDateFormat("yyyy-MM-dd");
+        dateChooser2.setTextRefernce(txtStartDate);
+
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
         kGradientPanel1.setkEndColor(new java.awt.Color(189, 188, 240));
@@ -115,8 +151,13 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         jLabel31.setText("Job Profile");
 
-        btnApply.setText("Post Opening");
-        btnApply.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnPostListing.setText("Post Opening");
+        btnPostListing.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnPostListing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostListingActionPerformed(evt);
+            }
+        });
 
         cmbRole.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Software Developer", "Web Designer", "Data Analyst", "Business Analyst", "Data Scientist", "Data Engineer", "Project Manager" }));
@@ -198,8 +239,13 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         cmbPosition.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Intern", "Full-Time ", " " }));
 
-        btnApply1.setText("Update Opening");
-        btnApply1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnUpdate.setText("Update Opening");
+        btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(204, 255, 204));
         btnAdd.setForeground(new java.awt.Color(0, 0, 255));
@@ -252,24 +298,32 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             }
         });
 
+        lblJobTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblJobTitle.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblJobTitle.setText("Job Title");
+
+        txtJobTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtJobTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtJobTitleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel5Layout = new javax.swing.GroupLayout(kGradientPanel5);
         kGradientPanel5.setLayout(kGradientPanel5Layout);
         kGradientPanel5Layout.setHorizontalGroup(
             kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnApply1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
-                .addGap(0, 104, Short.MAX_VALUE)
-                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                .addGap(0, 148, Short.MAX_VALUE)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addComponent(lblJobDescription)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(81, 81, 81))
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(kGradientPanel5Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -295,32 +349,43 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                                     .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(38, 38, 38)
-                        .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblJobDescription, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(81, 81, 81))
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(lblJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(133, 133, 133))))
             .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
-                .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPostListing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnApply, btnApply1});
+        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnPostListing, btnUpdate});
 
         kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
@@ -330,33 +395,37 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                            .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(38, 38, 38))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
+                            .addComponent(jLabel31)
+                            .addGap(15, 15, 15)))
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)))
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblJobTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel31)
-                                .addGap(15, 15, 15)))
-                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblJobDescription))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblJobDescription))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,7 +433,8 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -373,12 +443,12 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                     .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnApply1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPostListing, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
-        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApply, btnApply1});
+        kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnPostListing, btnUpdate});
 
         kGradientPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
@@ -412,7 +482,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             panelPostOpeningsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPostOpeningsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 505, Short.MAX_VALUE)
+                .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -716,26 +786,148 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        clearAllFields();
+        btnPostListing.setEnabled(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        selectedRow = tblJobListings.getSelectedRow();
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row");
+            return;
+        }else{
+            DefaultTableModel tableModel = (DefaultTableModel) tblJobListings.getModel();
+            CompDepartment dept = (CompDepartment) tableModel.getValueAt(selectedRow, 0);
+            deleteDepartment(dept);
+            
+        }
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Please select a field:"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Role");
+        model.addElement("Position");
+        model.addElement("Salary");
+       
+        JComboBox comboBox = new JComboBox(model);
+        panel.add(comboBox);
+
+        int resultField = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(resultField == JOptionPane.OK_OPTION){
+            String fieldSelected = comboBox.getSelectedItem().toString();
+
+            
+            
+            
+            
+            
+            DefaultComboBoxModel role = new DefaultComboBoxModel();
+            for(CompDepartment dept : compDeptDir.getCompDepartmentList()){
+                role.addElement(dept.getRole());
+            }
+            JComboBox comboBoxRole = new JComboBox(role);
+
+            DefaultComboBoxModel position = new DefaultComboBoxModel();
+            for(CompDepartment dept : compDeptDir.getCompDepartmentList()){
+                position.addElement(dept.getPosition());
+            }
+            JComboBox comboBoxPosition = new JComboBox(position);
+            
+            
+            
+            JTextField txtField = new JTextField("");
+            
+            panel.add(new JLabel("Value:"));
+            
+            if(fieldSelected.equalsIgnoreCase("Role")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxRole);
+            }else if(fieldSelected.equalsIgnoreCase("Position")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxPosition);
+            }else{
+                comboBox.setEnabled(false);
+                panel.add(txtField);
+            }
+
+            int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(resultValue == JOptionPane.OK_OPTION) {
+
+                String fieldValue;
+                if(fieldSelected.equalsIgnoreCase("Role")){
+                    fieldValue = comboBoxRole.getSelectedItem().toString();
+                } else if(fieldSelected.equalsIgnoreCase("Position")){
+                    fieldValue = comboBoxPosition.getSelectedItem().toString();
+                    
+                } else {
+                    fieldValue = txtField.getText();
+                }
+
+                if(fieldValue.equalsIgnoreCase("")){
+                    JOptionPane.showMessageDialog(this, "Please enter a value");
+                }else{
+                    CompDepartmentDir resultCompDeptDir = new CompDepartmentDir();
+                    ArrayList<CompDepartment> resultDepartments = new ArrayList<CompDepartment>();
+                    
+                    if(fieldSelected.equalsIgnoreCase("Salary")){
+                        resultDepartments = compDeptDir.searchBySalary(Double.valueOf(fieldValue));
+                    }else if(fieldSelected.equalsIgnoreCase("Role")){
+                        resultDepartments = compDeptDir.searchByRole(fieldValue);
+                    }else if(fieldSelected.equalsIgnoreCase("Position")){
+                        resultDepartments = compDeptDir.searchByPosition(fieldValue);
+                        
+                    }else{
+                        resultDepartments = null;
+                    }
+
+                    if(resultDepartments.isEmpty()){
+                        JOptionPane.showMessageDialog(this, "No Results Found");
+                        populateJobListingsTable(compDeptDir);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Entries found");
+                        resultCompDeptDir.setCompDepartmentList(resultDepartments);
+                        populateJobListingsTable(resultCompDeptDir);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Search Cancelled");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Search Cancelled");
+        }
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
         // TODO add your handling code here:
+            compDeptDir.removeAllCompDepartment();
+            getAllDepartments();
+            populateJobListingsTable(compDeptDir);
+            clearAllFields();
     }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
         // TODO add your handling code here:
+        selectedRow = tblJobListings.getSelectedRow();
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row");
+            return;
+        }else{
+            DefaultTableModel tableModel = (DefaultTableModel) tblJobListings.getModel();
+            CompDepartment dept = (CompDepartment) tableModel.getValueAt(selectedRow, 0);
+            displayDepartment(dept);
+            
+        }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        clearAllFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnViewSelected1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelected1ActionPerformed
@@ -762,88 +954,286 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nxtSavebtnActionPerformed
 
+    private void txtJobTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJobTitleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJobTitleActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        selectedRow = tblJobListings.getSelectedRow();
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row");
+            return;
+        }else{
+        DefaultTableModel tableModel = (DefaultTableModel) tblJobListings.getModel();
+        CompDepartment dept = (CompDepartment) tableModel.getValueAt(selectedRow, 0);
+        updateDepartment(dept);
+        JOptionPane.showMessageDialog(this, "Record updated successfully"); 
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnPostListingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostListingActionPerformed
+        // TODO add your handling code here:
+        saveDepartmentDetails();
+        btnPostListing.setEnabled(false);
+    }//GEN-LAST:event_btnPostListingActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdd;
-    private button.Button btnAdd1;
-    private button.Button btnApply;
-    private button.Button btnApply1;
-    private button.Button btnApply2;
-    private button.Button btnApply3;
     private button.Button btnClear;
     private button.Button btnClear1;
     private button.Button btnDelete;
-    private button.Button btnDelete1;
+    private button.Button btnPostListing;
     private button.Button btnRefreshTable;
     private button.Button btnRefreshTable1;
     private button.Button btnSearch;
-    private button.Button btnSearch1;
     private button.Button btnSearch2;
+    private button.Button btnUpdate;
     private button.Button btnViewSelected;
     private button.Button btnViewSelected1;
     private javax.swing.JComboBox<String> cmbLevel;
-    private javax.swing.JComboBox<String> cmbLevel1;
     private javax.swing.JComboBox<String> cmbLocation;
-    private javax.swing.JComboBox<String> cmbLocation1;
     private javax.swing.JComboBox<String> cmbPosition;
-    private javax.swing.JComboBox<String> cmbPosition1;
     private javax.swing.JComboBox<String> cmbRole;
-    private javax.swing.JComboBox<String> cmbRole1;
+    private com.raven.datechooser.DateChooser dateChooser2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
-    private keeptoo.KGradientPanel kGradientPanel6;
     private javax.swing.JLabel lblAcadSummary;
     private javax.swing.JLabel lblCourse;
     private javax.swing.JLabel lblExpGradDate;
     private javax.swing.JLabel lblGPA;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblJobDescription;
-    private javax.swing.JLabel lblJobDescription1;
+    private javax.swing.JLabel lblJobTitle;
     private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblPosition;
-    private javax.swing.JLabel lblPosition1;
     private javax.swing.JLabel lblSalaryOffered;
     private javax.swing.JLabel lblSalaryOffered1;
     private javax.swing.JLabel lblSalaryOffered2;
     private javax.swing.JLabel lblSalaryOffered3;
-    private javax.swing.JLabel lblSalaryOffered4;
-    private javax.swing.JLabel lblSalaryOffered5;
-    private javax.swing.JLabel lblSalaryOffered6;
-    private javax.swing.JLabel lblSalaryOffered7;
     private javax.swing.JLabel lblStartDate;
-    private javax.swing.JLabel lblStartDate1;
     private javax.swing.JLabel lblUniversity;
     private button.Button nxtSavebtn;
     private javax.swing.JPanel panelPostOpenings;
     private javax.swing.JPanel panelStudentProfile;
     private javax.swing.JTabbedPane studentTabbedPane;
     private javax.swing.JTable tblJobListings;
-    private javax.swing.JTable tblJobListings1;
     private javax.swing.JTable tblStudentDetails;
     private javax.swing.JTextArea txtAreaAcadSummary;
     private javax.swing.JTextArea txtAreaJobDescription;
-    private javax.swing.JTextArea txtAreaJobDescription1;
     private javax.swing.JTextField txtCourse;
     private javax.swing.JTextField txtExpGradDate;
     private javax.swing.JTextField txtGPA;
+    private javax.swing.JTextField txtJobTitle;
     private javax.swing.JTextField txtSalaryOffered;
-    private javax.swing.JTextField txtSalaryOffered1;
     private javax.swing.JTextField txtStartDate;
-    private javax.swing.JTextField txtStartDate1;
     private javax.swing.JTextField txtStudentName;
     private javax.swing.JTextField txtUniversity;
     // End of variables declaration//GEN-END:variables
+    
+    public void getAllDepartments(){
+        try {
+            String queryDepartments = "SELECT * FROM job_listings";
+            String queryCompanies = "SELECT * FROM companies";
+            Statement st = conn.createStatement();
+            Statement stCompany = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryDepartments); 
+            ResultSet rsCompany = stCompany.executeQuery(queryCompanies);
+                while(rsCompany.next())
+                {
+                    Company comp = compDir.addCompany();
+                    comp.setId(rsCompany.getInt("id"));
+                    comp.setName(rsCompany.getString("company_name"));
+                    comp.setCountry(rsCompany.getString("country"));
+                    comp.setState(rsCompany.getString("state"));
+                    comp.setDistrict(rsCompany.getString("district"));
+                    comp.setPincode(rsCompany.getString("pincode"));
+                    
+                }
+                while (rs.next())
+                {
+                    CompDepartment dept = compDeptDir.addCompDepartment();
+                    
+                    dept.setJobId(rs.getInt("id"));
+                    Company requiredCompany = compDir.searchByName(rs.getString("company_name"));
+                    dept.setCompany(requiredCompany);                 
+                    dept.setJobDescription(rs.getString("job_description"));
+                    dept.setLevel(rs.getString("level"));
+                    dept.setLocation(rs.getString("location"));
+                    dept.setPosition(rs.getString("position"));
+                    dept.setRole(rs.getString("role"));
+                    dept.setSalaryPerHr(rs.getDouble("salary_offered"));
+                    dept.setStartDate(LocalDate.parse(rs.getString("start_date")));
+                    dept.setTitle(rs.getString("job_title"));
+                    
+                    
+                }
+                st.close();
+                stCompany.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void populateJobListingsTable(CompDepartmentDir compDepartmentDir){
+        DefaultTableModel tableModel = (DefaultTableModel) tblJobListings.getModel();
+        tableModel.setRowCount(0);
+        
+        for(CompDepartment dept : compDepartmentDir.getCompDepartmentList()){
+            Object row[] = new Object[8];
+            row[0] = dept;
+            row[1] = dept.getTitle();
+            row[2] = dept.getLocation();
+            row[3] = dept.getRole();
+            row[4] = dept.getLevel();
+            row[5] = dept.getPosition();
+            row[6] = dept.getStartDate().toString();
+            row[7] = dept.getSalaryPerHr().toString();
+            tableModel.addRow(row);
+        }
+    }
+    
+    public void updateDepartment(CompDepartment oldDept){
+        CompDepartment newDept = new CompDepartment();
+        newDept = oldDept;
+        
+        newDept.setStartDate(LocalDate.parse(txtStartDate.getText()));
+        newDept.setJobDescription(txtAreaJobDescription.getText());
+        newDept.setLevel(cmbLevel.getSelectedItem().toString());
+        newDept.setLocation(cmbLocation.getSelectedItem().toString());
+        newDept.setPosition(cmbPosition.getSelectedItem().toString());
+        newDept.setRole(cmbRole.getSelectedItem().toString());
+        newDept.setTitle(txtJobTitle.getText());
+        newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
+        compDeptDir.updateCompDepartment(oldDept, newDept);
+        
+        updateDepartmentToDb(oldDept, newDept);
+        clearAllFields();
+        populateJobListingsTable(compDeptDir);
+    }
+    
+    public void updateDepartmentToDb(CompDepartment oldCompDepartment, CompDepartment newCompDepartment){
+        try {
+            
+            String queryNewDept = "UPDATE job_listings SET role = '" + newCompDepartment.getRole() + "' , level = '" + newCompDepartment.getLevel() + "'"
+                    + ", position = '" + newCompDepartment.getPosition()+ "', job_description = '" + newCompDepartment.getJobDescription() 
+                    + "', job_title = '" + newCompDepartment.getTitle()+  "', start_date = '" + newCompDepartment.getStartDate().toString()
+                    + "', salary_offered = '" + newCompDepartment.getSalaryPerHr()
+                    + "', location = '" + newCompDepartment.getLocation()+ "' WHERE id='"
+                    + oldCompDepartment.getJobId()+ "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewDept);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveDepartmentDetails(){
+        if( txtJobTitle.getText().equalsIgnoreCase("") || txtAreaJobDescription.getText().equalsIgnoreCase("") || 
+                txtSalaryOffered.getText().equalsIgnoreCase("") || txtStartDate.getText().equalsIgnoreCase("")
+                ){
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else{
+                CompDepartment newDept = compDeptDir.addCompDepartment();
+                
+                newDept.setStartDate(LocalDate.parse(txtStartDate.getText()));
+                newDept.setJobDescription(txtAreaJobDescription.getText());
+                newDept.setLevel(cmbLevel.getSelectedItem().toString());
+                newDept.setLocation(cmbLocation.getSelectedItem().toString());
+                newDept.setPosition(cmbPosition.getSelectedItem().toString());
+                newDept.setRole(cmbRole.getSelectedItem().toString());
+                newDept.setTitle(txtJobTitle.getText());
+                newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
+                
+                
+                
+                
+                saveDepartmentToDb(newDept);
+                clearAllFields();
+                populateJobListingsTable(compDeptDir);
+                
+            }
+           
+    }
+    
+    public void saveDepartmentToDb(CompDepartment department){
+        try {
+            String queryNewDepartment = "INSERT into job_listings (company_name, role, level, position, job_description, job_title, start_date, salary_offered, location) VALUES "
+                    + "('Hooli Corp', '"  + department.getRole()+ "' , '" + department.getLevel() + "' "
+                    + ", '" + department.getPosition()+ "' , '" + department.getJobDescription()+ "' , '" + department.getTitle()+ "' , '" + department.getStartDate().toString() + "' "
+                    + ", '" + department.getSalaryPerHr().toString() + "' , '" + department.getLocation() + "' )";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewDepartment); 
+            st.close();
+            
+            compDeptDir.removeAllCompDepartment();
+            getAllDepartments();
+            populateJobListingsTable(compDeptDir);
+            clearAllFields();
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteDepartment(CompDepartment dept){
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this entry?", "Confirm Deletion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.OK_OPTION ){
+            compDeptDir.deleteCompDepartment(dept);
+            deleteDepartmentFromDb(dept);
+            clearAllFields();
+            populateJobListingsTable(compDeptDir);
+        }else{
+            JOptionPane.showMessageDialog(this, "Deletion cancelled");
+        }
+        
+    }
+    
+    public void deleteDepartmentFromDb(CompDepartment dept){
+        try {
+            String queryDelDept = "DELETE FROM job_listings WHERE "
+                    + "id = '" + dept.getJobId() + "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryDelDept);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void displayDepartment(CompDepartment dept){
+        
+        txtAreaJobDescription.setText(dept.getJobDescription());
+        txtSalaryOffered.setText(dept.getSalaryPerHr().toString());
+        txtStartDate.setText(dept.getStartDate().toString());
+        txtJobTitle.setText(dept.getTitle());
+        
+        cmbLevel.setSelectedItem(dept.getLevel());
+        cmbLocation.setSelectedItem(dept.getLocation());
+        cmbPosition.setSelectedItem(dept.getPosition());
+        cmbRole.setSelectedItem(dept.getRole());
+
+    }
+    
+    public void clearAllFields(){
+        txtAreaJobDescription.setText("");
+        txtStartDate.setText("");
+        txtJobTitle.setText("");
+        txtSalaryOffered.setText("");
+        
+    }
+
 }

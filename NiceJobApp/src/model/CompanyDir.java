@@ -17,6 +17,14 @@ public class CompanyDir {
     public CompanyDir() {
         companyList = new ArrayList<>();
     }
+
+    public ArrayList<Company> getCompanyList() {
+        return companyList;
+    }
+
+    public void setCompanyList(ArrayList<Company> companyList) {
+        this.companyList = companyList;
+    }
     
     public Company addCompany(){
         Company newCompany = new Company();
