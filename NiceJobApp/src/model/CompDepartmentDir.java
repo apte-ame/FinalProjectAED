@@ -14,6 +14,14 @@ public class CompDepartmentDir {
     
     ArrayList<CompDepartment> compDepartmentList;
 
+    public ArrayList<CompDepartment> getCompDepartmentList() {
+        return compDepartmentList;
+    }
+
+    public void setCompDepartmentList(ArrayList<CompDepartment> compDepartmentList) {
+        this.compDepartmentList = compDepartmentList;
+    }
+
     public CompDepartmentDir() {
         compDepartmentList = new ArrayList<>();
     }
@@ -53,6 +61,66 @@ public class CompDepartmentDir {
             }
         }
         return null;
+    }
+    
+    public CompDepartment searchByJobId(Integer jobId){
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getJobId().equals(jobId)){
+                return compDepartment;
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<CompDepartment> searchByRole(String role){
+        ArrayList<CompDepartment> newCompDept = new ArrayList<CompDepartment>();
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getRole().equals(role)){
+                newCompDept.add(compDepartment);
+            }
+        }
+        return newCompDept;
+    }
+    
+    public ArrayList<CompDepartment> searchBySalary(Double salary){
+        ArrayList<CompDepartment> newCompDept = new ArrayList<CompDepartment>();
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getSalaryPerHr().equals(salary)){
+                newCompDept.add(compDepartment);
+            }
+        }
+        return newCompDept;
+    }
+    
+    public ArrayList<CompDepartment> searchByPosition(String position){
+        ArrayList<CompDepartment> newCompDept = new ArrayList<CompDepartment>();
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getPosition().equals(position)){
+                newCompDept.add(compDepartment);
+            }
+        }
+        return newCompDept;
+    }
+
+    public ArrayList<CompDepartment> searchByLevel(String level){
+        ArrayList<CompDepartment> newCompDept = new ArrayList<CompDepartment>();
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getLevel().equals(level)){
+                newCompDept.add(compDepartment);
+            }
+        }
+        return newCompDept;
+    }
+
+    
+    public ArrayList<CompDepartment> searchByJobDesc(String jobDesc){
+        ArrayList<CompDepartment> newCompDept = new ArrayList<CompDepartment>();
+        for(CompDepartment compDepartment : compDepartmentList){
+            if(compDepartment.getJobDescription().contains(jobDesc)){
+                newCompDept.add(compDepartment);
+            }
+        }
+        return newCompDept;
     }
     
     public CompDepartment searchByCompany(Company company){
