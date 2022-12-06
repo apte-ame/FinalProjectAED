@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Aditya
@@ -16,6 +18,17 @@ public class JobAppointments {
     private Integer jobListingsId;
     private String status;
     private String comments;
+    private LocalDate dateApplied;
+
+    public LocalDate getDateApplied() {
+        return dateApplied;
+    }
+
+    public void setDateApplied(LocalDate dateApplied) {
+        this.dateApplied = dateApplied;
+    }
+    
+    
 
     public Integer getApplicationId() {
         return applicationId;

@@ -32,6 +32,10 @@ public class CompDepartmentDir {
         return newCompDepartment;
     }
     
+    public void addCompDepartmentFromAnother(CompDepartment addCompDepartment){
+        compDepartmentList.add(addCompDepartment);
+    }
+    
     public void deleteCompDepartment(CompDepartment delCompDepartment){
         compDepartmentList.remove(delCompDepartment);
     }
