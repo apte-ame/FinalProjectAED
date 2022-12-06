@@ -5,7 +5,17 @@
 package UI;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import model.CompDepartment;
+import model.Company;
+import model.CompanyDir;
 
 /**
  *
@@ -19,12 +29,15 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
     JSplitPane splitPane;
     String choice = "";
     Connection conn = null;
+    Company comp = new Company();
+    CompanyDir compDir = new CompanyDir();
     
     public CompanyLoginJPanel(JSplitPane splitPaneMain, Connection conn) {
         initComponents();
         
         splitPane = splitPaneMain;
         this.conn = conn;
+        getAllCompanies();
     }
 
     /**
@@ -40,9 +53,9 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         clock1 = new clock.Clock();
         kGradientPanel2 = new keeptoo.KGradientPanel();
-        loginuserNametxt = new com.raven.swing.TextField();
-        loginPasswordtxt = new com.raven.swing.PasswordField();
-        buttonGradient1 = new button.ButtonGradient();
+        txtUsername = new com.raven.swing.TextField();
+        passfieldPassword = new com.raven.swing.PasswordField();
+        btnLogin = new button.ButtonGradient();
         show = new javax.swing.JLabel();
         hide = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -62,20 +75,20 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         kGradientPanel2.setkStartColor(new java.awt.Color(255, 255, 255));
         kGradientPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        loginuserNametxt.setLabelText("USER NAME");
-        kGradientPanel2.add(loginuserNametxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 27, 240, -1));
+        txtUsername.setLabelText("USER NAME");
+        kGradientPanel2.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 27, 240, -1));
 
-        loginPasswordtxt.setLabelText("PASSWORD");
-        kGradientPanel2.add(loginPasswordtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 109, 240, -1));
+        passfieldPassword.setLabelText("PASSWORD");
+        kGradientPanel2.add(passfieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 109, 240, -1));
 
-        buttonGradient1.setText("SIGN IN");
-        buttonGradient1.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
-        buttonGradient1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setText("SIGN IN");
+        btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGradient1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
-        kGradientPanel2.add(buttonGradient1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 200, 53));
+        kGradientPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 200, 53));
 
         show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pass show.png"))); // NOI18N
         show.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,15 +170,32 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane,conn);
-        splitPane.setRightComponent(departmentPanel);
-    }//GEN-LAST:event_buttonGradient1ActionPerformed
+            
+        String masterPassword = "";
+        
+        
+        Company selectedCompany = compDir.searchByUsername(txtUsername.getText());
+            if(selectedCompany == null){
+                JOptionPane.showMessageDialog(this, "Company does not exist");
+                clearAllFields();
+            }else{
+                if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword()))){
+                    CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane,conn,selectedCompany);
+                    splitPane.setRightComponent(departmentPanel);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
+                    clearAllFields();
+                }
+            }
+       
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void hideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMouseClicked
         // TODO add your handling code here:
-        loginPasswordtxt.setEchoChar((char)0);
+        passfieldPassword.setEchoChar((char)0);
         hide.setVisible(false);
         hide.setEnabled(false);
         show.setVisible(true);
@@ -174,7 +204,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
         // TODO add your handling code here:
-        loginPasswordtxt.setEchoChar((char)8226);
+        passfieldPassword.setEchoChar((char)8226);
         hide.setVisible(true);
         hide.setEnabled(true);
         show.setVisible(false);
@@ -183,7 +213,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
     private void hideMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMousePressed
         // TODO add your handling code here:
-        loginPasswordtxt.setEchoChar((char)0);
+        passfieldPassword.setEchoChar((char)0);
         hide.setVisible(false);
         hide.setEnabled(false);
         show.setVisible(true);
@@ -192,7 +222,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
     private void showMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMousePressed
         // TODO add your handling code here:
-         loginPasswordtxt.setEchoChar((char)8226);
+         passfieldPassword.setEchoChar((char)8226);
         hide.setVisible(true);
         hide.setEnabled(true);
         show.setVisible(false);
@@ -202,7 +232,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.ButtonGradient buttonGradient1;
+    private button.ButtonGradient btnLogin;
     private clock.Clock clock1;
     private button.Combobox combobox1;
     private javax.swing.JLabel hide;
@@ -211,8 +241,42 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
-    private com.raven.swing.PasswordField loginPasswordtxt;
-    private com.raven.swing.TextField loginuserNametxt;
+    private com.raven.swing.PasswordField passfieldPassword;
     private javax.swing.JLabel show;
+    private com.raven.swing.TextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+public void getAllCompanies(){
+        try {
+            
+            String queryCompanies = "SELECT * FROM companies";
+            
+            Statement stCompany = conn.createStatement();
+            
+            ResultSet rsCompany = stCompany.executeQuery(queryCompanies);
+                while(rsCompany.next())
+                {
+                    Company comp = compDir.addCompany();
+                    comp.setId(rsCompany.getInt("id"));
+                    comp.setUsername(rsCompany.getString("username"));
+                    comp.setPassword(rsCompany.getString("password"));
+                    comp.setName(rsCompany.getString("company_name"));
+                    comp.setCountry(rsCompany.getString("country"));
+                    comp.setState(rsCompany.getString("state"));
+                    comp.setDistrict(rsCompany.getString("district"));
+                    comp.setPincode(rsCompany.getString("pincode"));
+                    
+                }
+            
+                stCompany.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+public void clearAllFields(){
+        txtUsername.setText("");
+        passfieldPassword.setText("");        
+    }
 }
+
+
