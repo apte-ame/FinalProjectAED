@@ -101,7 +101,11 @@ public class CompDepartmentDir {
         }
         return newCompDept;
     }
-
+    
+    public void removeAllCompDepartment(){
+        compDepartmentList.clear();
+    }
+    
     public ArrayList<CompDepartment> searchByLevel(String level){
         ArrayList<CompDepartment> newCompDept = new ArrayList<CompDepartment>();
         for(CompDepartment compDepartment : compDepartmentList){
