@@ -42,13 +42,15 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     CompDepartmentDir compDeptDir = new CompDepartmentDir();
     CompanyDir compDir = new CompanyDir();
     Integer selectedRow = -1;
+    Company selectedComp = null;
     
-    
-    public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn) {
+    public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
         initComponents();
         btnPostListing.setEnabled(false);
         splitPane = splitPaneMain;
         this.conn = conn;
+        this.selectedComp = selectedComp;
+        lblHeading.setText(this.selectedComp.getName());
         getAllDepartments();
         populateJobListingsTable(compDeptDir);
         clearAllFields();
@@ -124,6 +126,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         btnRefreshTable1 = new button.Button();
         btnClear1 = new button.Button();
         btnViewSelected1 = new button.Button();
+        lblHeading = new javax.swing.JLabel();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
         dateChooser2.setTextRefernce(txtStartDate);
@@ -747,6 +750,8 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
 
         studentTabbedPane.addTab("VIEW APPLICANTS", panelStudentProfile);
 
+        lblHeading.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -755,11 +760,17 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(studentTabbedPane)
                 .addContainerGap())
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(lblHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblHeading, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(studentTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1014,6 +1025,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblCourse;
     private javax.swing.JLabel lblExpGradDate;
     private javax.swing.JLabel lblGPA;
+    private javax.swing.JLabel lblHeading;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblJobDescription;
     private javax.swing.JLabel lblJobTitle;
@@ -1045,30 +1057,31 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     
     public void getAllDepartments(){
         try {
-            String queryDepartments = "SELECT * FROM job_listings";
-            String queryCompanies = "SELECT * FROM companies";
+            String queryDepartments = "SELECT * FROM job_listings WHERE company_name='"+selectedComp.getName()+"'";
+//            String queryCompanies = "SELECT * FROM companies";
             Statement st = conn.createStatement();
-            Statement stCompany = conn.createStatement();
+//            Statement stCompany = conn.createStatement();
             ResultSet rs = st.executeQuery(queryDepartments); 
-            ResultSet rsCompany = stCompany.executeQuery(queryCompanies);
-                while(rsCompany.next())
-                {
-                    Company comp = compDir.addCompany();
-                    comp.setId(rsCompany.getInt("id"));
-                    comp.setName(rsCompany.getString("company_name"));
-                    comp.setCountry(rsCompany.getString("country"));
-                    comp.setState(rsCompany.getString("state"));
-                    comp.setDistrict(rsCompany.getString("district"));
-                    comp.setPincode(rsCompany.getString("pincode"));
-                    
-                }
+//            ResultSet rsCompany = stCompany.executeQuery(queryCompanies);
+//                while(rsCompany.next())
+//                {
+//                    Company comp = compDir.addCompany();
+//                    comp.setId(rsCompany.getInt("id"));
+//                    comp.setName(rsCompany.getString("company_name"));
+//                    comp.setCountry(rsCompany.getString("country"));
+//                    comp.setState(rsCompany.getString("state"));
+//                    comp.setDistrict(rsCompany.getString("district"));
+//                    comp.setPincode(rsCompany.getString("pincode"));
+//                    
+//                }
                 while (rs.next())
                 {
+                    
                     CompDepartment dept = compDeptDir.addCompDepartment();
                     
                     dept.setJobId(rs.getInt("id"));
-                    Company requiredCompany = compDir.searchByName(rs.getString("company_name"));
-                    dept.setCompany(requiredCompany);                 
+//                    Company requiredCompany = compDir.searchByName(rs.getString("company_name"));
+                    dept.setCompany(selectedComp);                 
                     dept.setJobDescription(rs.getString("job_description"));
                     dept.setLevel(rs.getString("level"));
                     dept.setLocation(rs.getString("location"));
@@ -1081,7 +1094,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                     
                 }
                 st.close();
-                stCompany.close();
+//                stCompany.close();
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1172,7 +1185,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     public void saveDepartmentToDb(CompDepartment department){
         try {
             String queryNewDepartment = "INSERT into job_listings (company_name, role, level, position, job_description, job_title, start_date, salary_offered, location) VALUES "
-                    + "('Hooli Corp', '"  + department.getRole()+ "' , '" + department.getLevel() + "' "
+                    + "('"+ selectedComp.getName()+ "', '"  + department.getRole()+ "' , '" + department.getLevel() + "' "
                     + ", '" + department.getPosition()+ "' , '" + department.getJobDescription()+ "' , '" + department.getTitle()+ "' , '" + department.getStartDate().toString() + "' "
                     + ", '" + department.getSalaryPerHr().toString() + "' , '" + department.getLocation() + "' )";
             Statement st = conn.createStatement();

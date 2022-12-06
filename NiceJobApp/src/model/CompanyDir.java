@@ -63,6 +63,15 @@ public class CompanyDir {
         return null;
     }
     
+    public Company searchByUsername(String username){
+        for(Company company : companyList){
+            if(company.getUsername().equals(username)){
+                return company;
+            }
+        }
+        return null;
+    }
+    
     public Company searchByDistrict(String district){
         for(Company company : companyList){
             if(company.getDistrict().equals(district)){

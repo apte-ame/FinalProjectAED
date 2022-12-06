@@ -113,7 +113,7 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="com.raven.swing.TextField" name="loginuserNametxt">
+            <Component class="com.raven.swing.TextField" name="txtUsername">
               <Properties>
                 <Property name="labelText" type="java.lang.String" value="USER NAME"/>
               </Properties>
@@ -123,7 +123,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="com.raven.swing.PasswordField" name="loginPasswordtxt">
+            <Component class="com.raven.swing.PasswordField" name="passfieldPassword">
               <Properties>
                 <Property name="labelText" type="java.lang.String" value="PASSWORD"/>
               </Properties>
@@ -133,7 +133,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="button.ButtonGradient" name="buttonGradient1">
+            <Component class="button.ButtonGradient" name="btnLogin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="SIGN IN"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -141,7 +141,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGradient1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
