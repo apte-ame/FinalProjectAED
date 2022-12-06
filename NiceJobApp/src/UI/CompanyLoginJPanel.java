@@ -159,7 +159,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
     private void buttonGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient1ActionPerformed
         // TODO add your handling code here:
-        CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane);
+        CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane,conn);
         splitPane.setRightComponent(departmentPanel);
     }//GEN-LAST:event_buttonGradient1ActionPerformed
 

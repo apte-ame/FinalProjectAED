@@ -17,6 +17,8 @@ public class Company {
     private String country;
     private String pincode;
 
+    
+
     public Integer getId() {
         return id;
     }
@@ -64,5 +66,7 @@ public class Company {
     public void setPincode(String pincode) {
         this.pincode = pincode;
     }
+    
+    
     
 }
