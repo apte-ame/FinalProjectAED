@@ -1157,11 +1157,12 @@
                           <Font name="Trebuchet MS" size="15" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
+                          <StringArray count="5">
                             <StringItem index="0" value="Applied"/>
                             <StringItem index="1" value="Interview Scheduled"/>
                             <StringItem index="2" value="Accepted"/>
-                            <StringItem index="3" value="Rejected"/>
+                            <StringItem index="3" value="On-Hold"/>
+                            <StringItem index="4" value="Rejected"/>
                           </StringArray>
                         </Property>
                       </Properties>

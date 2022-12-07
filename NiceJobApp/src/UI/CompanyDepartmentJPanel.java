@@ -59,6 +59,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     UniversityDir universities = new UniversityDir();
     UniDepartmentDir uniDepartments = new UniDepartmentDir();
     JobAppointmentsDir jobAppDir = new JobAppointmentsDir(); 
+    JobAppointments selectedJob = new JobAppointments();
     
     public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
         initComponents();
@@ -615,7 +616,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         lblStatus.setText("Status");
 
         cmbStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Applied", "Interview Scheduled", "Accepted", "Rejected" }));
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Applied", "Interview Scheduled", "Accepted", "On-Hold", "Rejected" }));
 
         lblComments.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblComments.setText("Comments");
@@ -964,7 +965,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
             JobAppointments jobApp = (JobAppointments) tableModel.getValueAt(selectedRowStudent, 0);
             viewJobAppointment(jobApp);
-            
+            selectedJob = jobApp;
         }
     }//GEN-LAST:event_btnViewSelected1ActionPerformed
 
@@ -1065,6 +1066,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
 
     private void nxtSavebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nxtSavebtnActionPerformed
         // TODO add your handling code here:
+        updateStatus(selectedJob);
     }//GEN-LAST:event_nxtSavebtnActionPerformed
 
     private void txtJobTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJobTitleActionPerformed
@@ -1526,5 +1528,56 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             cmbStatus.setSelectedItem("");
         }
         
+    }
+    
+    public void updateStatus(JobAppointments jobApp){
+        if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Applied")){
+            JOptionPane.showMessageDialog(this, "Incorrect selection. Please try again.");
+            clearAllFieldsViewApplicants();
+        }else{
+            JobAppointments newJobApp = new JobAppointments();
+            newJobApp = jobApp;
+            newJobApp.setStatus(cmbStatus.getSelectedItem().toString());
+            newJobApp.setComments(txtAreaComments.getText());
+
+            jobAppDir.updateJobAppointment(jobApp, newJobApp);
+            if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Accepted")){
+                saveJobAppUpdateToDb(newJobApp);
+                updateStudentJobAccess(newJobApp);
+            }else{
+                saveJobAppUpdateToDb(newJobApp);
+                updateStudentJobAccess(newJobApp);
+            }
+            populateStudentDetilsTable(jobAppDir);
+            clearAllFieldsViewApplicants();
+        }
+    }
+    
+    public void saveJobAppUpdateToDb(JobAppointments jobApp){
+        try {
+            String queryUpdateJobApp = "UPDATE appointments SET status = '" + jobApp.getStatus() + "' , comments = '" + jobApp.getComments() + "' WHERE application_id = '"
+                    + jobApp.getApplicationId().toString() + "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryUpdateJobApp);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateStudentJobAccess(JobAppointments jobApp){
+        try {
+            String jobAccess = "1";
+            if(jobApp.getStatus().equalsIgnoreCase("Accepted")){
+                jobAccess = "0";
+            }
+            String queryUpdateStudent = "UPDATE uni_student SET jd_watch_eligible = '"+jobAccess+"' WHERE student_gov_id = '"
+                    + jobApp.getSevisId() + "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryUpdateStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

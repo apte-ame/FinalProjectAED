@@ -61,10 +61,10 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         
         if(student.getJdWatchAccess()){
             studentTabbedPane.setEnabledAt(1, true);
-            studentTabbedPane.setEnabledAt(2, true);
+            btnWithdraw.setEnabled(true);
         }else{
             studentTabbedPane.setEnabledAt(1, false);
-            studentTabbedPane.setEnabledAt(2, false);
+            btnWithdraw.setEnabled(false);
         }
         
         populateAllFields(student);
@@ -953,8 +953,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnWithdraw.setForeground(new java.awt.Color(0, 0, 0));
         btnWithdraw.setText("Withdraw Application");
-        btnWithdraw.setEnabled(false);
         btnWithdraw.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnWithdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1787,7 +1787,12 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         }else{
             txtStatus.setText("");
         }
-        btnWithdraw.setEnabled(true);
+        if(student.getJdWatchAccess()){
+            btnWithdraw.setEnabled(true);
+        }else{
+            btnWithdraw.setEnabled(false);
+        }
+        
     }
     
     public void clearAllFieldsMyApp(){
