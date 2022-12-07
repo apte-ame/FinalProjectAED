@@ -31,6 +31,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
     Connection conn = null;
     Company comp = new Company();
     CompanyDir compDir = new CompanyDir();
+    String masterPassword = "";
     
     public CompanyLoginJPanel(JSplitPane splitPaneMain, Connection conn) {
         initComponents();
@@ -59,7 +60,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         show = new javax.swing.JLabel();
         hide = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        combobox1 = new button.Combobox();
+        cmbRoleSelection = new button.Combobox();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
@@ -115,10 +116,10 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login and pass 1.png"))); // NOI18N
         kGradientPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
 
-        combobox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitement Team", "Human Resources", "Company Departments" }));
-        combobox1.setSelectedIndex(-1);
-        combobox1.setLabeText("Role Selection");
-        kGradientPanel2.add(combobox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 190, 240, -1));
+        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitement Team", "Human Resources", "Company Departments" }));
+        cmbRoleSelection.setSelectedIndex(-1);
+        cmbRoleSelection.setLabeText("Role Selection");
+        kGradientPanel2.add(cmbRoleSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 190, 240, -1));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -173,22 +174,22 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
             
-        String masterPassword = "";
-        
-        
         Company selectedCompany = compDir.searchByUsername(txtUsername.getText());
-            if(selectedCompany == null){
-                JOptionPane.showMessageDialog(this, "Company does not exist");
-                clearAllFields();
+        if(selectedCompany == null){
+            JOptionPane.showMessageDialog(this, "Company does not exist");
+            clearAllFields();
+        }else{
+            if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Recruitement Team")){
+                CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane,conn,selectedCompany);
+                splitPane.setRightComponent(departmentPanel);
+            }else if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Human Resources")){
+                CompanyHRJPanel hrPanel = new CompanyHRJPanel(splitPane, conn, selectedCompany);
+                splitPane.setRightComponent(hrPanel);
             }else{
-                if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword()))){
-                    CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane,conn,selectedCompany);
-                    splitPane.setRightComponent(departmentPanel);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
-                    clearAllFields();
-                }
+                JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
+                clearAllFields();
             }
+        }
        
         
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -234,7 +235,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.ButtonGradient btnLogin;
     private clock.Clock clock1;
-    private button.Combobox combobox1;
+    private button.Combobox cmbRoleSelection;
     private javax.swing.JLabel hide;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

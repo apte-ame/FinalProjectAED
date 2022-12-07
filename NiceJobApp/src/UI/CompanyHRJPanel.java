@@ -4,11 +4,13 @@
  */
 package UI;
 
+import java.sql.Connection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.event.MouseInputListener;
+import model.Company;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.VirtualEarthTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
@@ -35,11 +37,15 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
     String choice = "";
     private final Set<MyWaypoint> waypoints = new HashSet<>();
     private EventWaypoint event;
+    Connection conn = null;
+    Company selectedComp = null;
     
-    public CompanyHRJPanel(JSplitPane splitPaneMain) {
+    public CompanyHRJPanel(JSplitPane splitPane, Connection conn, Company selectedComp) {
         initComponents();
          init();
-        splitPane = splitPaneMain;
+        this.splitPane = splitPane;
+        this.conn = conn;
+        this.selectedComp = selectedComp;
     }
     
        private void init() {
@@ -103,9 +109,9 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        wagejPanel = new javax.swing.JPanel();
+        acceptedCandidatesJPanel = new javax.swing.JPanel();
         kGradientPanel3 = new keeptoo.KGradientPanel();
-        govjPanel = new javax.swing.JPanel();
+        govVerifyJPanel = new javax.swing.JPanel();
         kGradientPanel4 = new keeptoo.KGradientPanel();
         mapjPanel = new javax.swing.JPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
@@ -138,18 +144,18 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
             .addGap(0, 493, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout wagejPanelLayout = new javax.swing.GroupLayout(wagejPanel);
-        wagejPanel.setLayout(wagejPanelLayout);
-        wagejPanelLayout.setHorizontalGroup(
-            wagejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout acceptedCandidatesJPanelLayout = new javax.swing.GroupLayout(acceptedCandidatesJPanel);
+        acceptedCandidatesJPanel.setLayout(acceptedCandidatesJPanelLayout);
+        acceptedCandidatesJPanelLayout.setHorizontalGroup(
+            acceptedCandidatesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        wagejPanelLayout.setVerticalGroup(
-            wagejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        acceptedCandidatesJPanelLayout.setVerticalGroup(
+            acceptedCandidatesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("WAGE RANGE", wagejPanel);
+        jTabbedPane1.addTab("ACCEPTED CANDIDATES", acceptedCandidatesJPanel);
 
         kGradientPanel4.setkEndColor(new java.awt.Color(217, 247, 200));
         kGradientPanel4.setkGradientFocus(1000);
@@ -166,18 +172,18 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
             .addGap(0, 493, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout govjPanelLayout = new javax.swing.GroupLayout(govjPanel);
-        govjPanel.setLayout(govjPanelLayout);
-        govjPanelLayout.setHorizontalGroup(
-            govjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout govVerifyJPanelLayout = new javax.swing.GroupLayout(govVerifyJPanel);
+        govVerifyJPanel.setLayout(govVerifyJPanelLayout);
+        govVerifyJPanelLayout.setHorizontalGroup(
+            govVerifyJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        govjPanelLayout.setVerticalGroup(
-            govjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        govVerifyJPanelLayout.setVerticalGroup(
+            govVerifyJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("GOVERNMENT ", govjPanel);
+        jTabbedPane1.addTab("GOVERNMENT VERIFICATION", govVerifyJPanel);
 
         kGradientPanel2.setkEndColor(new java.awt.Color(217, 247, 200));
         kGradientPanel2.setkGradientFocus(1000);
@@ -320,10 +326,11 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel acceptedCandidatesJPanel;
     private javax.swing.JButton addwaypoint;
     private javax.swing.JButton clearwaypoint;
     private javax.swing.JComboBox<String> comboMaptype;
-    private javax.swing.JPanel govjPanel;
+    private javax.swing.JPanel govVerifyJPanel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private org.jxmapviewer.JXMapViewer jXMapViewer;
@@ -332,6 +339,5 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel3;
     private keeptoo.KGradientPanel kGradientPanel4;
     private javax.swing.JPanel mapjPanel;
-    private javax.swing.JPanel wagejPanel;
     // End of variables declaration//GEN-END:variables
 }

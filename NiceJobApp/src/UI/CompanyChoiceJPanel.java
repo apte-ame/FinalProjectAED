@@ -171,8 +171,8 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
 
     private void btnHRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHRActionPerformed
 //        // TODO add your handling code here:
-         CompanyHRJPanel companyHRPanel = new CompanyHRJPanel(splitPane);
-        splitPane.setRightComponent(companyHRPanel);
+//         CompanyHRJPanel companyHRPanel = new CompanyHRJPanel(splitPane, conn, selectedComp);
+//        splitPane.setRightComponent(companyHRPanel);
 
         
     }//GEN-LAST:event_btnHRActionPerformed
