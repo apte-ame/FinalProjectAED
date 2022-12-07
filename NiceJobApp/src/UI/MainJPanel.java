@@ -76,6 +76,11 @@ public class MainJPanel extends javax.swing.JPanel {
         btnRecruitmentHub.setForeground(new java.awt.Color(255, 255, 255));
         btnRecruitmentHub.setText("Recruitment Hub");
         btnRecruitmentHub.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        btnRecruitmentHub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecruitmentHubActionPerformed(evt);
+            }
+        });
 
         btnGovernment.setBackground(new java.awt.Color(254, 93, 124));
         btnGovernment.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,6 +199,17 @@ public class MainJPanel extends javax.swing.JPanel {
         CompanyChoiceJPanel companychoicePanel = new CompanyChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(companychoicePanel);
     }//GEN-LAST:event_btnCompanyActionPerformed
+
+    private void btnRecruitmentHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecruitmentHubActionPerformed
+        // TODO add your handling code here:
+//         CityServicesChoiceJPanel cscPanel = new  CityServicesChoiceJPanel(splitPane);
+//        splitPane.setRightComponent(cscPanel);
+
+       GovernmentAnalyticsJPanel govanalyticsPanel = new GovernmentAnalyticsJPanel(splitPane);
+        splitPane.setRightComponent(govanalyticsPanel);
+
+
+    }//GEN-LAST:event_btnRecruitmentHubActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

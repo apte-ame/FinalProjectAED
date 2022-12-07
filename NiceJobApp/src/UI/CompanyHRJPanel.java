@@ -46,7 +46,7 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         TileFactoryInfo info = new OSMTileFactoryInfo();
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
         jXMapViewer.setTileFactory(tileFactory);
-        GeoPosition geo = new GeoPosition( 17.4201543, 78.3280784);
+        GeoPosition geo = new GeoPosition( 42.3514962, -71.1354542);
         jXMapViewer.setAddressLocation(geo);
         jXMapViewer.setZoom(20);
 
@@ -309,8 +309,8 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
 
     private void addwaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addwaypointActionPerformed
         // TODO add your handling code here:
-       addWaypoint(new MyWaypoint("Amazon 001", event, new GeoPosition(17.4201543, 78.3280784)));
-       addWaypoint(new MyWaypoint("Test 002", event, new GeoPosition(11.634007, 104.750676)));
+       addWaypoint(new MyWaypoint("Target", event, new GeoPosition(42.3505916,-71.1247477)));
+       //addWaypoint(new MyWaypoint("Test 002", event, new GeoPosition(11.634007, 104.750676)));
     }//GEN-LAST:event_addwaypointActionPerformed
 
     private void clearwaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearwaypointActionPerformed

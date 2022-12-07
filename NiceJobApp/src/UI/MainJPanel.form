@@ -175,6 +175,9 @@
                   <Font name="Segoe UI Emoji" size="20" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecruitmentHubActionPerformed"/>
+              </Events>
             </Component>
             <Component class="button.Button" name="btnGovernment">
               <Properties>
