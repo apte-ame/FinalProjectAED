@@ -31,6 +31,7 @@ import model.UniCollege;
 import model.UniCollegeDir;
 import model.UniDepartment;
 import model.UniDepartmentDir;
+import model.UniExamCell;
 import model.UniStudent;
 import model.UniStudentDir;
 import model.University;
@@ -51,7 +52,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     UniversityDir universities = new UniversityDir();
     UniDepartmentDir uniDepartments = new UniDepartmentDir();
     UniStudentDir uniStudents = new UniStudentDir();
-
+    UniExamCell selectedUniExamCell = new UniExamCell();
     Integer selectedUniversityId = 0;
     Integer selectedCollegeId = 0;
     Integer selectedDepartmentId = 0;
@@ -59,14 +60,17 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     
     Connection conn = null;
     
-    public UniExamCellJPanel(JSplitPane splitPane, Connection conn) {
+    public UniExamCellJPanel(JSplitPane splitPane, Connection conn, UniExamCell selectedUniExamCell) {
         initComponents();
         
         this.splitPane = splitPane;
         this.conn = conn;
-        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         
+        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+        this.selectedUniExamCell = selectedUniExamCell;
+        lblHeading2.setText(this.selectedUniExamCell.getName());
         getAllUniversityData();
+        
         selectedCollegeId = 1;
         getAllStudents();
         clearAllFields();
@@ -99,7 +103,6 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
         txtContactNo = new javax.swing.JTextField();
         txtEmailId = new javax.swing.JTextField();
         btnLogOut = new button.Button();
-        jLabel1 = new javax.swing.JLabel();
         lblStudentName = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -115,6 +118,8 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         cmbSemester = new javax.swing.JComboBox<>();
+        lblHeading2 = new javax.swing.JLabel();
+        lblHeading1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 650));
 
@@ -230,8 +235,6 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/MASS(100 × 50 px) (1).png"))); // NOI18N
-
         lblStudentName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblStudentName.setForeground(new java.awt.Color(255, 255, 255));
         lblStudentName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -312,6 +315,10 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
         cmbSemester.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         cmbSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
+        lblHeading2.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+
+        lblHeading1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -332,8 +339,11 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblHeading1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(237, 237, 237)
                         .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -406,10 +416,17 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblHeading1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -460,7 +477,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
@@ -716,7 +733,6 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbIntake;
     private javax.swing.JComboBox<String> cmbSemester;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -728,6 +744,8 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblHeading1;
+    private javax.swing.JLabel lblHeading2;
     private javax.swing.JLabel lblStudentName;
     private javax.swing.JSlider sliderGPA;
     private javax.swing.JTable tblStudentDetails;
@@ -756,7 +774,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                     university.setPincode(rs.getLong("pincode"));
                 }
                 st.close();
-
+                lblHeading1.setText(universities.searchById(selectedUniExamCell.getUniversityId()).getName());
                 //Colleges
                 String queryCollege = "SELECT * FROM uni_college";
                 Statement stCollege = conn.createStatement();
@@ -958,7 +976,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     
     public void getAllStudents(){
         try {
-            String queryStudents = "SELECT * FROM uni_student";
+            String queryStudents = "SELECT * FROM uni_student WHERE university_id='"+selectedUniExamCell.getUniversityId()+"'";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(queryStudents);                
                 while (rs.next())

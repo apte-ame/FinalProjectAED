@@ -8,6 +8,7 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import model.UniCareerAdvisor;
+import model.UniExamCell;
 
 /**
  *
@@ -176,6 +177,7 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
         String username = "";
         String password = "";
         UniCareerAdvisor advisor = null;
+        UniExamCell uniExamCell = null;
         if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("student")){
             
             
@@ -183,7 +185,7 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
             UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn,advisor);
             splitPane.setRightComponent(advisorPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
-            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn);
+            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn,uniExamCell);
             splitPane.setRightComponent(examCellPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
             
