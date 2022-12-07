@@ -78,4 +78,14 @@ public class UniCareerAdvisorDir {
         }
         return null;
     }
+    
+    public UniCareerAdvisor searchByUniversityId(Integer uniId){
+        for(UniCareerAdvisor uniCareerAdvisor : uniCareerAdvisorList){
+            if(uniCareerAdvisor.getUniversityId().equals(uniId)){
+                return uniCareerAdvisor;
+            }
+        }
+        return null;
+    }
+    
 }

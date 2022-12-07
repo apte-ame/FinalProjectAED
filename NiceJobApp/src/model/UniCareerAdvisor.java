@@ -15,7 +15,16 @@ public class UniCareerAdvisor {
     private UniDepartment department;
     private String username;
     private String password;
+    private Integer universityId;
 
+    public Integer getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(Integer universityId) {
+        this.universityId = universityId;
+    }
+    
     public String getUsername() {
         return username;
     }
