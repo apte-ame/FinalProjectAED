@@ -1592,6 +1592,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                     dept.setSalaryPerHr(rs.getDouble("salary_offered"));
                     dept.setStartDate(LocalDate.parse(rs.getString("start_date")));
                     dept.setTitle(rs.getString("job_title"));
+                    dept.setVisible(rs.getBoolean("visible"));
                     
                     
                 }
@@ -1608,12 +1609,14 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         
         for(CompDepartment dept : compDepartmentDir.getCompDepartmentList()){
             Object row[] = new Object[5];
-            row[0] = dept;
-            row[1] = dept.getCompany().getName();
-            row[2] = dept.getLocation();
-            row[3] = dept.getRole();
-            row[4] = dept.getLevel();
-            tableModel.addRow(row);
+            if(dept.getVisible()){
+                row[0] = dept;
+                row[1] = dept.getCompany().getName();
+                row[2] = dept.getLocation();
+                row[3] = dept.getRole();
+                row[4] = dept.getLevel();
+                tableModel.addRow(row);
+            }
         }
     }
     
@@ -1622,7 +1625,6 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         
         for(CompDepartment dept : compDepartmentDir.getCompDepartmentList()){
-            System.out.println(dept);
             Object row[] = new Object[8];
             row[0] = dept;
             row[1] = dept.getTitle();
@@ -1633,6 +1635,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             row[6] = dept.getStartDate().toString();
             row[7] = dept.getSalaryPerHr().toString();
             tableModel.addRow(row);
+            
+            
         }
     }
     

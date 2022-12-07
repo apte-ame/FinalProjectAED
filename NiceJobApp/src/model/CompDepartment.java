@@ -24,6 +24,17 @@ public class CompDepartment {
     private Double salaryPerHr;
     private String title;
     private Integer jobId;
+    private Boolean visible;
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+    
+    
 
     public Integer getJobId() {
         return jobId;

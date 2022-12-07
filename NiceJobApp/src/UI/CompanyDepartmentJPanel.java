@@ -1166,29 +1166,14 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     public void getAllDepartments(){
         try {
             String queryDepartments = "SELECT * FROM job_listings WHERE company_name='"+selectedComp.getName()+"'";
-//            String queryCompanies = "SELECT * FROM companies";
             Statement st = conn.createStatement();
-//            Statement stCompany = conn.createStatement();
             ResultSet rs = st.executeQuery(queryDepartments); 
-//            ResultSet rsCompany = stCompany.executeQuery(queryCompanies);
-//                while(rsCompany.next())
-//                {
-//                    Company comp = compDir.addCompany();
-//                    comp.setId(rsCompany.getInt("id"));
-//                    comp.setName(rsCompany.getString("company_name"));
-//                    comp.setCountry(rsCompany.getString("country"));
-//                    comp.setState(rsCompany.getString("state"));
-//                    comp.setDistrict(rsCompany.getString("district"));
-//                    comp.setPincode(rsCompany.getString("pincode"));
-//                    
-//                }
                 while (rs.next())
                 {
                     
                     CompDepartment dept = compDeptDir.addCompDepartment();
                     
                     dept.setJobId(rs.getInt("id"));
-//                    Company requiredCompany = compDir.searchByName(rs.getString("company_name"));
                     dept.setCompany(selectedComp);                 
                     dept.setJobDescription(rs.getString("job_description"));
                     dept.setLevel(rs.getString("level"));
@@ -1198,6 +1183,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                     dept.setSalaryPerHr(rs.getDouble("salary_offered"));
                     dept.setStartDate(LocalDate.parse(rs.getString("start_date")));
                     dept.setTitle(rs.getString("job_title"));
+                    dept.setVisible(rs.getBoolean("visible"));
                     
                     
                 }
@@ -1213,16 +1199,18 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         
         for(CompDepartment dept : compDepartmentDir.getCompDepartmentList()){
-            Object row[] = new Object[8];
-            row[0] = dept;
-            row[1] = dept.getTitle();
-            row[2] = dept.getLocation();
-            row[3] = dept.getRole();
-            row[4] = dept.getLevel();
-            row[5] = dept.getPosition();
-            row[6] = dept.getStartDate().toString();
-            row[7] = dept.getSalaryPerHr().toString();
-            tableModel.addRow(row);
+            if(dept.getVisible()){
+                Object row[] = new Object[8];
+                row[0] = dept;
+                row[1] = dept.getTitle();
+                row[2] = dept.getLocation();
+                row[3] = dept.getRole();
+                row[4] = dept.getLevel();
+                row[5] = dept.getPosition();
+                row[6] = dept.getStartDate().toString();
+                row[7] = dept.getSalaryPerHr().toString();
+                tableModel.addRow(row);
+            }
         }
     }
     
@@ -1278,9 +1266,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 newDept.setRole(cmbRole.getSelectedItem().toString());
                 newDept.setTitle(txtJobTitle.getText());
                 newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
-                
-                
-                
+                newDept.setVisible(true);
                 
                 saveDepartmentToDb(newDept);
                 clearAllFields();
@@ -1292,10 +1278,10 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     
     public void saveDepartmentToDb(CompDepartment department){
         try {
-            String queryNewDepartment = "INSERT into job_listings (company_name, role, level, position, job_description, job_title, start_date, salary_offered, location) VALUES "
+            String queryNewDepartment = "INSERT into job_listings (company_name, role, level, position, job_description, job_title, start_date, salary_offered, location, visible) VALUES "
                     + "('"+ selectedComp.getName()+ "', '"  + department.getRole()+ "' , '" + department.getLevel() + "' "
                     + ", '" + department.getPosition()+ "' , '" + department.getJobDescription()+ "' , '" + department.getTitle()+ "' , '" + department.getStartDate().toString() + "' "
-                    + ", '" + department.getSalaryPerHr().toString() + "' , '" + department.getLocation() + "' )";
+                    + ", '" + department.getSalaryPerHr().toString() + "' , '" + department.getLocation() + "' , '1' )";
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewDepartment); 
             st.close();
@@ -1313,7 +1299,10 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     public void deleteDepartment(CompDepartment dept){
         int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this entry?", "Confirm Deletion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.OK_OPTION ){
-            compDeptDir.deleteCompDepartment(dept);
+//            compDeptDir.deleteCompDepartment(dept);
+            CompDepartment newDept = new CompDepartment();
+            newDept = dept;
+            newDept.setVisible(false);
             deleteDepartmentFromDb(dept);
             clearAllFields();
             populateJobListingsTable(compDeptDir);
@@ -1325,7 +1314,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     
     public void deleteDepartmentFromDb(CompDepartment dept){
         try {
-            String queryDelDept = "DELETE FROM job_listings WHERE "
+            String queryDelDept = "UPDATE job_listings SET visible = '0' WHERE "
                     + "id = '" + dept.getJobId() + "'";
             Statement st = conn.createStatement();
             st.executeUpdate(queryDelDept);   
