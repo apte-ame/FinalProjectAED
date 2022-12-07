@@ -66,7 +66,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" pref="86" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" pref="532" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -84,11 +84,11 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="wagejPanel">
+            <Container class="javax.swing.JPanel" name="acceptedCandidatesJPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="WAGE RANGE">
-                    <Property name="tabTitle" type="java.lang.String" value="WAGE RANGE"/>
+                  <JTabbedPaneConstraints tabName="ACCEPTED CANDIDATES">
+                    <Property name="tabTitle" type="java.lang.String" value="ACCEPTED CANDIDATES"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -132,11 +132,11 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="govjPanel">
+            <Container class="javax.swing.JPanel" name="govVerifyJPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="GOVERNMENT ">
-                    <Property name="tabTitle" type="java.lang.String" value="GOVERNMENT "/>
+                  <JTabbedPaneConstraints tabName="GOVERNMENT VERIFICATION">
+                    <Property name="tabTitle" type="java.lang.String" value="GOVERNMENT VERIFICATION"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

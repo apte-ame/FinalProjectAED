@@ -1533,9 +1533,11 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Accepted")){
                 saveJobAppUpdateToDb(newJobApp);
                 updateStudentJobAccess(newJobApp);
+                saveAcceptedJobToDb(newJobApp);
             }else{
                 saveJobAppUpdateToDb(newJobApp);
                 updateStudentJobAccess(newJobApp);
+                deleteAcceptedJobToDb(newJobApp);
             }
             populateStudentDetilsTable(jobAppDir);
             clearAllFieldsViewApplicants();
@@ -1568,5 +1570,114 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void saveAcceptedJobToDb(JobAppointments jobApp){
+        try {
+            String queryNewDepartment = "INSERT into accepted_jobs (job_listings_id, student_gov_id, company_id, company_name, expected_grad_date, start_date, position, salary, course, job_title) VALUES "
+                    + "('"+ jobApp.getJobListingsId().toString() + "', '"  + jobApp.getSevisId() + "' , '" + jobApp.getCompanyId().toString() + "' "
+                    + ", '" + selectedComp.getName() + "' , '" + getExpectedEndDate(uniStudents.searchBySevisId(jobApp.getSevisId())).toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getStartDate().toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getPosition() + "' "
+                    + ", '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getSalaryPerHr().toString() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getTitle() + "' )";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewDepartment); 
+            st.close();
+            
+            compDeptDir.removeAllCompDepartment();
+            getAllDepartments();
+            populateJobListingsTable(compDeptDir);
+            clearAllFields();
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteAcceptedJobToDb(JobAppointments jobApp){
+        try {
+            String queryNewDepartment = "DELETE from accepted_jobs WHERE job_listings_id = '" + jobApp.getJobListingsId().toString() + "' AND student_gov_id = '"+ jobApp.getSevisId() +"' AND company_id = '" + jobApp.getCompanyId().toString() + "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewDepartment); 
+            st.close();
+            
+            compDeptDir.removeAllCompDepartment();
+            getAllDepartments();
+            populateJobListingsTable(compDeptDir);
+            clearAllFields();
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public LocalDate getExpectedEndDate(UniStudent student){
+        LocalDate today = LocalDate.now();
+        Integer month = today.getMonthValue();
+        Integer year = today.getYear();
+        
+        LocalDate expectedStart = LocalDate.now();
+        if(student.getSemester()==1){
+            Integer monthsAdv = ((month + 9) % 12) / 4;
+            Integer yearAdv = year;
+            if(month >= 9){
+                yearAdv+=1;
+            }
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-04-30";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-08-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-12-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }else if(student.getSemester()==2){
+            Integer monthsAdv = ((month + 6) % 12) / 4;
+            Integer yearAdv = year;
+            if(month >= 9){
+                yearAdv+=1;
+            }
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-04-30";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-08-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-12-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }else if(student.getSemester()==3){
+            Integer monthsAdv = ((month + 3) % 12) / 4;
+            Integer yearAdv = year;
+            if(month >= 9){
+                yearAdv+=1;
+            }
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-04-30";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-08-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-12-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }else{
+            Integer monthsAdv = ((month - 1) % 12) / 4;
+            Integer yearAdv = year;
+            
+            if(monthsAdv == 0){
+                String expectedStartStr = yearAdv.toString() + "-04-30";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else if(monthsAdv == 1){
+                String expectedStartStr = yearAdv.toString() + "-08-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }else{
+                String expectedStartStr = yearAdv.toString() + "-12-31";
+                expectedStart = LocalDate.parse(expectedStartStr);
+            }
+        }
+        return expectedStart;
     }
 }
