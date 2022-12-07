@@ -99,4 +99,10 @@ public class JobAppointmentsDir {
         }
         return newJobApps;
     }
+    
+    public ArrayList<JobAppointments> updateJobAppointment(JobAppointments oldJobAppointment,JobAppointments updateJobAppointment){
+        Integer ind = jobAppointmentsList.indexOf(oldJobAppointment);
+        jobAppointmentsList.set(ind, updateJobAppointment);
+        return jobAppointmentsList;
+    }
 }
