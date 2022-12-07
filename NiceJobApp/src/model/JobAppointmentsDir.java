@@ -79,4 +79,24 @@ public class JobAppointmentsDir {
         }
         return newJobApps;
     }
+    
+    public ArrayList<JobAppointments> searchByStatus(String status){
+        ArrayList<JobAppointments> newJobApps = new ArrayList<JobAppointments>();
+        for(JobAppointments jobApp : jobAppointmentsList){
+            if(jobApp.getStatus().equals(status)){
+                newJobApps.add(jobApp);
+            }
+        }
+        return newJobApps;
+    }
+    
+    public ArrayList<JobAppointments> searchByUniversity(String uni, UniStudentDir studentDir){
+        ArrayList<JobAppointments> newJobApps = new ArrayList<JobAppointments>();
+        for(JobAppointments jobApp : jobAppointmentsList){
+            if(studentDir.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName().equals(uni)){
+                newJobApps.add(jobApp);
+            }
+        }
+        return newJobApps;
+    }
 }

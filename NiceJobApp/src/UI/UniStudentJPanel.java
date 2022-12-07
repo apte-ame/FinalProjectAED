@@ -1711,9 +1711,9 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     
     public void saveJobAppToDb(CompDepartment dept, UniStudent student){
         try {
-            String queryNewStudent = "INSERT into appointments (student_gov_id, company_id, job_listings_id, date_applied) VALUES "
+            String queryNewStudent = "INSERT into appointments (student_gov_id, company_id, job_listings_id, date_applied, status) VALUES "
                     + "('" + student.getSevisId().toString() + "', '" + dept.getCompany().getId().toString() + "' , '" + dept.getJobId().toString() + "', "
-                    + "'" + LocalDate.now().toString() + "')";
+                    + "'" + LocalDate.now().toString() + "' , 'Applied')";
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewStudent); 
             st.close();
