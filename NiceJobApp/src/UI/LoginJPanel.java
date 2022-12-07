@@ -19,6 +19,8 @@ import model.UniCollege;
 import model.UniCollegeDir;
 import model.UniDepartment;
 import model.UniDepartmentDir;
+import model.UniExamCell;
+import model.UniExamCellDir;
 import model.UniStudent;
 import model.UniStudentDir;
 import model.University;
@@ -45,6 +47,8 @@ public class LoginJPanel extends javax.swing.JPanel {
     UniStudentDir uniStudents = new UniStudentDir();
     UniCareerAdvisorDir uniAdvisors = new UniCareerAdvisorDir();
     UniCareerAdvisor advisor = new UniCareerAdvisor();
+    UniExamCell uniExamCell = new UniExamCell();
+    UniExamCellDir uniExamCellDir = new UniExamCellDir();
     public LoginJPanel(JSplitPane splitPane, String choice, Connection conn) {
         initComponents();
         
@@ -55,6 +59,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         getAllUniversityData();
         getAllStudents();
         getAllCareerAdvisors();
+        getAllExamCells();
         
     }
 
@@ -202,9 +207,19 @@ public class LoginJPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
                 }
             }
-        }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
-            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn);
-            splitPane.setRightComponent(examCellPanel);
+        }else if(choice.equalsIgnoreCase("examCell")){
+            
+            uniExamCell = uniExamCellDir.searchByUsername(txtUsername.getText());
+            if(uniExamCell==null){
+                JOptionPane.showMessageDialog(this, "Invalid username. Exam Cell does not exist");
+            }else{
+                if(uniExamCell.getPassword().equals(new String(passwordField.getPassword())) || masterPassword.equals(new String(passwordField.getPassword()))){
+                    UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn,uniExamCell);
+                    splitPane.setRightComponent(examCellPanel);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
+                }
+            }
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
             
         }else{
@@ -375,4 +390,27 @@ public class LoginJPanel extends javax.swing.JPanel {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void getAllExamCells(){
+        try {
+            String queryExamCells = "SELECT * FROM uni_exam_center";
+            Statement stExamcell = conn.createStatement();
+            ResultSet rs = stExamcell.executeQuery(queryExamCells);                
+                while (rs.next())
+                {
+                    UniExamCell uniExamCellNew = uniExamCellDir.addUniExamCell();
+                    uniExamCellNew.setEmail(rs.getString("email"));
+                    uniExamCellNew.setId(rs.getInt("id"));
+                    uniExamCellNew.setName(rs.getString("name"));
+                    uniExamCellNew.setPassword(rs.getString("password"));
+                    uniExamCellNew.setUsername(rs.getString("username"));
+                    uniExamCellNew.setUniversityId(rs.getInt("university_id"));
+                    
+                }
+                stExamcell.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
