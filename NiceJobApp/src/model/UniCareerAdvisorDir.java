@@ -61,6 +61,15 @@ public class UniCareerAdvisorDir {
         return null;
     }
     
+    public UniCareerAdvisor searchByUsername(String username){
+        for(UniCareerAdvisor uniCareerAdvisor : uniCareerAdvisorList){
+            if(uniCareerAdvisor.getUsername().equals(username)){
+                return uniCareerAdvisor;
+            }
+        }
+        return null;
+    }
+    
     public UniCareerAdvisor searchByDepartment(UniDepartment department){
         for(UniCareerAdvisor uniCareerAdvisor : uniCareerAdvisorList){
             if(uniCareerAdvisor.getDepartment().equals(department)){

@@ -77,4 +77,13 @@ public class UniDepartmentDir {
         }
         return null;
     }
+    
+    public UniDepartment searchByAdvisorId(Integer advisorId){
+        for(UniDepartment uniDepartment : uniDepartmentList){
+            if(uniDepartment.getAdvisorId().equals(advisorId)){
+                return uniDepartment;
+            }
+        }
+        return null;
+    }
 }

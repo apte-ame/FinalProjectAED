@@ -7,6 +7,7 @@ package UI;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import model.UniCareerAdvisor;
 
 /**
  *
@@ -174,12 +175,12 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String username = "";
         String password = "";
-        
+        UniCareerAdvisor advisor = null;
         if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("student")){
             
             
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("advisor")){
-            UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
+            UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn,advisor);
             splitPane.setRightComponent(advisorPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
             UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn);

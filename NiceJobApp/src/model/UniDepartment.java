@@ -13,7 +13,16 @@ public class UniDepartment {
     private Integer id;
     private String name;
     private UniCollege college;
+    private Integer advisorId;
 
+    public Integer getAdvisorId() {
+        return advisorId;
+    }
+
+    public void setAdvisorId(Integer advisorId) {
+        this.advisorId = advisorId;
+    }
+    
     public Integer getId() {
         return id;
     }
