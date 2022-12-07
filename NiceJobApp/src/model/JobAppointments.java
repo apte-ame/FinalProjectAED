@@ -78,5 +78,8 @@ public class JobAppointments {
         this.comments = comments;
     }
     
-    
+    @Override
+    public String toString() {
+        return applicationId.toString();
+    }
 }
