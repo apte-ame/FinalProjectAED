@@ -82,6 +82,15 @@ public class UniStudentDir {
         return null;
     }
     
+    public UniStudent searchByUniversityId(Integer uniId){
+        for(UniStudent uniStudent : uniStudentList){
+            if(uniStudent.getUniversityId().equals(uniId)){
+                return uniStudent;
+            }
+        }
+        return null;
+    }
+    
     public ArrayList<UniStudent> searchByDepartment(UniDepartment department){
         ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
         for(UniStudent uniStudent : uniStudentList){

@@ -170,8 +170,8 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
 //            UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
 //            splitPane.setRightComponent(advisorPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
-            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn);
-            splitPane.setRightComponent(examCellPanel);
+//            UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn,);
+//            splitPane.setRightComponent(examCellPanel);
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
             
         }else{

@@ -760,7 +760,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     public void getAllUniversityData(){
          try {
                 //Universities
-                String queryUniversity = "SELECT * FROM university";
+                String queryUniversity = "SELECT * FROM university WHERE id='"+selectedUniExamCell.getUniversityId()+"'";
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(queryUniversity);                
                 while (rs.next())
@@ -776,7 +776,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                 st.close();
                 lblHeading1.setText(universities.searchById(selectedUniExamCell.getUniversityId()).getName());
                 //Colleges
-                String queryCollege = "SELECT * FROM uni_college";
+                String queryCollege = "SELECT * FROM uni_college WHERE university_id='"+selectedUniExamCell.getId()+"'";
                 Statement stCollege = conn.createStatement();
                 ResultSet rsCollege = stCollege.executeQuery(queryCollege);                
                 while (rsCollege.next())
@@ -795,23 +795,27 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                 stCollege.close();
 
                 //Departments
-                String queryDepartment = "SELECT * FROM uni_department";
                 Statement stDepartment = conn.createStatement();
-                ResultSet rsDepartment = stDepartment.executeQuery(queryDepartment);                
-                while (rsDepartment.next())
-                {
-                    UniDepartment dept = uniDepartments.addUniDepartment();
-                    dept.setId(rsDepartment.getInt("id"));
-                    dept.setName(rsDepartment.getString("name"));
+                for(UniCollege college:uniColleges.getUniCollegeList()){
+                    String queryDepartment = "SELECT * FROM uni_department WHERE uni_college_id='"+college.getId()+"'";
 
-                    for(UniCollege college : uniColleges.getUniCollegeList()){
-                        if(college.getId() == rsDepartment.getInt("uni_college_id")){
-                            dept.setCollege(college);
-                        }
+                    ResultSet rsDepartment = stDepartment.executeQuery(queryDepartment);                
+                    while (rsDepartment.next())
+                    {
+                        UniDepartment dept = uniDepartments.addUniDepartment();
+                        dept.setId(rsDepartment.getInt("id"));
+                        dept.setName(rsDepartment.getString("name"));
+                        dept.setCollege(college);
+    //                    for(UniCollege college : uniColleges.getUniCollegeList()){
+    //                        if(college.getId() == rsDepartment.getInt("uni_college_id")){
+    //                            dept.setCollege(college);
+    //                        }
                     }
-
+                
                 }
                 stDepartment.close();
+              
+                
 
             } catch (SQLException ex) {
                 System.out.println("An error occurred. Maybe user/password is invalid");
@@ -840,9 +844,9 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
         cmbDepartment.removeAllItems();
         DefaultComboBoxModel depts = new DefaultComboBoxModel();
         for(UniDepartment dept : uniDepartments.getUniDepartmentList()){
-            if(dept.getCollege().getId() == selectedCollegeId){
+//            if(dept.getCollege().getId() == selectedCollegeId){
                 depts.addElement(dept.getName());
-            }
+//            }
         }
 
         cmbDepartment.setModel(depts);
@@ -1022,10 +1026,10 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     
     public void saveStudentToDb(UniStudent student){
         try {
-            String queryNewStudent = "INSERT into uni_student (student_gov_id, name, contact_no, email, intake, course, gpa, semester, uni_department_id, work_eligibility, jd_watch_eligible, password) VALUES "
+            String queryNewStudent = "INSERT into uni_student (student_gov_id, name, contact_no, email, intake, course, gpa, semester, uni_department_id, work_eligibility, jd_watch_eligible, password, university_id) VALUES "
                     + "('" + student.getSevisId().toString() + "', '" + student.getName() + "' , '" + student.getContactNo().toString() + "' "
                     + ", '" + student.getEmailId() + "' , '" + student.getIntake() + "' , '" + student.getCourse() + "' , '" + student.getGpa().toString() + "' "
-                    + ", '" + student.getSemester().toString() + "' , '" + student.getDepartment().getId().toString() + "' , '0' , '0' , '" + student.getPassword() + "' )";
+                    + ", '" + student.getSemester().toString() + "' , '" + student.getDepartment().getId().toString() + "' , '0' , '0' , '" + student.getPassword() + "',+ '"+student.getDepartment().getCollege().getUniversity().getId().toString()+"' )";
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewStudent); 
             st.close();

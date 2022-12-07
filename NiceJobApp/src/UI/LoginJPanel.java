@@ -383,7 +383,7 @@ public class LoginJPanel extends javax.swing.JPanel {
                     advisor.setName(rs.getString("name"));
                     advisor.setPassword(rs.getString("password"));
                     advisor.setUsername(rs.getString("username"));
-                    
+                    advisor.setUniversityId(rs.getInt("university_id"));
                 }
                 stAdv.close();
         } catch (SQLException ex) {

@@ -781,7 +781,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
 
     public void getAllStudents(){
         try {
-            String queryStudents = "SELECT * FROM uni_student WHERE uni_department_id='"+selectedUniAdv.getDepartment().getId()+"'";
+            String queryStudents = "SELECT * FROM uni_student WHERE university_id='"+selectedUniAdv.getUniversityId()+"'";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(queryStudents);                
                 while (rs.next())
@@ -820,7 +820,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
     public void getAllUniversityData(){
          try {
                 //Universities
-                String queryUniversity = "SELECT * FROM university";
+                String queryUniversity = "SELECT * FROM university WHERE id='"+selectedUniAdv.getUniversityId()+"'";
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(queryUniversity);                
                 while (rs.next())
@@ -836,7 +836,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                 st.close();
 
                 //Colleges
-                String queryCollege = "SELECT * FROM uni_college";
+                String queryCollege = "SELECT * FROM uni_college WHERE university_id='"+selectedUniAdv.getUniversityId()+"'";
                 Statement stCollege = conn.createStatement();
                 ResultSet rsCollege = stCollege.executeQuery(queryCollege);                
                 while (rsCollege.next())
@@ -853,10 +853,11 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
 
                 }
                 stCollege.close();
-
-                //Departments
-                String queryDepartment = "SELECT * FROM uni_department";
                 Statement stDepartment = conn.createStatement();
+                for(UniCollege college:uniColleges.getUniCollegeList()){
+                //Departments
+                String queryDepartment = "SELECT * FROM uni_department WHERE uni_college_id='"+college.getId()+"'";
+                
                 ResultSet rsDepartment = stDepartment.executeQuery(queryDepartment);                
                 while (rsDepartment.next())
                 {
@@ -864,12 +865,13 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                     dept.setId(rsDepartment.getInt("id"));
                     dept.setName(rsDepartment.getString("name"));
 
-                    for(UniCollege college : uniColleges.getUniCollegeList()){
-                        if(college.getId() == rsDepartment.getInt("uni_college_id")){
-                            dept.setCollege(college);
-                        }
-                    }
+                    //for(UniCollege college : uniColleges.getUniCollegeList()){
+                    //    if(college.getId() == rsDepartment.getInt("uni_college_id")){
+                    dept.setCollege(college);
+                    //    }
+                    //}
 
+                }
                 }
                 stDepartment.close();
 

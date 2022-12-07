@@ -32,7 +32,16 @@ public class UniStudent {
     private String comments;
     private String gender;
     private String academicSummary;
+    private String universityId;
 
+    public String getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(String universityId) {
+        this.universityId = universityId;
+    }
+    
     public String getAcademicSummary() {
         return academicSummary;
     }
