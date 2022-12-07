@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
+import model.UniCareerAdvisor;
+import model.UniCareerAdvisorDir;
 import model.UniCollege;
 import model.UniCollegeDir;
 import model.UniDepartment;
@@ -41,7 +43,8 @@ public class LoginJPanel extends javax.swing.JPanel {
     UniversityDir universities = new UniversityDir();
     UniDepartmentDir uniDepartments = new UniDepartmentDir();
     UniStudentDir uniStudents = new UniStudentDir();
-    
+    UniCareerAdvisorDir uniAdvisors = new UniCareerAdvisorDir();
+    UniCareerAdvisor advisor = new UniCareerAdvisor();
     public LoginJPanel(JSplitPane splitPane, String choice, Connection conn) {
         initComponents();
         
@@ -51,6 +54,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         
         getAllUniversityData();
         getAllStudents();
+        getAllCareerAdvisors();
         
     }
 
@@ -186,9 +190,18 @@ public class LoginJPanel extends javax.swing.JPanel {
         String username = "";
         String password = "";
         
-        if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("advisor")){
-            UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
-            splitPane.setRightComponent(advisorPanel);
+        if(choice.equalsIgnoreCase("advisor")){
+            advisor = uniAdvisors.searchByUsername(txtUsername.getText());
+            if(advisor==null){
+                JOptionPane.showMessageDialog(this, "Invalid username. Advisor does not exist");
+            }else{
+                if(advisor.getPassword().equals(new String(passwordField.getPassword())) || masterPassword.equals(new String(passwordField.getPassword()))){
+                    UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn,advisor);
+                    splitPane.setRightComponent(advisorPanel);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
+                }
+            }
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("examCell")){
             UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn);
             splitPane.setRightComponent(examCellPanel);
@@ -273,7 +286,7 @@ public class LoginJPanel extends javax.swing.JPanel {
                     UniDepartment dept = uniDepartments.addUniDepartment();
                     dept.setId(rsDepartment.getInt("id"));
                     dept.setName(rsDepartment.getString("name"));
-
+                    dept.setAdvisorId(rsDepartment.getInt("uni_advisor_id"));
                     for(UniCollege college : uniColleges.getUniCollegeList()){
                         if(college.getId() == rsDepartment.getInt("uni_college_id")){
                             dept.setCollege(college);
@@ -336,6 +349,28 @@ public class LoginJPanel extends javax.swing.JPanel {
                     student.setDepartment(department);
                 }
                 st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getAllCareerAdvisors(){
+        try {
+            String queryAdvisors = "SELECT * FROM uni_career_advisor";
+            Statement stAdv = conn.createStatement();
+            ResultSet rs = stAdv.executeQuery(queryAdvisors);                
+                while (rs.next())
+                {
+                    UniCareerAdvisor advisor = uniAdvisors.addUniCareerAdvisor();
+                    UniDepartment filteredDept = uniDepartments.searchByAdvisorId(rs.getInt("id"));
+                    advisor.setDepartment(filteredDept);
+                    advisor.setId(rs.getInt("id"));
+                    advisor.setName(rs.getString("name"));
+                    advisor.setPassword(rs.getString("password"));
+                    advisor.setUsername(rs.getString("username"));
+                    
+                }
+                stAdv.close();
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }

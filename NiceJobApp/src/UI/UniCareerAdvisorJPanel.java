@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.UniCareerAdvisor;
 import model.UniCollege;
 import model.UniCollegeDir;
 import model.UniDepartment;
@@ -58,16 +59,17 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
     UniversityDir universities = new UniversityDir();
     UniDepartmentDir uniDepartments = new UniDepartmentDir();
     UniStudentDir uniStudents = new UniStudentDir();
-
+    UniCareerAdvisor selectedUniAdv = new UniCareerAdvisor();
     Integer selectedRow = -1;
     Integer selectedCollegeId = 0;
     
-    public UniCareerAdvisorJPanel(JSplitPane splitPane, Connection conn) {
+      
+    public UniCareerAdvisorJPanel(JSplitPane splitPane, Connection conn, UniCareerAdvisor selectedUniAdv) {
         initComponents();
         
         this.splitPane = splitPane;
         this.conn = conn;
-        
+        this.selectedUniAdv = selectedUniAdv;
         getAllUniversityData();
         getAllStudents();
         populateStudentTable(uniStudents);
@@ -779,7 +781,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
 
     public void getAllStudents(){
         try {
-            String queryStudents = "SELECT * FROM uni_student";
+            String queryStudents = "SELECT * FROM uni_student WHERE uni_department_id='"+selectedUniAdv.getDepartment().getId()+"'";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(queryStudents);                
                 while (rs.next())
