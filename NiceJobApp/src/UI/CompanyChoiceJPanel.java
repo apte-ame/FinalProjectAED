@@ -42,7 +42,7 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
         btnSystemAdmin = new button.Button();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnAdvisor1 = new button.Button();
+        btnHR = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -85,13 +85,13 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Seamless Industry Logo.png"))); // NOI18N
 
-        btnAdvisor1.setBackground(new java.awt.Color(82, 159, 252));
-        btnAdvisor1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdvisor1.setText("HUMAN RESOURCE ");
-        btnAdvisor1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnAdvisor1.addActionListener(new java.awt.event.ActionListener() {
+        btnHR.setBackground(new java.awt.Color(82, 159, 252));
+        btnHR.setForeground(new java.awt.Color(255, 255, 255));
+        btnHR.setText("HUMAN RESOURCE ");
+        btnHR.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnHR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdvisor1ActionPerformed(evt);
+                btnHRActionPerformed(evt);
             }
         });
 
@@ -110,7 +110,7 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSystemAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnStudent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdvisor1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAdvisor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(181, 181, 181))
         );
@@ -123,7 +123,7 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
                         .addGap(143, 143, 143)
                         .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdvisor1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHR, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -169,18 +169,18 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 
-    private void btnAdvisor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisor1ActionPerformed
-        // TODO add your handling code here:
+    private void btnHRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHRActionPerformed
+//        // TODO add your handling code here:
          CompanyHRJPanel companyHRPanel = new CompanyHRJPanel(splitPane);
         splitPane.setRightComponent(companyHRPanel);
 
         
-    }//GEN-LAST:event_btnAdvisor1ActionPerformed
+    }//GEN-LAST:event_btnHRActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdvisor;
-    private button.Button btnAdvisor1;
+    private button.Button btnHR;
     private button.Button btnStudent;
     private button.Button btnSystemAdmin;
     private javax.swing.JLabel jLabel1;

@@ -4,6 +4,8 @@
  */
 package UI;
 
+import chart.Form_1;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 
@@ -19,11 +21,11 @@ public class GovernmentAnalyticsJPanel extends javax.swing.JPanel {
     JSplitPane splitPane;
     String choice = "";
     
-    public GovernmentAnalyticsJPanel(JSplitPane splitPaneMain, String choiceMain) {
+    public GovernmentAnalyticsJPanel(JSplitPane splitPaneMain) {
         initComponents();
-        
+        show(new Form_1());
         splitPane = splitPaneMain;
-        choice = choiceMain;
+//        choice = choiceMain;
         
     }
 
@@ -37,50 +39,31 @@ public class GovernmentAnalyticsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        body = new javax.swing.JPanel();
+
+        setPreferredSize(new java.awt.Dimension(1000, 700));
 
         kGradientPanel1.setkEndColor(new java.awt.Color(51, 204, 0));
         kGradientPanel1.setkStartColor(new java.awt.Color(102, 153, 255));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
 
-        jLabel1.setText("GRAPH");
-
-        jLabel2.setText("GRAPH");
-
-        jLabel3.setText("GRAPH FOR JOB ROLE VS HOUR RATE ");
-
-        jLabel4.setText("NATIONALITY PIE CHART");
+        body.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jLabel3)
-                .addGap(316, 316, 316)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(109, 109, 109))
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(267, 267, 267)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(303, 303, 303)
-                .addComponent(jLabel4)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addGap(118, 118, 118)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(582, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -99,12 +82,18 @@ public class GovernmentAnalyticsJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void show(Component com) {
+    
+        body.removeAll();
+        body.add(com);
+        body.repaint();
+        body.revalidate();
+    }
 
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel body;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }
