@@ -60,6 +60,7 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         setGovCmb();
         tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         populateStudentDetailsTable(acceptedJobs);
+        btnApproval.setEnabled(false);
     }
     
     /**
@@ -106,7 +107,7 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         btnViewSelected = new button.Button();
         lblSalary1 = new javax.swing.JLabel();
         txtGovComments = new javax.swing.JTextField();
-        btnPostListing = new button.Button();
+        btnApproval = new button.Button();
         lblSalary2 = new javax.swing.JLabel();
         cmbGov = new javax.swing.JComboBox<>();
         lblSalary3 = new javax.swing.JLabel();
@@ -247,11 +248,11 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
 
         txtGovComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
 
-        btnPostListing.setText("<html>Send for <br>Approval </html>\n");
-        btnPostListing.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        btnPostListing.addActionListener(new java.awt.event.ActionListener() {
+        btnApproval.setText("<html>Send for <br>Approval </html>\n");
+        btnApproval.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnApproval.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPostListingActionPerformed(evt);
+                btnApprovalActionPerformed(evt);
             }
         });
 
@@ -359,7 +360,7 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtGovComments, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPostListing, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnApproval, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)))))
                 .addGap(12, 12, 12))
         );
@@ -432,7 +433,7 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
                             .addComponent(txtGovComments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblSalary3)
                             .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnPostListing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnApproval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -603,11 +604,11 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
 
-    private void btnPostListingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostListingActionPerformed
+    private void btnApprovalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovalActionPerformed
         // TODO add your handling code here:
         updateAcceptedJobDetails(selectedJob);
 //        btnPostListing.setEnabled(false);
-    }//GEN-LAST:event_btnPostListingActionPerformed
+    }//GEN-LAST:event_btnApprovalActionPerformed
 
     private void cmbGovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGovActionPerformed
         // TODO add your handling code here:
@@ -615,8 +616,8 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private button.Button btnApproval;
     private button.Button btnClear;
-    private button.Button btnPostListing;
     private button.Button btnRefreshTable;
     private button.Button btnSearch;
     private button.Button btnViewSelected;
@@ -743,6 +744,17 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         
         txtStatus.setText("");
         txtGovComments.setText("");
+        
+        
+        cmbGov.setEnabled(true);
+        txtGovComments.setEnabled(true);
+        cmbLevel.setEnabled(true);
+        txtJobTitle.setEnabled(true);
+        txtStartDate.setEnabled(true);
+        txtSalary.setEnabled(true);
+        
+        btnApproval.setEnabled(false);
+
     }
     
     public void displayJob(AcceptedJobs acceptedJob){
@@ -769,6 +781,24 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
             txtGovComments.setText(acceptedJob.getGovComments());
         }else{
             txtGovComments.setText("");
+        }
+        
+        if(acceptedJob.getGovIssues().equalsIgnoreCase("Approved")){
+            cmbGov.setEnabled(false);
+            txtGovComments.setEnabled(false);
+            cmbLevel.setEnabled(false);
+            txtJobTitle.setEnabled(false);
+            txtStartDate.setEnabled(false);
+            txtSalary.setEnabled(false);
+            btnApproval.setEnabled(false);
+        }else{
+            cmbGov.setEnabled(true);
+            txtGovComments.setEnabled(true);
+            cmbLevel.setEnabled(true);
+            txtJobTitle.setEnabled(true);
+            txtStartDate.setEnabled(true);
+            txtSalary.setEnabled(true);
+            btnApproval.setEnabled(true);
         }
         
     }
