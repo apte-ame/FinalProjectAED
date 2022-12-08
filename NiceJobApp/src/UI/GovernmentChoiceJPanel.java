@@ -23,7 +23,6 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
     
     public GovernmentChoiceJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
-        
         this.splitPane = splitPane;
         this.conn = conn;
     }
@@ -38,13 +37,10 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        btnStudent = new button.Button();
+        btnRecord = new button.Button();
         btnAdvisor = new button.Button();
-        btnSystemAdmin = new button.Button();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnAdvisor1 = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -52,13 +48,13 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkGradientFocus(1800);
         kGradientPanel1.setkStartColor(new java.awt.Color(102, 153, 255));
 
-        btnStudent.setBackground(new java.awt.Color(255, 177, 34));
-        btnStudent.setForeground(new java.awt.Color(0, 51, 204));
-        btnStudent.setText("RECORD REGISTER");
-        btnStudent.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnStudent.addActionListener(new java.awt.event.ActionListener() {
+        btnRecord.setBackground(new java.awt.Color(255, 177, 34));
+        btnRecord.setForeground(new java.awt.Color(0, 51, 204));
+        btnRecord.setText("RECORD REGISTER");
+        btnRecord.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStudentActionPerformed(evt);
+                btnRecordActionPerformed(evt);
             }
         });
 
@@ -72,31 +68,9 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSystemAdmin.setBackground(new java.awt.Color(255, 177, 34));
-        btnSystemAdmin.setForeground(new java.awt.Color(0, 51, 204));
-        btnSystemAdmin.setText("SYSTEM ADMIN");
-        btnSystemAdmin.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnSystemAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSystemAdminActionPerformed(evt);
-            }
-        });
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/NEU Main (500 × 200 px) (1).png"))); // NOI18N
 
-        jLabel1.setText("MASS GOV LOGO");
-
         jLabel2.setText("MASS GOV LOGO");
-
-        btnAdvisor1.setBackground(new java.awt.Color(255, 177, 34));
-        btnAdvisor1.setForeground(new java.awt.Color(0, 51, 204));
-        btnAdvisor1.setText("COMPANY UPDATE PORTAL");
-        btnAdvisor1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnAdvisor1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdvisor1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -105,14 +79,10 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdvisor1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(221, Short.MAX_VALUE))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(556, 556, 556)
@@ -125,18 +95,12 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
                 .addGap(62, 62, 62)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdvisor1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
                         .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(btnSystemAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(139, 139, 139))
+                        .addGap(190, 190, 190))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(181, 181, 181))))
@@ -154,12 +118,12 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
+    private void btnRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordActionPerformed
         // TODO add your handling code here:
-        choice = "student";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
+        choice = "company";
+        GovernmentLoginJPanel loginPanel = new GovernmentLoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
-    }//GEN-LAST:event_btnStudentActionPerformed
+    }//GEN-LAST:event_btnRecordActionPerformed
 
     private void btnAdvisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisorActionPerformed
         // TODO add your handling code here:
@@ -168,24 +132,10 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnAdvisorActionPerformed
 
-    private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
-        // TODO add your handling code here:
-        choice = "admin";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
-        splitPane.setRightComponent(loginPanel);
-    }//GEN-LAST:event_btnSystemAdminActionPerformed
-
-    private void btnAdvisor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisor1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdvisor1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdvisor;
-    private button.Button btnAdvisor1;
-    private button.Button btnStudent;
-    private button.Button btnSystemAdmin;
-    private javax.swing.JLabel jLabel1;
+    private button.Button btnRecord;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private keeptoo.KGradientPanel kGradientPanel1;

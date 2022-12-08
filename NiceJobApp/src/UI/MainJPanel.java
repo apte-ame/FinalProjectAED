@@ -86,6 +86,11 @@ public class MainJPanel extends javax.swing.JPanel {
         btnGovernment.setForeground(new java.awt.Color(255, 255, 255));
         btnGovernment.setText("Government");
         btnGovernment.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        btnGovernment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGovernmentActionPerformed(evt);
+            }
+        });
 
         btnCompany.setBackground(new java.awt.Color(254, 93, 124));
         btnCompany.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,6 +215,12 @@ public class MainJPanel extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_btnRecruitmentHubActionPerformed
+
+    private void btnGovernmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGovernmentActionPerformed
+        // TODO add your handling code here:
+        GovernmentChoiceJPanel govPanel = new GovernmentChoiceJPanel(splitPane, conn);
+        splitPane.setRightComponent(govPanel);
+    }//GEN-LAST:event_btnGovernmentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
