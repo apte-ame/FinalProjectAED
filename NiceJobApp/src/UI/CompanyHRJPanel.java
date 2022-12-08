@@ -4,25 +4,30 @@
  */
 package UI;
 
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.sql.Connection;
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.event.MouseInputListener;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import model.AcceptedJobs;
+import model.AcceptedJobsDir;
 import model.Company;
-import org.jxmapviewer.OSMTileFactoryInfo;
-import org.jxmapviewer.VirtualEarthTileFactoryInfo;
-import org.jxmapviewer.input.PanMouseInputListener;
-import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
-import org.jxmapviewer.viewer.DefaultTileFactory;
-import org.jxmapviewer.viewer.GeoPosition;
-import org.jxmapviewer.viewer.TileFactoryInfo;
-import org.jxmapviewer.viewer.WaypointPainter;
-//import sun.applet.Main;
-import waypoint.EventWaypoint;
-import waypoint.MyWaypoint;
-import waypoint.WaypointRender;
+import model.Government;
+import model.GovernmentDir;
+import model.UniStudentDir;
 
 /**
  *
@@ -35,68 +40,28 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
-    private final Set<MyWaypoint> waypoints = new HashSet<>();
-    private EventWaypoint event;
+    AcceptedJobsDir acceptedJobs = new AcceptedJobsDir();
     Connection conn = null;
     Company selectedComp = null;
+    Integer selectedRow = -1;
+    UniStudentDir uniStudents = new UniStudentDir();
+    GovernmentDir govs = new GovernmentDir();
+    AcceptedJobs selectedJob = new AcceptedJobs();
     
     public CompanyHRJPanel(JSplitPane splitPane, Connection conn, Company selectedComp) {
         initComponents();
-         init();
         this.splitPane = splitPane;
         this.conn = conn;
         this.selectedComp = selectedComp;
+        System.out.println(selectedComp.getName());
+        System.out.println(selectedComp.getId().toString());
+        getAllAcceptedJobs();
+        getAllGovernments();
+        setGovCmb();
+        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+        populateStudentDetailsTable(acceptedJobs);
     }
     
-       private void init() {
-        TileFactoryInfo info = new OSMTileFactoryInfo();
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        jXMapViewer.setTileFactory(tileFactory);
-        GeoPosition geo = new GeoPosition( 42.3514962, -71.1354542);
-        jXMapViewer.setAddressLocation(geo);
-        jXMapViewer.setZoom(20);
-
-        //  Create event mouse move
-        MouseInputListener mm = new PanMouseInputListener(jXMapViewer);
-        jXMapViewer.addMouseListener(mm);
-        jXMapViewer.addMouseMotionListener(mm);
-        jXMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer));
-    }
-
-       
-       private void addWaypoint(MyWaypoint waypoint) {
-        for (MyWaypoint d : waypoints) {
-            jXMapViewer.remove(d.getButton());
-        }
-        waypoints.add(waypoint);
-        initWaypoint();
-    }
-
-    private void initWaypoint() {
-        WaypointPainter<MyWaypoint> wp = new WaypointRender();
-        wp.setWaypoints(waypoints);
-        jXMapViewer.setOverlayPainter(wp);
-        for (MyWaypoint d : waypoints) {
-            jXMapViewer.add(d.getButton());
-        }
-    }
-
-    private void clearWaypoint() {
-        for (MyWaypoint d : waypoints) {
-            jXMapViewer.remove(d.getButton());
-        }
-        waypoints.clear();
-        initWaypoint();
-    }
-
-    private EventWaypoint getEvent() {
-        return new EventWaypoint() {
-            @Override
-            public void selected(MyWaypoint waypoint) {
-                JOptionPane.showMessageDialog(CompanyHRJPanel.this, waypoint.getName());
-            }
-        };
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,16 +74,43 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        acceptedCandidatesJPanel = new javax.swing.JPanel();
-        kGradientPanel3 = new keeptoo.KGradientPanel();
         govVerifyJPanel = new javax.swing.JPanel();
         kGradientPanel4 = new keeptoo.KGradientPanel();
-        mapjPanel = new javax.swing.JPanel();
-        kGradientPanel2 = new keeptoo.KGradientPanel();
-        jXMapViewer = new org.jxmapviewer.JXMapViewer();
-        comboMaptype = new javax.swing.JComboBox<>();
-        addwaypoint = new javax.swing.JButton();
-        clearwaypoint = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblStudentDetails = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtStudentName = new javax.swing.JTextField();
+        lblUniversity = new javax.swing.JLabel();
+        txtUniversity = new javax.swing.JTextField();
+        lblUniversity1 = new javax.swing.JLabel();
+        txtSevisId = new javax.swing.JTextField();
+        lblUniversity2 = new javax.swing.JLabel();
+        txtExpGradDate = new javax.swing.JTextField();
+        lblCourse = new javax.swing.JLabel();
+        txtCourse = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtCompanyName = new javax.swing.JTextField();
+        lblCompanyName = new javax.swing.JLabel();
+        lblLevel = new javax.swing.JLabel();
+        txtJobTitle = new javax.swing.JTextField();
+        lblTitle = new javax.swing.JLabel();
+        txtSalary = new javax.swing.JTextField();
+        txtStartDate = new javax.swing.JTextField();
+        lblStartDate = new javax.swing.JLabel();
+        lblSalary = new javax.swing.JLabel();
+        cmbLevel = new javax.swing.JComboBox<>();
+        btnSearch = new button.Button();
+        btnRefreshTable = new button.Button();
+        btnClear = new button.Button();
+        btnViewSelected = new button.Button();
+        lblSalary1 = new javax.swing.JLabel();
+        txtGovComments = new javax.swing.JTextField();
+        btnPostListing = new button.Button();
+        lblSalary2 = new javax.swing.JLabel();
+        cmbGov = new javax.swing.JComboBox<>();
+        lblSalary3 = new javax.swing.JLabel();
+        txtStatus = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -129,47 +121,319 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Seamless Industry Logo.png"))); // NOI18N
 
-        kGradientPanel3.setkEndColor(new java.awt.Color(217, 247, 200));
-        kGradientPanel3.setkGradientFocus(1000);
-        kGradientPanel3.setkStartColor(new java.awt.Color(189, 188, 255));
-
-        javax.swing.GroupLayout kGradientPanel3Layout = new javax.swing.GroupLayout(kGradientPanel3);
-        kGradientPanel3.setLayout(kGradientPanel3Layout);
-        kGradientPanel3Layout.setHorizontalGroup(
-            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 988, Short.MAX_VALUE)
-        );
-        kGradientPanel3Layout.setVerticalGroup(
-            kGradientPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout acceptedCandidatesJPanelLayout = new javax.swing.GroupLayout(acceptedCandidatesJPanel);
-        acceptedCandidatesJPanel.setLayout(acceptedCandidatesJPanelLayout);
-        acceptedCandidatesJPanelLayout.setHorizontalGroup(
-            acceptedCandidatesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        acceptedCandidatesJPanelLayout.setVerticalGroup(
-            acceptedCandidatesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("ACCEPTED CANDIDATES", acceptedCandidatesJPanel);
-
         kGradientPanel4.setkEndColor(new java.awt.Color(217, 247, 200));
         kGradientPanel4.setkGradientFocus(1000);
         kGradientPanel4.setkStartColor(new java.awt.Color(189, 188, 255));
+
+        tblStudentDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Sevis Id", "Company Name", "Position", "Role", "Salary", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tblStudentDetails);
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel1.setText("Employee Details");
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel9.setText("Name");
+
+        txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStudentName.setEnabled(false);
+
+        lblUniversity.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity.setText("University");
+
+        txtUniversity.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtUniversity.setEnabled(false);
+
+        lblUniversity1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity1.setText("Sevis Id");
+
+        txtSevisId.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSevisId.setEnabled(false);
+
+        lblUniversity2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity2.setText("Expected Grad Date");
+
+        txtExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtExpGradDate.setEnabled(false);
+
+        lblCourse.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblCourse.setText("Course");
+
+        txtCourse.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCourse.setEnabled(false);
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel3.setText("Employee Details");
+
+        txtCompanyName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCompanyName.setEnabled(false);
+
+        lblCompanyName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblCompanyName.setText("Company Name");
+
+        lblLevel.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblLevel.setText("Level");
+
+        txtJobTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+
+        lblTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblTitle.setText("Job Title");
+
+        txtSalary.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+
+        txtStartDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+
+        lblStartDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblStartDate.setText("Start Date");
+
+        lblSalary.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary.setText("Salary");
+
+        cmbLevel.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst" }));
+
+        btnSearch.setBackground(new java.awt.Color(204, 255, 204));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnRefreshTable.setBackground(new java.awt.Color(204, 255, 204));
+        btnRefreshTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableActionPerformed(evt);
+            }
+        });
+
+        btnClear.setBackground(new java.awt.Color(204, 255, 204));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnViewSelected.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSelectedActionPerformed(evt);
+            }
+        });
+
+        lblSalary1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary1.setText("Comments");
+
+        txtGovComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+
+        btnPostListing.setText("<html>Send for <br>Approval </html>\n");
+        btnPostListing.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnPostListing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostListingActionPerformed(evt);
+            }
+        });
+
+        lblSalary2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary2.setText("Send To");
+
+        cmbGov.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbGov.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst", " " }));
+        cmbGov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGovActionPerformed(evt);
+            }
+        });
+
+        lblSalary3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary3.setText("Status");
+
+        txtStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStatus.setEnabled(false);
 
         javax.swing.GroupLayout kGradientPanel4Layout = new javax.swing.GroupLayout(kGradientPanel4);
         kGradientPanel4.setLayout(kGradientPanel4Layout);
         kGradientPanel4Layout.setHorizontalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 988, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane6)
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblSalary3)
+                                    .addComponent(lblSalary2))
+                                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(cmbGov, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addComponent(lblUniversity1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSevisId, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(lblUniversity))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtStudentName)
+                                    .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addComponent(lblUniversity2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1)
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addComponent(lblCourse)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                                        .addComponent(lblSalary)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                                        .addComponent(lblTitle)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblCompanyName)
+                                            .addComponent(lblLevel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtCompanyName)
+                                            .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                                        .addComponent(lblStartDate)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(48, 48, 48)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                .addComponent(lblSalary1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtGovComments, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPostListing, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)))))
+                .addGap(12, 12, 12))
         );
         kGradientPanel4Layout.setVerticalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
+            .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCompanyName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLevel)
+                            .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTitle))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblStartDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalary)))
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUniversity))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSevisId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUniversity1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUniversity2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCourse))))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel4Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSalary2)
+                            .addComponent(cmbGov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSalary1)
+                            .addComponent(txtGovComments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalary3)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnPostListing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout govVerifyJPanelLayout = new javax.swing.GroupLayout(govVerifyJPanel);
@@ -184,82 +448,6 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("GOVERNMENT VERIFICATION", govVerifyJPanel);
-
-        kGradientPanel2.setkEndColor(new java.awt.Color(217, 247, 200));
-        kGradientPanel2.setkGradientFocus(1000);
-        kGradientPanel2.setkStartColor(new java.awt.Color(189, 188, 255));
-
-        javax.swing.GroupLayout jXMapViewerLayout = new javax.swing.GroupLayout(jXMapViewer);
-        jXMapViewer.setLayout(jXMapViewerLayout);
-        jXMapViewerLayout.setHorizontalGroup(
-            jXMapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 814, Short.MAX_VALUE)
-        );
-        jXMapViewerLayout.setVerticalGroup(
-            jXMapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        comboMaptype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Open Street", "Virtual", "Hybrid ", "Satellite" }));
-        comboMaptype.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboMaptypeActionPerformed(evt);
-            }
-        });
-
-        addwaypoint.setText("add waypoint");
-        addwaypoint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addwaypointActionPerformed(evt);
-            }
-        });
-
-        clearwaypoint.setText("clear waypoint");
-        clearwaypoint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearwaypointActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
-        kGradientPanel2.setLayout(kGradientPanel2Layout);
-        kGradientPanel2Layout.setHorizontalGroup(
-            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboMaptype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addwaypoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(clearwaypoint, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jXMapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-        kGradientPanel2Layout.setVerticalGroup(
-            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jXMapViewer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(comboMaptype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(addwaypoint)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clearwaypoint)
-                .addContainerGap(366, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout mapjPanelLayout = new javax.swing.GroupLayout(mapjPanel);
-        mapjPanel.setLayout(mapjPanelLayout);
-        mapjPanelLayout.setHorizontalGroup(
-            mapjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        mapjPanelLayout.setVerticalGroup(
-            mapjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("MAPS", mapjPanel);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -295,49 +483,349 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboMaptypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMaptypeActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-          TileFactoryInfo info;
-        int index = comboMaptype.getSelectedIndex();
-        if (index == 0) {
-            info = new OSMTileFactoryInfo();
-        } else if (index == 1) {
-            info = new VirtualEarthTileFactoryInfo(VirtualEarthTileFactoryInfo.MAP);
-        } else if (index == 2) {
-            info = new VirtualEarthTileFactoryInfo(VirtualEarthTileFactoryInfo.HYBRID);
-        } else {
-            info = new VirtualEarthTileFactoryInfo(VirtualEarthTileFactoryInfo.SATELLITE);
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Please select a field:"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Role");
+        model.addElement("Level");
+        model.addElement("Salary");
+       
+        JComboBox comboBox = new JComboBox(model);
+        panel.add(comboBox);
+
+        int resultField = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(resultField == JOptionPane.OK_OPTION){
+            String fieldSelected = comboBox.getSelectedItem().toString();
+            DefaultComboBoxModel role = new DefaultComboBoxModel();
+            
+            role.addElement("Software Developer");
+            role.addElement("Web Designer");
+            role.addElement("Data Analyst");
+            role.addElement("Business Analyst");
+            role.addElement("Data Scientist");
+            role.addElement("Data Engineer");
+            role.addElement("Project Manager");
+            
+            JComboBox comboBoxRole = new JComboBox(role);
+
+            DefaultComboBoxModel level = new DefaultComboBoxModel();
+            level.addElement("Specialist");
+            level.addElement("Associate");
+            level.addElement("Senior Associate");
+            level.addElement("Manager");
+            level.addElement("Analyst");
+            
+            JComboBox comboBoxLevel = new JComboBox(level);
+            
+            JTextField txtField = new JTextField("");
+            
+            panel.add(new JLabel("Value:"));
+            
+            if(fieldSelected.equalsIgnoreCase("Role")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxRole);
+            }else if(fieldSelected.equalsIgnoreCase("Level")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxLevel);
+            }else{
+                comboBox.setEnabled(false);
+                panel.add(txtField);
+            }
+
+            int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(resultValue == JOptionPane.OK_OPTION) {
+
+                String fieldValue;
+                if(fieldSelected.equalsIgnoreCase("Role")){
+                    fieldValue = comboBoxRole.getSelectedItem().toString();
+                } else if(fieldSelected.equalsIgnoreCase("Level")){
+                    fieldValue = comboBoxLevel.getSelectedItem().toString();
+                } else {
+                    fieldValue = txtField.getText();
+                }
+
+                if(fieldValue.equalsIgnoreCase("")){
+                    JOptionPane.showMessageDialog(this, "Please enter a value");
+                }else{
+                    AcceptedJobsDir acceptedJobsDir = new AcceptedJobsDir();
+                    ArrayList<AcceptedJobs> resultAcceptedJobs = new ArrayList<AcceptedJobs>();
+                    
+                    if(fieldSelected.equalsIgnoreCase("Salary")){
+                        resultAcceptedJobs = acceptedJobs.searchBySalary(Double.valueOf(fieldValue));
+                    }else if(fieldSelected.equalsIgnoreCase("Role")){
+                        resultAcceptedJobs = acceptedJobs.searchByRole(fieldValue);
+                    }else if(fieldSelected.equalsIgnoreCase("Level")){
+                        resultAcceptedJobs = acceptedJobs.searchByLevel(fieldValue);
+                    }else{
+                        resultAcceptedJobs = null;
+                    }
+
+                    if(resultAcceptedJobs.isEmpty()){
+                        JOptionPane.showMessageDialog(this, "No Results Found");
+                        populateStudentDetailsTable(acceptedJobs);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Entries found");
+                        acceptedJobsDir.setAcceptedJobsList(resultAcceptedJobs);
+                        populateStudentDetailsTable(acceptedJobsDir);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Search Cancelled");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Search Cancelled");
+        }                                      
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        // TODO add your handling code here:
+        populateStudentDetailsTable(acceptedJobs);
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clearAllFields();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
+//         TODO add your handling code here:
+        selectedRow = tblStudentDetails.getSelectedRow();
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row");
+            return;
+        }else{
+            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+            AcceptedJobs acceptedJob = (AcceptedJobs) tableModel.getValueAt(selectedRow, 0);
+            displayJob(acceptedJob);
+            selectedJob = acceptedJob;
         }
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        jXMapViewer.setTileFactory(tileFactory);
-    
-    }//GEN-LAST:event_comboMaptypeActionPerformed
+    }//GEN-LAST:event_btnViewSelectedActionPerformed
 
-    private void addwaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addwaypointActionPerformed
+    private void btnPostListingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostListingActionPerformed
         // TODO add your handling code here:
-       addWaypoint(new MyWaypoint("Target", event, new GeoPosition(42.3505916,-71.1247477)));
-       //addWaypoint(new MyWaypoint("Test 002", event, new GeoPosition(11.634007, 104.750676)));
-    }//GEN-LAST:event_addwaypointActionPerformed
+        updateAcceptedJobDetails(selectedJob);
+//        btnPostListing.setEnabled(false);
+    }//GEN-LAST:event_btnPostListingActionPerformed
 
-    private void clearwaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearwaypointActionPerformed
+    private void cmbGovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGovActionPerformed
         // TODO add your handling code here:
-         clearWaypoint();
-    }//GEN-LAST:event_clearwaypointActionPerformed
+    }//GEN-LAST:event_cmbGovActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel acceptedCandidatesJPanel;
-    private javax.swing.JButton addwaypoint;
-    private javax.swing.JButton clearwaypoint;
-    private javax.swing.JComboBox<String> comboMaptype;
+    private button.Button btnClear;
+    private button.Button btnPostListing;
+    private button.Button btnRefreshTable;
+    private button.Button btnSearch;
+    private button.Button btnViewSelected;
+    private javax.swing.JComboBox<String> cmbGov;
+    private javax.swing.JComboBox<String> cmbLevel;
     private javax.swing.JPanel govVerifyJPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private org.jxmapviewer.JXMapViewer jXMapViewer;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private keeptoo.KGradientPanel kGradientPanel2;
-    private keeptoo.KGradientPanel kGradientPanel3;
     private keeptoo.KGradientPanel kGradientPanel4;
-    private javax.swing.JPanel mapjPanel;
+    private javax.swing.JLabel lblCompanyName;
+    private javax.swing.JLabel lblCourse;
+    private javax.swing.JLabel lblLevel;
+    private javax.swing.JLabel lblSalary;
+    private javax.swing.JLabel lblSalary1;
+    private javax.swing.JLabel lblSalary2;
+    private javax.swing.JLabel lblSalary3;
+    private javax.swing.JLabel lblStartDate;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblUniversity;
+    private javax.swing.JLabel lblUniversity1;
+    private javax.swing.JLabel lblUniversity2;
+    private javax.swing.JTable tblStudentDetails;
+    private javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtCourse;
+    private javax.swing.JTextField txtExpGradDate;
+    private javax.swing.JTextField txtGovComments;
+    private javax.swing.JTextField txtJobTitle;
+    private javax.swing.JTextField txtSalary;
+    private javax.swing.JTextField txtSevisId;
+    private javax.swing.JTextField txtStartDate;
+    private javax.swing.JTextField txtStatus;
+    private javax.swing.JTextField txtStudentName;
+    private javax.swing.JTextField txtUniversity;
     // End of variables declaration//GEN-END:variables
+
+    public void getAllAcceptedJobs(){
+        try {
+            String queryAcceptedJobs = "SELECT * FROM accepted_jobs WHERE company_id = '" + selectedComp.getId().toString() + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryAcceptedJobs);                
+                while (rs.next())
+                {
+                    AcceptedJobs acceptedJob = acceptedJobs.addAcceptedJobs();
+                    
+                    acceptedJob.setCompanyId(rs.getInt("company_id"));
+                    acceptedJob.setCompanyName(rs.getString("company_name"));
+                    acceptedJob.setCourse(rs.getString("course"));
+                    acceptedJob.setJobListingsId(rs.getInt("job_listings_id"));
+                    acceptedJob.setSevisId(rs.getString("student_gov_id"));
+                    acceptedJob.setExpectedGradDate(LocalDate.parse(rs.getString("expected_grad_date")));
+                    acceptedJob.setJobTitle(rs.getString("job_title"));
+                    acceptedJob.setLevel(rs.getString("level"));
+                    acceptedJob.setNationality(rs.getString("nationality"));
+                    acceptedJob.setPosition(rs.getString("position"));
+                    acceptedJob.setRole(rs.getString("role"));
+                    acceptedJob.setStudentName(rs.getString("student_name"));
+                    acceptedJob.setUniversity(rs.getString("university"));
+                    acceptedJob.setSalary(Double.valueOf(rs.getString("salary")));
+                    acceptedJob.setStartDate(LocalDate.parse(rs.getString("start_date")));
+                    
+                    if(rs.getString("gov_comments")!=null){
+                        acceptedJob.setGovComments(rs.getString("gov_comments"));
+                    }else{
+                        acceptedJob.setGovComments("");
+                    }
+                    
+                    if(rs.getString("gov_status")!=null){
+                        acceptedJob.setGovStatus(rs.getString("gov_status"));
+                    }else{
+                        acceptedJob.setGovStatus("Pending with HR");
+                    }
+                    
+                    acceptedJob.setGovIssues(rs.getString("gov_issues"));
+                    
+                    if(rs.getString("government_name")!=null){
+                        acceptedJob.setGovName(rs.getString("government_name"));
+                    }
+
+                    acceptedJob.setLocation(rs.getString("location"));
+                    
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void populateStudentDetailsTable(AcceptedJobsDir acceptedJobs){
+        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+        tableModel.setRowCount(0);
+        
+        for(AcceptedJobs acceptedJob : acceptedJobs.getAcceptedJobsList()){
+            Object row[] = new Object[6];
+            row[0] = acceptedJob;
+            row[1] = acceptedJob.getCompanyName();
+            row[2] = acceptedJob.getPosition();
+            row[3] = acceptedJob.getRole();
+            row[4] = acceptedJob.getSalary().toString();
+            row[5] = acceptedJob.getGovStatus();
+            
+            tableModel.addRow(row);
+        }
+    }
+    
+    public void clearAllFields(){
+        txtStudentName.setText("");
+        txtCompanyName.setText("");
+        txtCourse.setText("");
+        txtExpGradDate.setText("");
+        txtGovComments.setText("");
+        txtJobTitle.setText("");
+        txtSalary.setText("");
+        txtSevisId.setText("");
+        txtStartDate.setText("");
+        txtUniversity.setText("");
+        
+        cmbLevel.setSelectedIndex(0);
+        setGovCmb();
+        
+        txtStatus.setText("");
+        txtGovComments.setText("");
+    }
+    
+    public void displayJob(AcceptedJobs acceptedJob){
+        txtStudentName.setText(acceptedJob.getStudentName());
+        txtCompanyName.setText(acceptedJob.getCompanyName());
+        txtCourse.setText(acceptedJob.getCourse());
+        txtExpGradDate.setText(acceptedJob.getExpectedGradDate().toString());
+        txtGovComments.setText(acceptedJob.getGovComments());
+        txtJobTitle.setText(acceptedJob.getJobTitle());
+        txtSalary.setText(acceptedJob.getSalary().toString());
+        txtSevisId.setText(acceptedJob.getSevisId());
+        txtStartDate.setText(acceptedJob.getStartDate().toString());
+        txtUniversity.setText(acceptedJob.getUniversity());
+        
+        cmbLevel.setSelectedItem(acceptedJob.getLevel());
+        if(acceptedJob.getGovName()==null){
+            setGovCmb();
+        }else{
+            cmbGov.setSelectedItem(acceptedJob.getGovName());
+        }
+        
+        txtStatus.setText(acceptedJob.getGovIssues());
+        if(acceptedJob.getGovComments()!=null){
+            txtGovComments.setText(acceptedJob.getGovComments());
+        }else{
+            txtGovComments.setText("");
+        }
+        
+    }
+    
+    public void getAllGovernments(){
+        try {
+            String queryAcceptedJobs = "SELECT * FROM government";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryAcceptedJobs);                
+                while (rs.next())
+                {
+                    Government gov = govs.addGovernment();
+                    
+                    gov.setCountry(rs.getString("country"));
+                    gov.setId(rs.getInt("id"));
+                    gov.setName(rs.getString("name"));
+                    gov.setPassword(rs.getString("password"));
+                    gov.setPincode(rs.getString("pincode"));
+                    gov.setState(rs.getString("state"));
+                    gov.setUsername(rs.getString("username"));
+                    
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setGovCmb(){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        
+        for(Government gov : govs.getGovernmentList()){
+            
+            model.addElement(gov.getName());
+        }
+        
+        cmbGov.setModel(model);
+    }
+    
+    public void updateAcceptedJobDetails(AcceptedJobs acceptedJob){
+        updateAcceptedJobInDb(acceptedJob);
+        acceptedJobs.removeAllAcceptedJobs();
+        getAllAcceptedJobs();
+        populateStudentDetailsTable(acceptedJobs);
+        clearAllFields();
+    }
+    
+    public void updateAcceptedJobInDb(AcceptedJobs acceptedJob){
+        try {
+            String queryUpdateJobApp = "UPDATE accepted_jobs SET level = '" + cmbLevel.getSelectedItem().toString() + "' , job_title = '" + txtJobTitle.getText() + 
+                    "' , start_date = '" + txtStartDate.getText() + "' , salary = '" + txtSalary.getText() + "' , government_name = '" + cmbGov.getSelectedItem().toString() + "'"
+                    + ", gov_comments = '" + txtGovComments.getText() + "' , gov_status = 'Pending with Gov.' WHERE job_listings_id = '" + acceptedJob.getJobListingsId().toString() + "' AND student_gov_id = '" + acceptedJob.getSevisId() +  "' AND company_id = '" + acceptedJob.getCompanyId().toString() +  "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryUpdateJobApp);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

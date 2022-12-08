@@ -17,6 +17,16 @@ public class GovernmentDir {
     public GovernmentDir() {
         governmentList = new ArrayList<>();
     }
+
+    public ArrayList<Government> getGovernmentList() {
+        return governmentList;
+    }
+
+    public void setGovernmentList(ArrayList<Government> governmentList) {
+        this.governmentList = governmentList;
+    }
+    
+    
     
     public Government addGovernment(){
         Government newGovernment = new Government();
@@ -82,6 +92,15 @@ public class GovernmentDir {
     public Government searchByPincode(String pincode){
         for(Government government : governmentList){
             if(government.getPincode().equals(pincode)){
+                return government;
+            }
+        }
+        return null;
+    }
+    
+    public Government searchByUsername(String username){
+        for(Government government : governmentList){
+            if(government.getUsername().equals(username)){
                 return government;
             }
         }
