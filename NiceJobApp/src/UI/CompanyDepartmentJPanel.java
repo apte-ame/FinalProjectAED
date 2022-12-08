@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.Government;
+import model.GovernmentDir;
 import model.JobAppointments;
 import model.JobAppointmentsDir;
 import model.UniCollege;
@@ -60,6 +62,9 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     UniDepartmentDir uniDepartments = new UniDepartmentDir();
     JobAppointmentsDir jobAppDir = new JobAppointmentsDir(); 
     JobAppointments selectedJob = new JobAppointments();
+    GovernmentDir govDir = new GovernmentDir(); 
+    Government selectedGov = new Government();
+    
     
     public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
         initComponents();
@@ -1574,10 +1579,10 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     
     public void saveAcceptedJobToDb(JobAppointments jobApp){
         try {
-            String queryNewDepartment = "INSERT into accepted_jobs (job_listings_id, student_gov_id, company_id, company_name, expected_grad_date, start_date, position, salary, course, job_title) VALUES "
+            String queryNewDepartment = "INSERT into accepted_jobs (job_listings_id, student_gov_id, company_id, company_name, expected_grad_date, start_date, position, salary, course, job_title, nationality, level, role, student_name, university, gov_status, gov_issues, location) VALUES "
                     + "('"+ jobApp.getJobListingsId().toString() + "', '"  + jobApp.getSevisId() + "' , '" + jobApp.getCompanyId().toString() + "' "
                     + ", '" + selectedComp.getName() + "' , '" + getExpectedEndDate(uniStudents.searchBySevisId(jobApp.getSevisId())).toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getStartDate().toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getPosition() + "' "
-                    + ", '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getSalaryPerHr().toString() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getTitle() + "' )";
+                    + ", '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getSalaryPerHr().toString() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getTitle() + "', '"+ uniStudents.searchBySevisId(jobApp.getSevisId()).getCountryOfOrigin() +"' , '"+ compDeptDir.searchByJobId(jobApp.getJobListingsId()).getLevel() +"' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getRole() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getName() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName() + "' , 'Pending with HR' , 'Pending Gov. Approval' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getLocation() + "')";
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewDepartment); 
             st.close();
