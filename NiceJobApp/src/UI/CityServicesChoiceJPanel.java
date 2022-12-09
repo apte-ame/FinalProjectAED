@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.sql.Connection;
 import javax.swing.JSplitPane;
 import model.citysearchdir;
 
@@ -21,13 +22,13 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
      */
     JSplitPane splitPane;
     String choice = "";
-    citysearchdir citysearchitems;
+    Connection conn = null;
 
     
-    public CityServicesChoiceJPanel(JSplitPane splitPaneMain) {
+    public CityServicesChoiceJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
-         splitPane = splitPaneMain;
-         citysearchitems = new citysearchdir ();
+         this.splitPane = splitPane;
+         this.conn = conn;
     }
 
     /**
@@ -40,7 +41,7 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        btnStudent = new button.Button();
+        btnNgoLogin = new button.Button();
         btnSystemAdmin = new button.Button();
         btnAdvisor1 = new button.Button();
 
@@ -51,13 +52,13 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 153, 0));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(100, 630));
 
-        btnStudent.setBackground(new java.awt.Color(204, 0, 255));
-        btnStudent.setForeground(new java.awt.Color(255, 255, 255));
-        btnStudent.setText("Student login and search ");
-        btnStudent.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnStudent.addActionListener(new java.awt.event.ActionListener() {
+        btnNgoLogin.setBackground(new java.awt.Color(204, 0, 255));
+        btnNgoLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnNgoLogin.setText("NGO Login");
+        btnNgoLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnNgoLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStudentActionPerformed(evt);
+                btnNgoLoginActionPerformed(evt);
             }
         });
 
@@ -89,7 +90,7 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
                 .addContainerGap(562, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSystemAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnStudent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNgoLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdvisor1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(181, 181, 181))
         );
@@ -97,7 +98,7 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(143, 143, 143)
-                .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNgoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAdvisor1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -110,7 +111,7 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,11 +120,11 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
+    private void btnNgoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgoLoginActionPerformed
         // TODO add your handling code here:
-        CityServiceStudentJPanel cssPanel = new  CityServiceStudentJPanel(splitPane,citysearchitems);
-        splitPane.setRightComponent(cssPanel);
-    }//GEN-LAST:event_btnStudentActionPerformed
+        CityServiceLoginJPanel cityLoginPanel = new  CityServiceLoginJPanel(splitPane,"user", conn);
+        splitPane.setRightComponent(cityLoginPanel);
+    }//GEN-LAST:event_btnNgoLoginActionPerformed
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
@@ -134,8 +135,8 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
 
     private void btnAdvisor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisor1ActionPerformed
 //        // TODO add your handling code here:
-        CityServiceEmployerJPanel csePanel = new  CityServiceEmployerJPanel(citysearchitems);
-        splitPane.setRightComponent(csePanel);
+//        CityServiceEmployerJPanel csePanel = new  CityServiceEmployerJPanel(citysearchitems);
+//        splitPane.setRightComponent(csePanel);
 
 
 
@@ -145,7 +146,7 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdvisor1;
-    private button.Button btnStudent;
+    private button.Button btnNgoLogin;
     private button.Button btnSystemAdmin;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
