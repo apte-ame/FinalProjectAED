@@ -325,7 +325,7 @@ public class LoginJPanel extends javax.swing.JPanel {
                 while (rs.next())
                 {
                     UniStudent student = uniStudents.addUniStudent();
-                    
+                    student.setId(rs.getInt("id"));
                     student.setName(rs.getString("name"));
                     student.setSevisId(rs.getString("student_gov_id"));
                     student.setContactNo(rs.getLong("contact_no"));

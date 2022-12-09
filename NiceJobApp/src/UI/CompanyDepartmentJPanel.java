@@ -6,6 +6,10 @@ package UI;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +24,7 @@ import model.CompanyDir;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -1368,7 +1373,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 while (rs.next())
                 {
                     UniStudent student = uniStudents.addUniStudent();
-                    
+                    student.setId(rs.getInt("id"));
                     student.setName(rs.getString("name"));
                     student.setSevisId(rs.getString("student_gov_id"));
                     student.setContactNo(rs.getLong("contact_no"));
@@ -1509,7 +1514,9 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         txtStudentName.setText(uniStudents.searchBySevisId(jobApp.getSevisId()).getName());
         txtUniversity.setText(uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName());
         txtApplicationDate.setText(jobApp.getDateApplied().toString());
-        
+        ImageIcon myImg = retrieveImage(uniStudents.searchBySevisId(jobApp.getSevisId()));
+        lblImage.setText("");
+        lblImage.setIcon(myImg);
         if(jobApp.getComments()!=null){
             txtAreaComments.setText(jobApp.getComments());
         }else{
@@ -1685,4 +1692,53 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         }
         return expectedStart;
     }
+    
+     
+    public ImageIcon retrieveImage(UniStudent myStudent){
+        ImageIcon uploadedImage=null;
+        ImageIcon scaledImageIcon=null;
+        try{ Statement st = conn.createStatement();
+                String query = "SELECT photos FROM photos WHERE student_id="+myStudent.getId();
+                ResultSet rs = st.executeQuery(query); // retrieve photo
+                int count=0;
+                
+//                System.out.println(count);
+                
+                while (rs.next()) // retrieve photo
+                {
+                    count++;
+//                  int id = rs.getInt("id");
+                    String filename = "retCapture"+".png";
+                  try(FileOutputStream fos = new FileOutputStream(filename)){
+                      Blob blob = rs.getBlob("photos");
+                      int len = (int) blob.length();
+                      byte[] buf = blob.getBytes(1, len);
+                      fos.write(buf,0,len);
+                      
+                uploadedImage = new ImageIcon(filename);
+                Image image1 = uploadedImage.getImage();
+                Image scaledImage = image1.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+                scaledImageIcon = new ImageIcon(scaledImage);
+                  }catch(IOException ex){
+                      Logger lgr =Logger.getLogger(UniStudentJPanel.class.getName());
+                      lgr.log(Level.SEVERE,ex.getMessage(),ex);
+                  }
+                  
+                  
+                }
+                st.close();
+
+                if (conn != null) {
+                    System.out.println("Connected to the database test1");
+
+                    
+                }
+                
+            } catch (SQLException ex) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+            ex.printStackTrace();
+        }
+        return scaledImageIcon;
+    }
+    
 }
