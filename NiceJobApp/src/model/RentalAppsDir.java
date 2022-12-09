@@ -74,4 +74,23 @@ public class RentalAppsDir {
         }
         return newRentalApps;
     }
+    
+    public RentalApps searchByAvailability(String available){
+        for(RentalApps rentalApps : rentalsList){
+            if(rentalApps.getStatus().equals(available)){
+                return rentalApps;
+            }
+        }  
+        return null;
+    }
+    
+    public void deleteAllNonRented(){
+        ArrayList<RentalApps> newList = new ArrayList<RentalApps>();
+        for(RentalApps rentalApps : rentalsList){
+            if(rentalApps.getAvailability().equalsIgnoreCase("Rented")){
+                newList.add(rentalApps);
+            }
+        }
+        rentalsList = newList;
+    }
 }

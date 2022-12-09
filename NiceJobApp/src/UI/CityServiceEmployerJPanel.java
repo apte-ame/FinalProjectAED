@@ -237,7 +237,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         jLabel6.setText("Name of Leasee");
 
         cmbAvailability.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbAvailability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Deal in Progress", "Deal offered", "Rented" }));
+        cmbAvailability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Deal in progress", "Deal offered", "Rented" }));
 
         txtRent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -545,6 +545,9 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         }else{
             DefaultTableModel tableModel = (DefaultTableModel) tblListings.getModel();
             RentalApps rental = (RentalApps) tableModel.getValueAt(selectedRow, 0);
+            if(rental.getAvailability().equalsIgnoreCase("Rented")){
+                disableAllFields();
+            }
             displayRentalApp(rental);
             selectedRental = rental;
         }
@@ -701,12 +704,29 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         }else if(txtCoords.getText().equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "Please select a location");
         }else{
-            updateDetails();
-            clearAllFields();
-            disableAllFields();
-            rentals.clearAll();
-            loadAllRentals();
-            populateTable(rentals);
+            if(cmbAvailability.getSelectedItem().toString().equalsIgnoreCase("Available")){
+                updateDetailsAvailable();
+                clearAllFields();
+                disableAllFields();
+                rentals.clearAll();
+                loadAllRentals();
+                populateTable(rentals);
+            }else if(cmbAvailability.getSelectedItem().toString().equalsIgnoreCase("Deal in progress") || cmbAvailability.getSelectedItem().toString().equalsIgnoreCase("Deal offered")){
+                updateDetails();
+                clearAllFields();
+                disableAllFields();
+                rentals.clearAll();
+                loadAllRentals();
+                populateTable(rentals);
+            }else{
+                updateDetails();
+                resetAllLeaseeRentals();
+                clearAllFields();
+                disableAllFields();
+                rentals.clearAll();
+                loadAllRentals();
+                populateTable(rentals);
+            }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -1013,6 +1033,33 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                     + "latitude = '"+latitude+"', longitude = '"+ longitude +"', location = '"+cmbLocation.getSelectedItem().toString()+"', "
                     + "status = '"+cmbStatus.getSelectedItem()+"', ngo_rental_id = '"+ngoRental.getId().toString()+"', "
                     + "start_date = '"+txtMoveDate.getText()+"' WHERE id = '"+ selectedRental.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateDetailsAvailable(){
+        try {
+            String queryNewStudent = "UPDATE rentals SET title = '" + txtTitle.getText() + "', description = '"+ txtAreaDescription.getText() +"', "
+                    + "rent = '"+txtRent.getText()+"', availability = '"+cmbAvailability.getSelectedItem().toString()+"', "
+                    + "latitude = '"+latitude+"', longitude = '"+ longitude +"', location = '"+cmbLocation.getSelectedItem().toString()+"', "
+                    + "status = 'No activities', ngo_rental_id = '"+ngoRental.getId().toString()+"', "
+                    + "start_date = '"+txtMoveDate.getText()+"', name_of_leasee = null, leasee_id = null, comments = null WHERE id = '"+ selectedRental.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void resetAllLeaseeRentals(){
+        try {
+            String queryNewStudent = "UPDATE rentals SET availability = 'Available', status = 'No activities',"
+                    + " name_of_leasee = null, leasee_id = null, comments = null WHERE leasee_id = '"+ selectedRental.getLeaseeId().toString() +"' AND availability != 'Rented'";
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewStudent); 
             st.close();

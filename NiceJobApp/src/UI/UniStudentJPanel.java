@@ -20,14 +20,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.IIOImage;
@@ -43,6 +44,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.event.MouseInputListener;
 import javax.swing.table.DefaultTableModel;
 import model.CompDepartment;
 import model.CompDepartmentDir;
@@ -50,8 +52,19 @@ import model.Company;
 import model.CompanyDir;
 import model.JobAppointments;
 import model.JobAppointmentsDir;
-import model.UniDepartment;
+import model.RentalApps;
+import model.RentalAppsDir;
 import model.UniStudent;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.input.PanMouseInputListener;
+import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.viewer.GeoPosition;
+import org.jxmapviewer.viewer.TileFactoryInfo;
+import org.jxmapviewer.viewer.WaypointPainter;
+import waypoint.EventWaypoint;
+import waypoint.MyWaypoint;
+import waypoint.WaypointRender;
 
 /**
  *
@@ -73,6 +86,23 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     
     Integer selectedRow = -1;
     Integer selectedRowApps = -1;
+    
+    RentalAppsDir rentals = new RentalAppsDir();
+    RentalApps selectedRental = new RentalApps();
+    GeoPosition geo;
+    
+    private final Set<MyWaypoint> waypoints = new HashSet<>();
+    private EventWaypoint event;
+    
+    Double latitude;
+    Double longitude;
+    
+    String selectedCityMap = "";
+    Integer selectedRowMap = -1;
+    
+    MouseInputListener mm;
+    
+    private RentalApps rentalApp;
     
     public UniStudentJPanel(JSplitPane splitPane, Connection conn, UniStudent student) {
         initComponents();
@@ -104,8 +134,51 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         tblJobListingsApps.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         btnApply.setEnabled(false);
         btnWithdraw.setEnabled(false);
+        
+        mm = new PanMouseInputListener(jXMapViewer);
+        latitude = 42.3145186;
+        longitude = -71.1103689;
+        init(42.3145186,-71.1103689);
+        
+        clearAllFieldsMap();
+        disableAllFieldsMap();
+        loadAllRentals();
+        populateTableMap(rentals);
+        tblListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+        
     }
 
+    private void addWaypoint(MyWaypoint waypoint) {
+        for (MyWaypoint d : waypoints) {
+            jXMapViewer.remove(d.getButton());
+        }
+        waypoints.clear();
+        waypoints.add(waypoint);
+        initWaypoint();
+    }
+    
+    private void initWaypoint() {
+        WaypointPainter<MyWaypoint> wp = new WaypointRender();
+        wp.setWaypoints(waypoints);
+        jXMapViewer.setOverlayPainter(wp);
+        for (MyWaypoint d : waypoints) {
+            jXMapViewer.add(d.getButton());
+        }
+    }
+    
+    private void init(Double mainLat,Double mainLong) {
+        TileFactoryInfo info = new OSMTileFactoryInfo();
+        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+        jXMapViewer.setTileFactory(tileFactory);
+//        geo = new GeoPosition(42.342428194183036, -71.10145032405853);
+        geo = new GeoPosition(mainLat, mainLong);
+        jXMapViewer.setAddressLocation(geo);
+        jXMapViewer.setZoom(0);
+
+        //  Create event mouse move
+        addMouseListener();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -209,6 +282,39 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         btnWithdraw = new button.Button();
         txtJobAppId = new javax.swing.JTextField();
         lblJobAppId = new javax.swing.JLabel();
+        panelRentals = new javax.swing.JPanel();
+        kGradientPanel8 = new keeptoo.KGradientPanel();
+        kGradientPanel9 = new keeptoo.KGradientPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tblListings = new javax.swing.JTable();
+        txtTitle = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cmbLocation = new javax.swing.JComboBox<>();
+        txtCoords = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtAreaDescription = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtRent = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtMoveDate = new javax.swing.JTextField();
+        cmbAvailability = new javax.swing.JComboBox<>();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        txtAreaComments = new javax.swing.JTextArea();
+        jLabel12 = new javax.swing.JLabel();
+        txtLeasee = new javax.swing.JTextField();
+        cmbStatus = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnUpdate = new javax.swing.JButton();
+        jXMapViewer = new org.jxmapviewer.JXMapViewer();
+        btnSearchMap = new button.Button();
+        btnRefreshTableMap = new button.Button();
+        btnClearMap = new button.Button();
+        btnViewSelectedMap = new button.Button();
         lblWelcome = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -353,7 +459,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         kGradientPanel2Layout.setHorizontalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -384,7 +490,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)))
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(185, 185, 185))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
@@ -406,7 +512,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(txtCourse, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                             .addComponent(txtUniversity)
                             .addComponent(txtCollege, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
-                        .addGap(0, 73, Short.MAX_VALUE))))
+                        .addGap(0, 51, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -711,7 +817,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblResults, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
                         .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1083,7 +1189,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblJobDescription1)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 55, Short.MAX_VALUE))
+                        .addGap(29, 53, Short.MAX_VALUE))
                     .addGroup(kGradientPanel7Layout.createSequentialGroup()
                         .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDateApplied, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1134,6 +1240,325 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         );
 
         studentTabbedPane.addTab("MY APPLICATIONS", panelMyApplications);
+
+        kGradientPanel8.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel8.setkStartColor(new java.awt.Color(204, 255, 204));
+
+        kGradientPanel9.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel9.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel9.setPreferredSize(new java.awt.Dimension(850, 531));
+
+        tblListings.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Listing Id", "Title", "Location", "Rent", "Availability", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane8.setViewportView(tblListings);
+
+        txtTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitleActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel3.setText("Title");
+
+        cmbLocation.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York", "Chicago", "San Francisco", "Los Angeles", "Seattle" }));
+        cmbLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbLocationActionPerformed(evt);
+            }
+        });
+
+        txtCoords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCoordsActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel10.setText("Coordinates");
+
+        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel5.setText("Location");
+
+        txtAreaDescription.setColumns(20);
+        txtAreaDescription.setRows(5);
+        jScrollPane6.setViewportView(txtAreaDescription);
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel1.setText("Description");
+
+        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel7.setText("Rent");
+
+        txtRent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRentActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Availability");
+
+        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel11.setText("Move-in Date");
+
+        txtMoveDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMoveDateActionPerformed(evt);
+            }
+        });
+
+        cmbAvailability.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbAvailability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Deal in progress", "Deal offered", "Rented" }));
+
+        txtAreaComments.setColumns(20);
+        txtAreaComments.setRows(5);
+        txtAreaComments.setEnabled(false);
+        jScrollPane9.setViewportView(txtAreaComments);
+
+        jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel12.setText("Comments");
+
+        txtLeasee.setEnabled(false);
+
+        cmbStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No activities", "Finalize deal", "Negotiate Rent", "Highlight issues" }));
+        cmbStatus.setEnabled(false);
+
+        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel6.setText("Status");
+
+        jLabel13.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jLabel13.setText("Name of Leasee");
+
+        btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnUpdate.setText("Request");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jXMapViewerLayout = new javax.swing.GroupLayout(jXMapViewer);
+        jXMapViewer.setLayout(jXMapViewerLayout);
+        jXMapViewerLayout.setHorizontalGroup(
+            jXMapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+        jXMapViewerLayout.setVerticalGroup(
+            jXMapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 263, Short.MAX_VALUE)
+        );
+
+        btnSearchMap.setBackground(new java.awt.Color(204, 255, 204));
+        btnSearchMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
+        btnSearchMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchMapActionPerformed(evt);
+            }
+        });
+
+        btnRefreshTableMap.setBackground(new java.awt.Color(204, 255, 204));
+        btnRefreshTableMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
+        btnRefreshTableMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableMapActionPerformed(evt);
+            }
+        });
+
+        btnClearMap.setBackground(new java.awt.Color(204, 255, 204));
+        btnClearMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
+        btnClearMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearMapActionPerformed(evt);
+            }
+        });
+
+        btnViewSelectedMap.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelectedMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelectedMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSelectedMapActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout kGradientPanel9Layout = new javax.swing.GroupLayout(kGradientPanel9);
+        kGradientPanel9.setLayout(kGradientPanel9Layout);
+        kGradientPanel9Layout.setHorizontalGroup(
+            kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
+                    .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtLeasee, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtRent, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cmbAvailability, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtMoveDate, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCoords, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbLocation, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel9Layout.createSequentialGroup()
+                                .addComponent(btnSearchMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRefreshTableMap, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClearMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnViewSelectedMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jXMapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(btnUpdate)))))
+                .addContainerGap())
+        );
+        kGradientPanel9Layout.setVerticalGroup(
+            kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSearchMap, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRefreshTableMap, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClearMap, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnViewSelectedMap, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel9Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(54, 54, 54))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel9Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(35, 35, 35)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtLeasee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbLocation))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCoords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtMoveDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(cmbAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33)
+                                .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(9, 9, 9))
+                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(kGradientPanel9Layout.createSequentialGroup()
+                        .addComponent(jXMapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout kGradientPanel8Layout = new javax.swing.GroupLayout(kGradientPanel8);
+        kGradientPanel8.setLayout(kGradientPanel8Layout);
+        kGradientPanel8Layout.setHorizontalGroup(
+            kGradientPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        kGradientPanel8Layout.setVerticalGroup(
+            kGradientPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelRentalsLayout = new javax.swing.GroupLayout(panelRentals);
+        panelRentals.setLayout(panelRentalsLayout);
+        panelRentalsLayout.setHorizontalGroup(
+            panelRentalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRentalsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelRentalsLayout.setVerticalGroup(
+            panelRentalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRentalsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        studentTabbedPane.addTab("HOUSE RENTALS", panelRentals);
 
         lblWelcome.setFont(new java.awt.Font("Trebuchet MS", 1, 32)); // NOI18N
         lblWelcome.setText("Welcome, XYZ!");
@@ -1480,26 +1905,201 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnWithdrawActionPerformed
 
+    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitleActionPerformed
+
+    private void cmbLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocationActionPerformed
+        // TODO add your handling code here:
+        selectedCityMap =  cmbLocation.getItemAt(cmbLocation.getSelectedIndex());
+        updateMap(selectedCityMap);
+    }//GEN-LAST:event_cmbLocationActionPerformed
+
+    private void txtCoordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCoordsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCoordsActionPerformed
+
+    private void txtRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRentActionPerformed
+
+    private void txtMoveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMoveDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMoveDateActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("No activities")){
+            JOptionPane.showMessageDialog(this, "Please select an activity");
+        }else{
+            updateDetailsMap();
+            clearAllFieldsMap();
+            disableAllFieldsMap();
+            rentals.clearAll();
+            loadAllRentals();
+            populateTableMap(rentals);
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnSearchMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchMapActionPerformed
+        // TODO add your handling code here:
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Please select a field:"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Location");
+        model.addElement("Status");
+        JComboBox comboBox = new JComboBox(model);
+        panel.add(comboBox);
+
+        int resultField = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(resultField == JOptionPane.OK_OPTION){
+            String fieldSelected = comboBox.getSelectedItem().toString();
+
+            DefaultComboBoxModel locs = new DefaultComboBoxModel();
+            locs.addElement("Boston");
+            locs.addElement("New York");
+            locs.addElement("Chicago");
+            locs.addElement("San Francisco");
+            locs.addElement("Los Angeles");
+            locs.addElement("Seattle");
+
+            JComboBox comboBoxLocs = new JComboBox(locs);
+
+            DefaultComboBoxModel status = new DefaultComboBoxModel();
+            status.addElement("No activities");
+            status.addElement("Finalize deal");
+            status.addElement("Negotiate Rent");
+            status.addElement("Highlight issues");
+
+            JComboBox comboBoxStatus = new JComboBox(status);
+
+            panel.add(new JLabel("Value:"));
+
+            if(fieldSelected.equalsIgnoreCase("Location")){
+                comboBox.setEnabled(false);
+                panel.add(comboBoxLocs);
+            }else{
+                comboBox.setEnabled(false);
+                panel.add(comboBoxStatus);
+            }
+
+            int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(resultValue == JOptionPane.OK_OPTION) {
+
+                String fieldValue;
+                if(fieldSelected.equalsIgnoreCase("Location")){
+                    fieldValue = comboBoxLocs.getSelectedItem().toString();
+                } else {
+                    fieldValue = comboBoxStatus.getSelectedItem().toString();
+                }
+
+                RentalAppsDir resultRentalAppsDir = new RentalAppsDir();
+                ArrayList<RentalApps> resultRentalApps = new ArrayList<RentalApps>();
+
+                if(fieldSelected.equalsIgnoreCase("Location")){
+                    resultRentalApps = rentals.searchByLocation(fieldValue);
+                }else if(fieldSelected.equalsIgnoreCase("Status")){
+                    resultRentalApps = rentals.searchByStatus(fieldValue);
+                }else{
+                    resultRentalApps = null;
+                }
+
+                if(resultRentalApps.isEmpty()){
+                    JOptionPane.showMessageDialog(this, "No Results Found");
+                    populateTableMap(rentals);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Entries found");
+                    resultRentalAppsDir.setRentalAppsList(resultRentalApps);
+                    populateTableMap(resultRentalAppsDir);
+                }
+
+            }else{
+                JOptionPane.showMessageDialog(this, "Search Cancelled");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Search Cancelled");
+        }
+    }//GEN-LAST:event_btnSearchMapActionPerformed
+
+    private void btnRefreshTableMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableMapActionPerformed
+        // TODO add your handling code here:
+        clearAllFieldsMap();
+        disableAllFieldsMap();
+        populateTableMap(rentals);
+    }//GEN-LAST:event_btnRefreshTableMapActionPerformed
+
+    private void btnClearMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearMapActionPerformed
+        // TODO add your handling code here:
+        clearAllFieldsMap();
+        disableAllFieldsMap();
+    }//GEN-LAST:event_btnClearMapActionPerformed
+
+    private void btnViewSelectedMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedMapActionPerformed
+        clearAllFieldsMap();
+        disableAllFieldsMap();
+
+        txtLeasee.setEnabled(true);
+        cmbStatus.setEnabled(true);
+        txtAreaComments.setEnabled(true);
+        btnUpdate.setEnabled(true);
+
+        selectedRow = tblListings.getSelectedRow();
+        if(selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a row");
+            return;
+        }else{
+            DefaultTableModel tableModel = (DefaultTableModel) tblListings.getModel();
+            RentalApps rental = (RentalApps) tableModel.getValueAt(selectedRow, 0);
+            displayRentalApp(rental);
+            selectedRental = rental;
+            if(rental.getAvailability().equalsIgnoreCase("Rented")){
+                txtLeasee.setEnabled(false);
+                cmbStatus.setEnabled(false);
+                txtAreaComments.setEnabled(false);
+                btnUpdate.setEnabled(false);
+            }
+        }
+
+    }//GEN-LAST:event_btnViewSelectedMapActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button back_btn;
     private button.Button btnApply;
     private button.Button btnClear;
+    private button.Button btnClearMap;
     private javax.swing.JButton btnClkAndUpload;
     private button.Button btnRefreshTable;
+    private button.Button btnRefreshTableMap;
     private button.Button btnResetFilter;
     private button.Button btnSearch;
     private button.Button btnSearch1;
+    private button.Button btnSearchMap;
     private javax.swing.JButton btnTakePic;
+    private javax.swing.JButton btnUpdate;
     private button.Button btnViewSelected;
+    private button.Button btnViewSelectedMap;
     private button.Button btnWithdraw;
+    private javax.swing.JComboBox<String> cmbAvailability;
     private javax.swing.JComboBox<String> cmbGender;
     private javax.swing.JComboBox<String> cmbLevel;
+    private javax.swing.JComboBox<String> cmbLocation;
     private javax.swing.JComboBox<String> cmbNationality;
     private javax.swing.JComboBox<String> cmbRole;
+    private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1507,12 +2107,18 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
+    private org.jxmapviewer.JXMapViewer jXMapViewer;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
     private keeptoo.KGradientPanel kGradientPanel6;
     private keeptoo.KGradientPanel kGradientPanel7;
+    private keeptoo.KGradientPanel kGradientPanel8;
+    private keeptoo.KGradientPanel kGradientPanel9;
     private javax.swing.JLabel lblAcadSummary;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblAppStatus;
@@ -1549,18 +2155,23 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private button.Button nxtSavebtn;
     private javax.swing.JPanel panelJDWatch;
     private javax.swing.JPanel panelMyApplications;
+    private javax.swing.JPanel panelRentals;
     private javax.swing.JPanel panelStudentProfile;
     private javax.swing.JTabbedPane studentTabbedPane;
     private javax.swing.JTable tblJobListings;
     private javax.swing.JTable tblJobListingsApps;
+    private javax.swing.JTable tblListings;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextArea txtAreaAcadSummary;
+    private javax.swing.JTextArea txtAreaComments;
+    private javax.swing.JTextArea txtAreaDescription;
     private javax.swing.JTextArea txtAreaJobDescription;
     private javax.swing.JTextArea txtAreaJobDescriptionMyApp;
     private javax.swing.JTextField txtCollege;
     private javax.swing.JTextField txtCompanyMyApp;
     private javax.swing.JTextField txtCompanyName;
     private javax.swing.JTextField txtContactNo;
+    private javax.swing.JTextField txtCoords;
     private javax.swing.JTextField txtCourse;
     private javax.swing.JTextField txtDateApplied;
     private javax.swing.JTextField txtDepartment;
@@ -1570,12 +2181,16 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtJobAppId;
     private javax.swing.JTextField txtJobId;
     private javax.swing.JTextField txtJobTitle;
+    private javax.swing.JTextField txtLeasee;
+    private javax.swing.JTextField txtMoveDate;
     private javax.swing.JTextField txtPosition;
+    private javax.swing.JTextField txtRent;
     private javax.swing.JTextField txtSalaryOffered;
     private javax.swing.JTextField txtSkills;
     private javax.swing.JTextField txtStartDate;
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtStudentName;
+    private javax.swing.JTextField txtTitle;
     private javax.swing.JTextField txtUniversity;
     // End of variables declaration//GEN-END:variables
 
@@ -2081,4 +2696,231 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         return scaledImageIcon;
     }
     
+    public void addMouseListener(){   
+        jXMapViewer.addMouseListener(mm);
+        jXMapViewer.addMouseMotionListener(mm);
+        jXMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer));
+    }
+    
+    public void removeMouseListener(){
+        jXMapViewer.removeMouseListener(mm);
+        jXMapViewer.removeMouseMotionListener(mm);
+        jXMapViewer.removeMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer));
+    }
+    
+    public void updateMap(String selectedCity){
+        if(selectedCity.equalsIgnoreCase("Boston")){
+            latitude = 42.3145186;
+            longitude = -71.1103689;
+            init(latitude,longitude);
+            addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(latitude, longitude)));
+            initWaypoint();
+            txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+        }else if(selectedCity.equalsIgnoreCase("New York")){
+//            init(40.6976701,-74.2598698);
+            latitude = 40.6976701;
+            longitude = -74.2598698;
+            init(latitude,longitude);
+            addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(latitude, longitude)));
+            initWaypoint();
+            txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+        }else if(selectedCity.equalsIgnoreCase("Chicago")){
+//            init(41.8339042,-88.0121521);
+            latitude = 41.8339042;
+            longitude = -88.0121521;
+            init(latitude,longitude);
+            addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(latitude, longitude)));
+            initWaypoint();
+            txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+        }else if(selectedCity.equalsIgnoreCase("San Francisco")){
+//            init(37.771713, -122.431704);
+            latitude = 37.771713;
+            longitude = -122.431704;
+            init(latitude,longitude);
+            addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(latitude, longitude)));
+            initWaypoint();
+            txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+        }else if(selectedCity.equalsIgnoreCase("Los Angeles")){
+//            init(34.034957,-118.257965);
+            latitude = 34.034957;
+            longitude = -118.257965;
+            init(latitude,longitude);
+            addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(latitude, longitude)));
+            initWaypoint();
+            txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+        }else{
+//            init(47.606756,-122.322473);
+            latitude = 47.606756;
+            longitude = -122.322473;
+            init(latitude,longitude);
+            addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(geo.getLatitude(), geo.getLongitude())));
+            initWaypoint();
+            txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+        }
+        txtCoords.setText("");
+    }
+    
+    private void disableAllFieldsMap(){
+        txtTitle.setEnabled(false);
+        txtAreaDescription.setEnabled(false);
+        txtRent.setEnabled(false);
+        
+        cmbLocation.setEnabled(false);
+        txtCoords.setEnabled(false);
+        txtMoveDate.setEnabled(false);
+        cmbAvailability.setEnabled(false);
+        
+        txtLeasee.setEnabled(false);
+        cmbStatus.setEnabled(false);
+        txtAreaComments.setEnabled(false);
+        
+        jXMapViewer.setEnabled(false);
+        
+        btnUpdate.setEnabled(false);
+    }
+    
+    private void enableAllFieldsMap(){
+        txtTitle.setEnabled(true);
+        txtAreaDescription.setEnabled(true);
+        txtRent.setEnabled(true);
+        
+        cmbLocation.setEnabled(true);
+        txtCoords.setEnabled(true);
+        txtMoveDate.setEnabled(true);
+        cmbAvailability.setEnabled(true);
+        
+        txtLeasee.setEnabled(true);
+        cmbStatus.setEnabled(true);
+        txtAreaComments.setEnabled(true);
+        
+        jXMapViewer.setEnabled(true);
+      
+        btnUpdate.setEnabled(true);
+    }
+    
+    public void populateTableMap(RentalAppsDir rentals){
+        DefaultTableModel tableModel = (DefaultTableModel) tblListings.getModel();
+        tableModel.setRowCount(0);
+        
+        for(RentalApps rental : rentals.getRentalAppsList()){
+            Object row[] = new Object[6];
+            row[0] = rental;
+            row[1] = rental.getTitle();
+            row[2] = rental.getLocation();
+            row[3] = rental.getRent().toString();
+            row[4] = rental.getAvailability();
+            row[5] = rental.getStatus();
+            
+            tableModel.addRow(row);
+        }
+    }
+    
+    public void loadAllRentals(){
+        try {
+            String queryRentals = "SELECT * FROM rentals WHERE availability = 'Available' OR leasee_id = '"+student.getId().toString()+"'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryRentals);                
+                while (rs.next())
+                {
+                    RentalApps rental = rentals.addRentalApps();
+                    
+                    rental.setId(rs.getInt("id"));
+                    rental.setTitle(rs.getString("title"));
+                    rental.setDescription(rs.getString("description"));
+                    rental.setRent(Integer.valueOf(rs.getString("rent")));
+                    rental.setAvailability(rs.getString("availability"));
+                    rental.setLatitude(Double.valueOf(rs.getString("latitude")));
+                    rental.setLongitude(Double.valueOf(rs.getString("longitude")));
+                    rental.setLocation(rs.getString("location"));
+                    rental.setStatus(rs.getString("status"));
+                    rental.setNgoRentalId(Integer.valueOf(rs.getString("ngo_rental_id")));
+                    rental.setStartDate(LocalDate.parse(rs.getString("start_date")));
+                    
+                    if(rs.getString("name_of_leasee")!=null){
+                        rental.setNameOfLeasee(rs.getString("name_of_leasee"));
+                    }else{
+                        rental.setNameOfLeasee("");
+                    }
+                    
+                    if(rs.getString("comments")!=null){
+                        rental.setComments(rs.getString("comments"));
+                    }else{
+                        rental.setComments("");
+                    }
+                    
+                    if(rs.getInt("leasee_id")!=0){
+                        rental.setLeaseeId(rs.getInt("leasee_id"));
+                    }else{
+                        rental.setLeaseeId(0);
+                    }
+                    
+                    
+                }
+                st.close();
+                
+                Boolean rent = false;
+                for(RentalApps rental: rentals.getRentalAppsList()){
+                    if(rental.getAvailability().equalsIgnoreCase("Rented")){
+                        rent = true;
+                    }
+                }
+                
+                if(rent){
+                    rentals.deleteAllNonRented();
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void clearAllFieldsMap(){
+        txtTitle.setText("");
+        txtAreaDescription.setText("");
+        txtRent.setText("");
+        
+        cmbLocation.setSelectedIndex(0);
+        txtCoords.setText("");
+        txtMoveDate.setText("");
+        cmbAvailability.setSelectedIndex(0);
+        
+        txtLeasee.setText("");
+        cmbStatus.setSelectedIndex(0);
+        txtAreaComments.setText("");
+        
+        jXMapViewer.setEnabled(false);
+        removeMouseListener();
+    }
+    
+    public void displayRentalApp(RentalApps rental){
+        txtTitle.setText(rental.getTitle());
+        txtAreaDescription.setText(rental.getDescription());
+        txtRent.setText(rental.getRent().toString());
+        
+        cmbLocation.setSelectedItem(rental.getLocation());
+        txtCoords.setText(rental.getLatitude().toString()+","+rental.getLongitude().toString());
+        txtMoveDate.setText(rental.getStartDate().toString());
+        cmbAvailability.setSelectedItem(rental.getAvailability());
+        
+        txtLeasee.setText(student.getName());
+        cmbStatus.setSelectedItem(rental.getStatus());
+        txtAreaComments.setText(rental.getComments());
+        
+        latitude = rental.getLatitude();
+        longitude = rental.getLongitude();
+        init(latitude,longitude);
+        addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(geo.getLatitude(), geo.getLongitude())));
+        initWaypoint();
+        txtCoords.setText(String.valueOf(latitude) +"," + String.valueOf(longitude));
+    }
+    
+    public void updateDetailsMap(){
+        try {
+            String queryNewStudent = "UPDATE rentals SET availability = 'Deal in progress', name_of_leasee = '"+ txtLeasee.getText() +"' , status = '"+cmbStatus.getSelectedItem().toString()+"', comments = '"+txtAreaComments.getText()+"', leasee_id = '"+student.getId().toString()+"' WHERE id = '"+ selectedRental.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
