@@ -65,7 +65,6 @@
                           <Component id="btnViewSelected" linkSize="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="lblHeading1" min="-2" pref="333" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblHeading2" min="-2" pref="333" max="-2" attributes="0"/>

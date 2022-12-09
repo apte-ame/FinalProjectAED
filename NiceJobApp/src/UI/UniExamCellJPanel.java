@@ -15,10 +15,19 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -575,6 +584,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         saveStudentDetails();
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
@@ -971,11 +981,59 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                 student.setDepartment(department);
                 
                 saveStudentToDb(student);
+                sendEmail(student);
                 clearAllFields();
                 populateStudentTable(uniStudents);
                 
             }
         }   
+    }
+    
+    public void sendEmail(UniStudent recepient){
+        
+        Properties properties = new Properties();
+        
+        properties.put("mail.smtp.auth","true");
+        properties.put("mail.smtp.starttls.enable","true");
+        properties.put("mail.smtp.host","smtp.gmail.com");
+        properties.put("mail.smtp.port","587");
+        
+        String myAccountEmail = "nice.job.app@gmail.com";
+        String password = "pfwuxjdssssnikpi";
+        
+        Session session = Session.getInstance(properties, new Authenticator(){
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication(myAccountEmail,password);
+            }
+        });
+        
+        Message message = prepareMessage(session, myAccountEmail, recepient);
+        try {
+            Transport.send(message);
+        } catch (MessagingException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Message sent successfully");
+   
+    }
+    
+    private static Message prepareMessage(Session session, String myAccountEmail, UniStudent recepient){
+        try {
+            
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient.getEmailId()));
+            message.setSubject("Successful Account Registration");
+            String msg = "<b>Hey "+ recepient.getName()+"!,</b> <br> <br>Your registration is complete. <br> <br>Below are your "
+                    + "credentials: <br><b>Username:</b> "+recepient.getSevisId()+"<br><b>Password:</b> "+recepient.getPassword()+"<br> <br>You will not be granted access to Job Application Portal until your Advisor approves you.<br> <br>Regards,<br>Nice Job Team";
+            message.setContent(msg, "text/html; charset=utf-8");
+            return message;
+
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public void getAllStudents(){
