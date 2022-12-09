@@ -4,17 +4,39 @@
  */
 package UI;
 
+import com.googlecode.javacv.CanvasFrame;
+import com.googlecode.javacv.OpenCVFrameGrabber;
+import com.googlecode.javacv.cpp.opencv_core;
+import com.googlecode.javacv.cpp.opencv_highgui;
+import static com.googlecode.javacv.cpp.opencv_highgui.cvSaveImage;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -43,7 +65,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     JSplitPane splitPane;
     Connection conn = null;
     UniStudent student = new UniStudent();
-    
+    CanvasFrame frame = null;
     CompDepartmentDir compDeptDir = new CompDepartmentDir();
     CompDepartmentDir compDeptDirStudent = new CompDepartmentDir();
     CompanyDir compDir = new CompanyDir();
@@ -68,6 +90,9 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         }
         
         populateAllFields(student);
+        ImageIcon myImg = retrieveImage(student);
+        lblImage.setText("");
+        lblImage.setIcon(myImg);
         getAllListings();
         findAllJobAppsOfStudent(student);
         
@@ -123,8 +148,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         txtExpGradDate = new javax.swing.JTextField();
         txtGPA = new javax.swing.JTextField();
         lblImage = new javax.swing.JLabel();
-        btnUpload = new javax.swing.JButton();
-        btnUpload1 = new javax.swing.JButton();
+        btnTakePic = new javax.swing.JButton();
+        btnClkAndUpload = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
         lblAcadSummary = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -295,21 +320,21 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblImage.setText("No Image");
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnUpload.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        btnUpload.setText("Take Pic");
-        btnUpload.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+        btnTakePic.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        btnTakePic.setText("Take Pic");
+        btnTakePic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTakePic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUploadActionPerformed(evt);
+                btnTakePicActionPerformed(evt);
             }
         });
 
-        btnUpload1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        btnUpload1.setText("Upload");
-        btnUpload1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUpload1.addActionListener(new java.awt.event.ActionListener() {
+        btnClkAndUpload.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        btnClkAndUpload.setText("Click and Upload");
+        btnClkAndUpload.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClkAndUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpload1ActionPerformed(evt);
+                btnClkAndUploadActionPerformed(evt);
             }
         });
 
@@ -328,7 +353,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         kGradientPanel2Layout.setHorizontalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -351,15 +376,15 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnUpload1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnTakePic, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnClkAndUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jLabel2)))
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(185, 185, 185))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
@@ -381,7 +406,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(txtCourse, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                             .addComponent(txtUniversity)
                             .addComponent(txtCollege, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
-                        .addGap(0, 58, Short.MAX_VALUE))))
+                        .addGap(0, 73, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,12 +458,11 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblPhoto)
-                                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                        .addComponent(btnUpload)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnUpload1)))
-                                .addGap(0, 53, Short.MAX_VALUE)))
-                        .addContainerGap(101, Short.MAX_VALUE))
+                                    .addComponent(btnTakePic))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnClkAndUpload)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(116, Short.MAX_VALUE))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -469,7 +493,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(lblAcadSummary))
                         .addGap(18, 18, 18)
                         .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(96, Short.MAX_VALUE))))
         );
 
         kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblCourse, txtAge, txtCollege, txtContactNo, txtCourse, txtDepartment, txtEmailId, txtExpGradDate, txtGPA, txtStudentName, txtUniversity});
@@ -1059,7 +1083,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblJobDescription1)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 53, Short.MAX_VALUE))
+                        .addGap(29, 55, Short.MAX_VALUE))
                     .addGroup(kGradientPanel7Layout.createSequentialGroup()
                         .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDateApplied, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1164,13 +1188,84 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_back_btnActionPerformed
 
-    private void btnUpload1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpload1ActionPerformed
+    private void btnClkAndUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClkAndUploadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpload1ActionPerformed
+        
+        OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
+        try{
+            grabber.start();
+            opencv_core.IplImage img = grabber.grab();
+//            String path = "C:/Users/AMEYA A/Desktop/pics/capture"+Math.random()+".png";
+            String path = "capture"+".png";
+            if(img != null)
+            {
+                cvSaveImage(path,img);
+                grabber.release();
+                frame.setVisible(false);
+                //test
+                File input = new File(path);
+                BufferedImage image = ImageIO.read(input);
+                String outputPath = "captureComp"+".png";
+              
+                File compressedImageFile = new File(outputPath);
+                OutputStream os = new FileOutputStream(compressedImageFile);
 
-    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+                Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+                ImageWriter writer = (ImageWriter) writers.next();
+
+                ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+                writer.setOutput(ios);
+
+                ImageWriteParam param = writer.getDefaultWriteParam();
+
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(0.05f);  // Change the quality value you prefer
+                writer.write(null, new IIOImage(image, null, null), param);
+
+                os.close();
+                ios.close();
+                writer.dispose();
+                //
+                
+                
+                File inpFile = new File(outputPath);
+                  
+                ImageIcon uploadedImage;
+                uploadedImage = new ImageIcon(outputPath);
+                Image image1 = uploadedImage.getImage();
+                Image scaledImage = image1.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+                ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+                lblImage.setText("");
+                lblImage.setIcon(scaledImageIcon);
+                sql(inpFile);
+                
+            }
+            
+        }catch(Exception e){
+        e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnClkAndUploadActionPerformed
+
+    private void btnTakePicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTakePicActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUploadActionPerformed
+        Thread webcam = new Thread(){
+        public void run(){
+        opencv_highgui.CvCapture capture =opencv_highgui.cvCreateCameraCapture(0);
+        opencv_highgui.cvSetCaptureProperty(capture,opencv_highgui.CV_CAP_PROP_FRAME_HEIGHT,600);
+        opencv_highgui.cvSetCaptureProperty(capture,opencv_highgui.CV_CAP_PROP_FRAME_WIDTH,600);
+        opencv_core.IplImage grabbedImage = opencv_highgui.cvQueryFrame(capture);
+        frame = new CanvasFrame("Webcam");
+        while(frame.isVisible()&&(grabbedImage = opencv_highgui.cvQueryFrame(capture))!=null)
+        {
+            frame.showImage(grabbedImage);
+            
+        }
+       
+      }
+       
+    };  
+       webcam.start();
+    }//GEN-LAST:event_btnTakePicActionPerformed
 
     private void txtSalaryOfferedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalaryOfferedActionPerformed
         // TODO add your handling code here:
@@ -1390,12 +1485,12 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private button.Button back_btn;
     private button.Button btnApply;
     private button.Button btnClear;
+    private javax.swing.JButton btnClkAndUpload;
     private button.Button btnRefreshTable;
     private button.Button btnResetFilter;
     private button.Button btnSearch;
     private button.Button btnSearch1;
-    private javax.swing.JButton btnUpload;
-    private javax.swing.JButton btnUpload1;
+    private javax.swing.JButton btnTakePic;
     private button.Button btnViewSelected;
     private button.Button btnWithdraw;
     private javax.swing.JComboBox<String> cmbGender;
@@ -1879,4 +1974,111 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         }
         return expectedStart;
     }
+    
+    public void sql(File inpFile){
+            
+            
+        try {
+                
+                
+
+                  String query = "SELECT * FROM photos"; // retrieve photo
+                  
+                  File myFile = inpFile;
+
+                  try(FileInputStream fin = new FileInputStream(myFile)){
+                        PreparedStatement pst = conn.prepareStatement("INSERT INTO photos (photos,student_id)VALUES(?,?)");
+
+                        pst.setBlob(1, fin);
+                        pst.setInt(2, student.getId());
+                        pst.executeUpdate();
+                  }catch(IOException ex){
+                      Logger lgr =Logger.getLogger(UniStudentJPanel.class.getName());
+                      lgr.log(Level.SEVERE,ex.getMessage(),ex);
+                  }
+//                Statement st = conn.createStatement();
+//                ResultSet rs = st.executeQuery(query); // retrieve photo
+//                int count=0;
+//                
+//                System.out.println(count);
+//                
+//                while (rs.next()) // retrieve photo
+//                {
+//                    count++;
+//                  int id = rs.getInt("id");
+//                    String filename = "D:/Ameya data/NEU/AED Lab Sem 1/photos/image"+count+".png";
+//                  try(FileOutputStream fos = new FileOutputStream(filename)){
+//                      Blob blob = rs.getBlob("photos");
+//                      int len = (int) blob.length();
+//                      byte[] buf = blob.getBytes(1, len);
+//                      fos.write(buf,0,len);
+//                  }catch(IOException ex){
+//                      Logger lgr =Logger.getLogger(UniStudentJPanel.class.getName());
+//                      lgr.log(Level.SEVERE,ex.getMessage(),ex);
+//                  }
+//                  
+//                  
+//                }
+//                st.close();
+
+                if (conn != null) {
+                    System.out.println("Connected to the database test1");
+
+                    
+                }
+
+            } catch (SQLException ex) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+            ex.printStackTrace();
+        }
+            
+        }
+    
+    public ImageIcon retrieveImage(UniStudent myStudent){
+        ImageIcon uploadedImage=null;
+        ImageIcon scaledImageIcon=null;
+        try{ Statement st = conn.createStatement();
+                String query = "SELECT photos FROM photos WHERE student_id="+myStudent.getId();
+                ResultSet rs = st.executeQuery(query); // retrieve photo
+                int count=0;
+                
+//                System.out.println(count);
+                
+                while (rs.next()) // retrieve photo
+                {
+                    count++;
+//                  int id = rs.getInt("id");
+                    String filename = "retCapture"+".png";
+                  try(FileOutputStream fos = new FileOutputStream(filename)){
+                      Blob blob = rs.getBlob("photos");
+                      int len = (int) blob.length();
+                      byte[] buf = blob.getBytes(1, len);
+                      fos.write(buf,0,len);
+                      
+                uploadedImage = new ImageIcon(filename);
+                Image image1 = uploadedImage.getImage();
+                Image scaledImage = image1.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+                scaledImageIcon = new ImageIcon(scaledImage);
+                  }catch(IOException ex){
+                      Logger lgr =Logger.getLogger(UniStudentJPanel.class.getName());
+                      lgr.log(Level.SEVERE,ex.getMessage(),ex);
+                  }
+                  
+                  
+                }
+                st.close();
+
+                if (conn != null) {
+                    System.out.println("Connected to the database test1");
+
+                    
+                }
+                
+            } catch (SQLException ex) {
+            System.out.println("An error occurred. Maybe user/password is invalid");
+            ex.printStackTrace();
+        }
+        return scaledImageIcon;
+    }
+    
 }
