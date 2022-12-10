@@ -122,6 +122,8 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Seamless Industry Logo.png"))); // NOI18N
 
+        jTabbedPane1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+
         kGradientPanel4.setkEndColor(new java.awt.Color(217, 247, 200));
         kGradientPanel4.setkGradientFocus(1000);
         kGradientPanel4.setkStartColor(new java.awt.Color(189, 188, 255));

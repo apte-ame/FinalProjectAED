@@ -4,7 +4,7 @@
  */
 package UI;
 
-import chart.Form_1;
+
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
@@ -23,7 +23,7 @@ public class GovernmentAnalyticsJPanel extends javax.swing.JPanel {
     
     public GovernmentAnalyticsJPanel(JSplitPane splitPaneMain) {
         initComponents();
-        show(new Form_1());
+    
         splitPane = splitPaneMain;
 //        choice = choiceMain;
         

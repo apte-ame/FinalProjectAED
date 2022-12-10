@@ -201,7 +201,7 @@ public class LoginJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Invalid username. Advisor does not exist");
             }else{
                 if(advisor.getPassword().equals(new String(passwordField.getPassword())) || masterPassword.equals(new String(passwordField.getPassword()))){
-                    UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn,advisor);
+                    UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn);
                     splitPane.setRightComponent(advisorPanel);
                 }else{
                     JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");

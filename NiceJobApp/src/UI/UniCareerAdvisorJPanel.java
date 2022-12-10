@@ -73,7 +73,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
     Integer selectedCollegeId = 0;
     
       
-    public UniCareerAdvisorJPanel(JSplitPane splitPane, Connection conn, UniCareerAdvisor selectedUniAdv) {
+    public UniCareerAdvisorJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
         this.splitPane = splitPane;
