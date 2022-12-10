@@ -66,11 +66,6 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         btnSystemAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnSystemAdmin.setText("SYSTEM ADMIN");
         btnSystemAdmin.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnSystemAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSystemAdminActionPerformed(evt);
-            }
-        });
 
         btnAdvisor1.setBackground(new java.awt.Color(82, 159, 252));
         btnAdvisor1.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,29 +115,15 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAdvisor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdvisor1ActionPerformed
+
     private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
         // TODO add your handling code here:
         CityServiceLoginJPanel cityLoginPanel = new  CityServiceLoginJPanel(splitPane,"user", conn);
         splitPane.setRightComponent(cityLoginPanel);
     }//GEN-LAST:event_btnStudentActionPerformed
-
-    private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
-        // TODO add your handling code here:
-//        choice = "admin";
-//        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice);
-//        splitPane.setRightComponent(loginPanel);
-    }//GEN-LAST:event_btnSystemAdminActionPerformed
-
-    private void btnAdvisor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisor1ActionPerformed
-//        // TODO add your handling code here:
-//        CityServiceEmployerJPanel csePanel = new  CityServiceEmployerJPanel(citysearchitems);
-//        splitPane.setRightComponent(csePanel);
-
-
-
-        
-    }//GEN-LAST:event_btnAdvisor1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdvisor1;
