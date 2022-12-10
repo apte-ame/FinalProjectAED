@@ -107,86 +107,127 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
-        analyticsPane = new javax.swing.JPanel();
-        kGradientPanel6 = new keeptoo.KGradientPanel();
         kGradientPanel7 = new keeptoo.KGradientPanel();
-        polarAreaChart1 = new UI.PolarAreaChart();
+        jLabel8 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        kGradientPanel8 = new keeptoo.KGradientPanel();
         charts1 = new UI.Charts();
+        jPanel2 = new javax.swing.JPanel();
+        kGradientPanel9 = new keeptoo.KGradientPanel();
+        polarAreaChart1 = new UI.PolarAreaChart();
+        polarAreaChart2 = new UI.PolarAreaChart();
+        back_btn = new button.Button();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
-        kGradientPanel6.setkEndColor(new java.awt.Color(255, 204, 255));
-        kGradientPanel6.setkStartColor(new java.awt.Color(204, 255, 204));
-
         kGradientPanel7.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel7.setkStartColor(new java.awt.Color(204, 255, 204));
-        kGradientPanel7.setPreferredSize(new java.awt.Dimension(850, 531));
+        kGradientPanel7.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel7.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 210, 140));
-        kGradientPanel7.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 890, 380));
 
-        javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
-        kGradientPanel6.setLayout(kGradientPanel6Layout);
-        kGradientPanel6Layout.setHorizontalGroup(
-            kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        jLabel8.setText("ANALYTICS PANE");
+        kGradientPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        kGradientPanel8.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel8.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel8.setPreferredSize(new java.awt.Dimension(1000, 630));
+        kGradientPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        kGradientPanel8.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 840, 430));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        kGradientPanel6Layout.setVerticalGroup(
-            kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout analyticsPaneLayout = new javax.swing.GroupLayout(analyticsPane);
-        analyticsPane.setLayout(analyticsPaneLayout);
-        analyticsPaneLayout.setHorizontalGroup(
-            analyticsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(analyticsPaneLayout.createSequentialGroup()
+        jTabbedPane1.addTab("GRAPHS", jPanel1);
+
+        kGradientPanel9.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel9.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel9.setPreferredSize(new java.awt.Dimension(1000, 630));
+        kGradientPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        kGradientPanel9.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 330, 330));
+        kGradientPanel9.add(polarAreaChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 330, 330));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        analyticsPaneLayout.setVerticalGroup(
-            analyticsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(analyticsPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+
+        jTabbedPane1.addTab("PIE CHARTS", jPanel2);
+
+        kGradientPanel7.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1000, 520));
+
+        back_btn.setBackground(new java.awt.Color(204, 204, 255));
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        back_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_btnActionPerformed(evt);
+            }
+        });
+        kGradientPanel7.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 70, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(analyticsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(kGradientPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(analyticsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+        // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if(res == 0) {
+            ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
+            splitPane.setRightComponent(choicePanel);
+        }
+        else{
+            //Pressed No
+        }
+    }//GEN-LAST:event_back_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel analyticsPane;
+    private button.Button back_btn;
     private UI.Charts charts1;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private keeptoo.KGradientPanel kGradientPanel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private keeptoo.KGradientPanel kGradientPanel7;
+    private keeptoo.KGradientPanel kGradientPanel8;
+    private keeptoo.KGradientPanel kGradientPanel9;
     private UI.PolarAreaChart polarAreaChart1;
+    private UI.PolarAreaChart polarAreaChart2;
     // End of variables declaration//GEN-END:variables
     
     public void getAllDepartments(){
@@ -219,45 +260,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-//    public void populateJobListingsTable(CompDepartmentDir compDepartmentDir){
-//        DefaultTableModel tableModel = (DefaultTableModel) tblJobListings.getModel();
-//        tableModel.setRowCount(0);
-//        
-//        for(CompDepartment dept : compDepartmentDir.getCompDepartmentList()){
-//            if(dept.getVisible()){
-//                Object row[] = new Object[8];
-//                row[0] = dept;
-//                row[1] = dept.getTitle();
-//                row[2] = dept.getLocation();
-//                row[3] = dept.getRole();
-//                row[4] = dept.getLevel();
-//                row[5] = dept.getPosition();
-//                row[6] = dept.getStartDate().toString();
-//                row[7] = dept.getSalaryPerHr().toString();
-//                tableModel.addRow(row);
-//            }
-//        }
-//    }
-    
-//    public void updateDepartment(CompDepartment oldDept){
-//        CompDepartment newDept = new CompDepartment();
-//        newDept = oldDept;
-//        
-//        newDept.setStartDate(LocalDate.parse(txtStartDate.getText()));
-//        newDept.setJobDescription(txtAreaJobDescription.getText());
-//        newDept.setLevel(cmbLevel.getSelectedItem().toString());
-//        newDept.setLocation(cmbLocation.getSelectedItem().toString());
-//        newDept.setPosition(cmbPosition.getSelectedItem().toString());
-//        newDept.setRole(cmbRole.getSelectedItem().toString());
-//        newDept.setTitle(txtJobTitle.getText());
-//        newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
-//        compDeptDir.updateCompDepartment(oldDept, newDept);
-//        
-//        updateDepartmentToDb(oldDept, newDept);
-//        clearAllFields();
-//        populateJobListingsTable(compDeptDir);
-//    }
+      
     
     public void updateDepartmentToDb(CompDepartment oldCompDepartment, CompDepartment newCompDepartment){
         try {
@@ -276,31 +279,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         }
     }
     
-//    public void saveDepartmentDetails(){
-//        if( txtJobTitle.getText().equalsIgnoreCase("") || txtAreaJobDescription.getText().equalsIgnoreCase("") || 
-//                txtSalaryOffered.getText().equalsIgnoreCase("") || txtStartDate.getText().equalsIgnoreCase("")
-//                ){
-//            JOptionPane.showMessageDialog(this, "Please fill all fields");
-//        }else{
-//                CompDepartment newDept = compDeptDir.addCompDepartment();
-//                
-//                newDept.setStartDate(LocalDate.parse(txtStartDate.getText()));
-//                newDept.setJobDescription(txtAreaJobDescription.getText());
-//                newDept.setLevel(cmbLevel.getSelectedItem().toString());
-//                newDept.setLocation(cmbLocation.getSelectedItem().toString());
-//                newDept.setPosition(cmbPosition.getSelectedItem().toString());
-//                newDept.setRole(cmbRole.getSelectedItem().toString());
-//                newDept.setTitle(txtJobTitle.getText());
-//                newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
-//                newDept.setVisible(true);
-//                
-//                saveDepartmentToDb(newDept);
-//                clearAllFields();
-//                populateJobListingsTable(compDeptDir);
-//                
-//            }
-//           
-//    }
+//   
     
     public void saveDepartmentToDb(CompDepartment department){
         try {
@@ -350,36 +329,8 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         }
     }
     
-//    public void displayDepartment(CompDepartment dept){
-//        
-//        txtAreaJobDescription.setText(dept.getJobDescription());
-//        txtSalaryOffered.setText(dept.getSalaryPerHr().toString());
-//        txtStartDate.setText(dept.getStartDate().toString());
-//        txtJobTitle.setText(dept.getTitle());
-//        
-//        cmbLevel.setSelectedItem(dept.getLevel());
-//        cmbLocation.setSelectedItem(dept.getLocation());
-//        cmbPosition.setSelectedItem(dept.getPosition());
-//        cmbRole.setSelectedItem(dept.getRole());
-//
-//    }
-//    
-//    public void clearAllFields(){
-//        txtAreaJobDescription.setText("");
-//        txtStartDate.setText("");
-//        txtJobTitle.setText("");
-//        txtSalaryOffered.setText("");
-//        
-//    }
 
-//    public void clearAllFieldsViewApplicants(){
-//        txtStudentName.setText("");
-//        txtUniversity.setText("");
-//        txtApplicationDate.setText("");
-//        txtAreaComments.setText("");
-//        
-//        cmbStatus.setSelectedIndex(0);
-//    }
+
 
     public void getAllStudents(){
         try {
@@ -763,14 +714,28 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         DataConnection data = new DataConnection(conn);
         Integer count =-20;
         
-        HashMap<String,Integer> myInp = data.dataConn();
-        
-        for (String myKey:myInp.keySet()){
+        ArrayList<HashMap<String,Integer>> myInp = data.dataConn();
+//        for(HashMap<String,Integer> myInp:myInput){
+        HashMap<String,Integer> myInp1 = new HashMap<>();
+        HashMap<String,Integer> myInp2 = new HashMap<>();
+        myInp1 = myInp.get(0);
+        myInp2 = myInp.get(1);
+        for (String myKey:myInp1.keySet()){
             count+=10;
-            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
+            
+            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp1.get(myKey)));
+            
         }
-        
+        for (String myKey:myInp2.keySet()){
+            count+=10;
+            
+            
+            polarAreaChart2.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp2.get(myKey)));
+        }
+//        }
         polarAreaChart1.start();
+        polarAreaChart2.start();
+        
     
     }
     

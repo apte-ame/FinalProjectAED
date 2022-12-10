@@ -239,16 +239,16 @@ public class Charts extends javax.swing.JPanel {
         panelBarChart = new javax.swing.JPanel();
         panelLineChart = new javax.swing.JPanel();
 
-        BGPanel.setBackground(new java.awt.Color(255, 255, 255));
+        BGPanel.setBackground(new java.awt.Color(204, 255, 204));
         BGPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelBarChart.setPreferredSize(new java.awt.Dimension(350, 350));
         panelBarChart.setLayout(new java.awt.BorderLayout());
-        BGPanel.add(panelBarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 350, 330));
+        BGPanel.add(panelBarChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 370, 360));
 
         panelLineChart.setPreferredSize(new java.awt.Dimension(350, 350));
         panelLineChart.setLayout(new java.awt.BorderLayout());
-        BGPanel.add(panelLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 350, 330));
+        BGPanel.add(panelLineChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 380, 360));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -256,15 +256,15 @@ public class Charts extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(BGPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(BGPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(BGPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(BGPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

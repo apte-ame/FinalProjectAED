@@ -24,9 +24,11 @@ public class DataConnection {
     }
        
 //    public static void main(String[] args)throws Exception{
-    public HashMap<String,Integer> dataConn(){
+    public ArrayList<HashMap<String,Integer>> dataConn(){
        
            HashMap<String,Integer> myMap = new HashMap<>();
+           HashMap<String,Integer> myMap1 = new HashMap<>();
+           ArrayList<HashMap<String,Integer>> temp = new ArrayList<>();
         try {
 //                conn = DriverManager.getConnection(url1, user, password);
                 String queryNewStudent = "SET SESSION wait_timeout=31536000;";
@@ -35,19 +37,33 @@ public class DataConnection {
                 st.close();
 //                String query = "SELECT * from test_nation ";
                 String query = "SELECT * from uni_student";
+                String queryNew = "SELECT location,AVG(salary_offered) as avg_salary FROM job_listings GROUP BY location";
                 ArrayList<String> myArray= new ArrayList<>();
                 
                 Statement stStudent = conn.createStatement();
+                Statement stNew = conn.createStatement();
                 ResultSet rs = stStudent.executeQuery(query); 
-                ArrayList<String> nationality = new ArrayList<>();
+                ResultSet rsNew = stNew.executeQuery(queryNew);
                 
+                ArrayList<String> nationality = new ArrayList<>();
+                ArrayList<String> location = new ArrayList<>();
                 while(rs.next()){
                    // int id = rs.getInt("id");y
 //                   nationality.add(rs.getString("Nationality"));
                      nationality.add(rs.getString("country_of_origin"));
                 }
+                
+                while(rsNew.next()){
+                   // int id = rs.getInt("id");y
+//                   nationality.add(rs.getString("Nationality"));
+//                     location.add(rsNew.getString("location"));
+                     myMap1.put(rsNew.getString("location"), rsNew.getInt("avg_salary"));
+                }
+                
                 stStudent.close();
+                stNew.close();
                 Collections.sort(nationality);
+//                Collections.sort(location);
                 for(String nat:nationality){
                     myMap.put(nat, Collections.frequency(nationality, nat));
                    
@@ -57,11 +73,26 @@ public class DataConnection {
                     String value = myMap.get(name).toString();
                     System.out.println(key + " " + value);              
 }
-            
+                
+                 for (String name: myMap1.keySet()) {
+                    String key = name;
+                    String value = myMap1.get(name).toString();
+                    System.out.println(key + " " + value);              
+}
+                
+                
+                temp.add(myMap);
+                temp.add(myMap1);
+//                for (String name: myMap.keySet()) {
+//                    String key = name;
+//                    String value = myMap.get(name).toString();
+//                    System.out.println(key + " " + value);              
+//}
+//            
         } catch (SQLException ex) {
             Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return myMap;
+            return temp;
     }      
 
 }
