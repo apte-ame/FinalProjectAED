@@ -1470,6 +1470,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                     student.setSemester(rs.getInt("semester"));
                     student.setCourse(rs.getString("course"));
                     student.setJdWatchAccess(rs.getBoolean("jd_watch_eligible"));
+                    student.setCountryOfOrigin(rs.getString("country_of_origin"));
                     
                     if(rs.getString("start_date") != null){
                         student.setStartDate(LocalDate.parse(rs.getString("start_date")));

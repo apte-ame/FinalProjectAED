@@ -55,7 +55,7 @@
                   <EmptySpace pref="562" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnSystemAdmin" alignment="1" min="-2" pref="278" max="-2" attributes="0"/>
-                      <Component id="btnNgoLogin" alignment="1" min="-2" pref="273" max="-2" attributes="0"/>
+                      <Component id="btnStudent" alignment="1" min="-2" pref="273" max="-2" attributes="0"/>
                       <Component id="btnAdvisor1" alignment="1" min="-2" pref="278" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
@@ -66,7 +66,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                  <Component id="btnNgoLogin" min="-2" pref="72" max="-2" attributes="0"/>
+                  <Component id="btnStudent" min="-2" pref="72" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnAdvisor1" min="-2" pref="72" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -77,7 +77,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="button.Button" name="btnNgoLogin">
+        <Component class="button.Button" name="btnStudent">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="cc" type="rgb"/>
@@ -91,7 +91,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNgoLoginActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStudentActionPerformed"/>
           </Events>
         </Component>
         <Component class="button.Button" name="btnSystemAdmin">

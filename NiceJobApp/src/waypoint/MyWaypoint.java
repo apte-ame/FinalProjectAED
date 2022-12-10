@@ -38,11 +38,11 @@ public class MyWaypoint extends DefaultWaypoint {
 
     private void initButton(EventWaypoint event) {
         button = new ButtonWaypoint();
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                event.selected(MyWaypoint.this);
-            }
-        });
+//        button.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                event.selected(MyWaypoint.this);
+//            }
+//        });
     }
 }

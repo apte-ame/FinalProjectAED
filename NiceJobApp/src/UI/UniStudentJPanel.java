@@ -52,6 +52,8 @@ import model.Company;
 import model.CompanyDir;
 import model.JobAppointments;
 import model.JobAppointmentsDir;
+import model.NgoRentals;
+import model.NgoRentalsDir;
 import model.RentalApps;
 import model.RentalAppsDir;
 import model.UniStudent;
@@ -87,6 +89,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     Integer selectedRow = -1;
     Integer selectedRowApps = -1;
     
+    NgoRentalsDir ngoRents = new NgoRentalsDir();
     RentalAppsDir rentals = new RentalAppsDir();
     RentalApps selectedRental = new RentalApps();
     GeoPosition geo;
@@ -143,7 +146,9 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         clearAllFieldsMap();
         disableAllFieldsMap();
         loadAllRentals();
+        getAllNgoRentals();
         populateTableMap(rentals);
+        
         tblListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         
     }
@@ -1248,19 +1253,20 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         kGradientPanel9.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel9.setPreferredSize(new java.awt.Dimension(850, 531));
 
+        tblListings.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         tblListings.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Listing Id", "Title", "Location", "Rent", "Availability", "Status"
+                "Listing Id", "Listed By", "Title", "Location", "Rent", "Availability", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1269,6 +1275,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         });
         jScrollPane8.setViewportView(tblListings);
 
+        txtTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTitleActionPerformed(evt);
@@ -1286,6 +1293,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtCoords.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCoords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoordsActionPerformed(evt);
@@ -1299,6 +1307,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jLabel5.setText("Location");
 
         txtAreaDescription.setColumns(20);
+        txtAreaDescription.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaDescription.setRows(5);
         jScrollPane6.setViewportView(txtAreaDescription);
 
@@ -1308,6 +1317,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
         jLabel7.setText("Rent");
 
+        txtRent.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtRent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRentActionPerformed(evt);
@@ -1321,6 +1331,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
         jLabel11.setText("Move-in Date");
 
+        txtMoveDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtMoveDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMoveDateActionPerformed(evt);
@@ -1331,6 +1342,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         cmbAvailability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Deal in progress", "Deal offered", "Rented" }));
 
         txtAreaComments.setColumns(20);
+        txtAreaComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaComments.setRows(5);
         txtAreaComments.setEnabled(false);
         jScrollPane9.setViewportView(txtAreaComments);
@@ -1338,6 +1350,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
         jLabel12.setText("Comments");
 
+        txtLeasee.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtLeasee.setEnabled(false);
 
         cmbStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
@@ -2271,6 +2284,11 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     public void getAllListings(){
         try {
             String queryDepartments = "SELECT * FROM job_listings";
+            if(student.getSemester() == 1 ||  student.getSemester() == 2){
+                queryDepartments = queryDepartments + " WHERE position = 'Intern'"; 
+            }else{
+                queryDepartments = queryDepartments + " WHERE position = 'Full-Time'";
+            }
             String queryCompanies = "SELECT * FROM companies";
             Statement st = conn.createStatement();
             Statement stCompany = conn.createStatement();
@@ -2337,6 +2355,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         for(CompDepartment dept : compDepartmentDir.getCompDepartmentList()){
             Object row[] = new Object[8];
             row[0] = dept;
+            System.out.println(dept.getTitle());
             row[1] = dept.getTitle();
             row[2] = dept.getLocation();
             row[3] = dept.getRole();
@@ -2803,13 +2822,14 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         
         for(RentalApps rental : rentals.getRentalAppsList()){
-            Object row[] = new Object[6];
+            Object row[] = new Object[7];
             row[0] = rental;
-            row[1] = rental.getTitle();
-            row[2] = rental.getLocation();
-            row[3] = rental.getRent().toString();
-            row[4] = rental.getAvailability();
-            row[5] = rental.getStatus();
+            row[1] = ngoRents.searchById(rental.getNgoRentalId()).getName();
+            row[2] = rental.getTitle();
+            row[3] = rental.getLocation();
+            row[4] = rental.getRent().toString();
+            row[5] = rental.getAvailability();
+            row[6] = rental.getStatus();
             
             tableModel.addRow(row);
         }
@@ -2919,6 +2939,32 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewStudent); 
             st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getAllNgoRentals(){
+        try {
+            
+            String queryNgoRentals = "SELECT * FROM ngo_rentals";
+            
+            Statement st = conn.createStatement();
+            
+            ResultSet rs = st.executeQuery(queryNgoRentals);
+                while(rs.next())
+                {
+                    NgoRentals rental = ngoRents.addNgoRentals();
+                    rental.setId(rs.getInt("id"));
+                    rental.setUsername(rs.getString("username"));
+                    rental.setPassword(rs.getString("password"));
+                    rental.setName(rs.getString("name"));
+                    rental.setCountry(rs.getString("country"));
+                    rental.setLocation(rs.getString("location"));
+                    
+                }
+            
+                st.close();
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
