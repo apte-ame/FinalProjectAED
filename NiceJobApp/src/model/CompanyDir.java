@@ -54,9 +54,22 @@ public class CompanyDir {
         return null;
     }
     
-    public Company searchByName(String name){
+    public ArrayList<Company> searchByName(String name){
+        ArrayList<Company> temp = new ArrayList<Company>();
         for(Company company : companyList){
-            if(company.getName().equals(name)){
+            if(company.getName().equalsIgnoreCase(name)){
+                
+                temp.add(company);
+            }
+        }
+        return temp;
+    }
+    
+    public Company searchByCompanyName(String name){
+        ArrayList<Company> temp = new ArrayList<Company>();
+        for(Company company : companyList){
+            if(company.getName().equalsIgnoreCase(name)){
+                
                 return company;
             }
         }
@@ -90,13 +103,15 @@ public class CompanyDir {
         return null;
     }
     
-    public Company searchByCountry(String country){
+    public ArrayList<Company> searchByCountry(String country){
+        ArrayList<Company> temp = new ArrayList<>();
         for(Company company : companyList){
             if(company.getCountry().equals(country)){
-                return company;
+                
+                temp.add(company);
             }
         }
-        return null;
+        return temp;
     }
     
     public Company searchByPincode(String pincode){

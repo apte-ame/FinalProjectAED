@@ -2685,7 +2685,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                     CompDepartment dept = compDeptDir.addCompDepartment();
                     
                     dept.setJobId(rs.getInt("id"));
-                    Company requiredCompany = compDir.searchByName(rs.getString("company_name"));
+                    Company requiredCompany = compDir.searchByCompanyName(rs.getString("company_name"));
                     dept.setCompany(requiredCompany);                 
                     dept.setJobDescription(rs.getString("job_description"));
                     dept.setLevel(rs.getString("level"));

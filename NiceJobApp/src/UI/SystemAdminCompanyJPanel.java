@@ -36,6 +36,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.Company;
+import model.CompanyDir;
 import model.UniCollege;
 import model.UniCollegeDir;
 import model.UniDepartment;
@@ -67,23 +69,27 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
     Integer selectedDepartmentId = 0;
     Integer selectedRow = -1;
     
+    CompanyDir companyDir = new CompanyDir();
+    
     Connection conn = null;
     
-    public SystemAdminCompanyJPanel(JSplitPane splitPane, Connection conn, UniExamCell selectedUniExamCell) {
+    public SystemAdminCompanyJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
         this.splitPane = splitPane;
         this.conn = conn;
         
-        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
-        this.selectedUniExamCell = selectedUniExamCell;
-        lblHeading2.setText(this.selectedUniExamCell.getName());
-        getAllUniversityData();
+        tblCompanyDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+//        this.selectedUniExamCell = selectedUniExamCell;
+//        lblHeading2.setText(this.selectedUniExamCell.getName());
+//        getAllUniversityData();
         
-        selectedCollegeId = 1;
-        getAllStudents();
+//        selectedCollegeId = 1;
+//        getAllStudents();
+        getAllCompanies();
         clearAllFields();
-        populateStudentTable(uniStudents);
+        populateCompaniesTable(companyDir);
+//        populateStudentTable(uniStudents);
     }
 
     /**
@@ -97,7 +103,7 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblStudentDetails = new javax.swing.JTable();
+        tblCompanyDetails = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         btnAdd = new button.Button();
         btnDelete = new button.Button();
@@ -126,8 +132,8 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 51, 51));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1005, 700));
 
-        tblStudentDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblCompanyDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        tblCompanyDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -153,7 +159,7 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblStudentDetails);
+        jScrollPane1.setViewportView(tblCompanyDetails);
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -321,7 +327,7 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(164, 164, 164)
+                                .addGap(143, 143, 143)
                                 .addComponent(btnSave)
                                 .addGap(32, 32, 32)
                                 .addComponent(btnUpdate)))
@@ -409,29 +415,29 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
 
     private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
         // TODO add your handling code here:
-        selectedRow = tblStudentDetails.getSelectedRow();
+        selectedRow = tblCompanyDetails.getSelectedRow();
         if(selectedRow < 0){
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }else{
-            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-            UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
-            displayStudent(student);
-            selectedStudent = student;
+            DefaultTableModel tableModel = (DefaultTableModel) tblCompanyDetails.getModel();
+            Company company = (Company) tableModel.getValueAt(selectedRow, 0);
+            displayCompany(company);
+       
         }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        selectedRow = tblStudentDetails.getSelectedRow();
+        selectedRow = tblCompanyDetails.getSelectedRow();
         if(selectedRow < 0){
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }else{
-            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-            UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
-            deleteStudent(student);
-            selectedStudent = student;
+            DefaultTableModel tableModel = (DefaultTableModel) tblCompanyDetails.getModel();
+            Company company = (Company) tableModel.getValueAt(selectedRow, 0);
+            deleteCompany(company);
+            
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -460,7 +466,7 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
 
     private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
         // TODO add your handling code here:
-        populateStudentTable(uniStudents);
+        populateCompaniesTable(companyDir);
     }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -469,11 +475,8 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
         panel.add(new JLabel("Please select a field:"));
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("Name");
-        model.addElement("Sevis Id");
-        model.addElement("Intake");
-        model.addElement("Course");
-        model.addElement("Semester");
-        model.addElement("Department");
+        model.addElement("Location");
+        
         JComboBox comboBox = new JComboBox(model);
         panel.add(comboBox);
 
@@ -481,115 +484,55 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
         if(resultField == JOptionPane.OK_OPTION){
             String fieldSelected = comboBox.getSelectedItem().toString();
 
-            DefaultComboBoxModel modelIntake = new DefaultComboBoxModel();
-            
-            LocalDate today = LocalDate.now();
-            Integer year = today.getYear();
-            ArrayList<Integer> listYears = new ArrayList<Integer>();
-            for(int i = year - 2; i < year+1; i++){
-                listYears.add(i);
-            }
 
-            ArrayList<String> terms = new ArrayList<String>();
-            terms.add("Spring");
-            terms.add("Summer");
-            terms.add("Fall");
-
-            ArrayList<String> termsYears = new ArrayList<String>();
-            for(Integer i : listYears){
-                for(String j: terms){
-                    termsYears.add(j + " " + String.valueOf(i));
-                }
-            }
-
-            for(String str : termsYears){
-                modelIntake.addElement(str);
-            }
             
-            JComboBox comboBoxIntake = new JComboBox(modelIntake);
-            
-            DefaultComboBoxModel depts = new DefaultComboBoxModel();
-            for(UniDepartment dept : uniDepartments.getUniDepartmentList()){
-                if(dept.getCollege().getId() == selectedCollegeId){
-                    depts.addElement(dept.getName());
-                }
-            }
-            JComboBox comboBoxDepts = new JComboBox(depts);
-
-            DefaultComboBoxModel sems = new DefaultComboBoxModel();
-            for(Integer i = 1; i < 5; i++){
-                sems.addElement(i.toString());
-            }
-            JComboBox comboBoxSems = new JComboBox(sems);
-            
-            JTextField txtField = new JTextField("");
+            JTextField txtFieldName = new JTextField("");
+            JTextField txtFieldLocation = new JTextField("");
             
             panel.add(new JLabel("Value:"));
             
-            if(fieldSelected.equalsIgnoreCase("Intake")){
+            if(fieldSelected.equalsIgnoreCase("Name")){
                 comboBox.setEnabled(false);
-                panel.add(comboBoxIntake);
-            }else if(fieldSelected.equalsIgnoreCase("Department")){
+                panel.add(txtFieldName);
+            }else if(fieldSelected.equalsIgnoreCase("Location")){
                 comboBox.setEnabled(false);
-                panel.add(comboBoxDepts);
-            }else if(fieldSelected.equalsIgnoreCase("Semester")){
-                comboBox.setEnabled(false);
-                panel.add(comboBoxSems);
-            }else{
-                comboBox.setEnabled(false);
-                panel.add(txtField);
+                panel.add(txtFieldLocation);
             }
 
             int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(resultValue == JOptionPane.OK_OPTION) {
 
-                String fieldValue;
-                if(fieldSelected.equalsIgnoreCase("Intake")){
-                    fieldValue = comboBoxIntake.getSelectedItem().toString();
-                } else if(fieldSelected.equalsIgnoreCase("Department")){
-                    fieldValue = comboBoxDepts.getSelectedItem().toString();
-                } else if(fieldSelected.equalsIgnoreCase("Semester")){
-                    fieldValue = comboBoxSems.getSelectedItem().toString();
-                } else {
-                    fieldValue = txtField.getText();
+                String fieldValue=null;
+                if(fieldSelected.equalsIgnoreCase("Name")){
+                    fieldValue = txtFieldName.getText();
+                } else if(fieldSelected.equalsIgnoreCase("Location")){
+                    fieldValue = txtFieldLocation.getText();
                 }
 
                 if(fieldValue.equalsIgnoreCase("")){
                     JOptionPane.showMessageDialog(this, "Please enter a value");
-                }else if(fieldSelected.equalsIgnoreCase("Sevis Id") && !isSevisIdValid(fieldValue)){
-                    JOptionPane.showMessageDialog(this, "Please enter a valid Sevis Id");
                 }else if(fieldSelected.equalsIgnoreCase("Name") && !isNameValid(fieldValue)){
                     JOptionPane.showMessageDialog(this, "Please enter a valid Name");
-                }else if(fieldSelected.equalsIgnoreCase("Course") && !isCourseNameValid(fieldValue)){
-                    JOptionPane.showMessageDialog(this, "Please enter a valid Course Name");
+                }else if(fieldSelected.equalsIgnoreCase("Location") && !isNameValid(fieldValue)){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid Company Name");
                 }else{
-                    UniStudentDir resultStudentDir = new UniStudentDir();
-                    ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
+                    CompanyDir resultStudentDir = new CompanyDir();
+                    ArrayList<Company> resultStudents = new ArrayList<Company>();
                     
                     if(fieldSelected.equalsIgnoreCase("Name")){
-                        resultStudents = uniStudents.searchByName(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("Sevis Id")){
-                        resultStudents.add(uniStudents.searchBySevisId(fieldValue));
-                    }else if(fieldSelected.equalsIgnoreCase("Intake")){
-                        resultStudents = uniStudents.searchByIntake(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("Course")){
-                        resultStudents = uniStudents.searchByCourse(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("Semester")){
-                        resultStudents = uniStudents.searchBySemester(Integer.valueOf(fieldValue));
-                    }else if(fieldSelected.equalsIgnoreCase("Department")){
-                        UniDepartment department = uniDepartments.searchByName(fieldValue);
-                        resultStudents = uniStudents.searchByDepartment(department);
+                        resultStudents = companyDir.searchByName(fieldValue);
                     }else{
-                        resultStudents = null;
+                        resultStudents = companyDir.searchByCountry(fieldValue);
                     }
 
                     if(resultStudents.isEmpty()){
                         JOptionPane.showMessageDialog(this, "No Results Found");
-                        populateStudentTable(uniStudents);
+                        populateCompaniesTable(companyDir);
                     }else{
                         JOptionPane.showMessageDialog(this, "Entries found");
-                        resultStudentDir.setUniStudentList(resultStudents);
-                        populateStudentTable(resultStudentDir);
+                        
+                        resultStudentDir.setCompanyList(resultStudents);
+                        populateCompaniesTable(resultStudentDir);
                     }
                 }
             }else{
@@ -602,15 +545,15 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-        UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
-        updateStudent(student);
+        DefaultTableModel tableModel = (DefaultTableModel) tblCompanyDetails.getModel();
+        Company company = (Company) tableModel.getValueAt(selectedRow, 0);
+        updateCompany(company);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        saveStudentDetails();
-
+        
+        saveCompanyDetails();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
@@ -637,7 +580,7 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblHeading1;
     private javax.swing.JLabel lblHeading2;
     private javax.swing.JLabel lblStudentName;
-    private javax.swing.JTable tblStudentDetails;
+    private javax.swing.JTable tblCompanyDetails;
     private javax.swing.JTextField txtCompanyName;
     private javax.swing.JTextField txtLocation;
     private javax.swing.JTextField txtPassword;
@@ -717,8 +660,6 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
         txtUsername.setText("");
         txtLocation.setText("");
         
-        populateCmbBoxDepartments(selectedCollegeId);
-        populateCmbBoxIntake();
         
         
         btnSave.setEnabled(false);
@@ -818,7 +759,36 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+    public void saveCompanyDetails(){
     
+        if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+                txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
+                ){
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else{
+            
+                Company comp = companyDir.addCompany();
+                comp.setName(txtCompanyName.getText());
+                comp.setUsername(txtUsername.getText());
+                comp.setPassword(txtPassword.getText());
+                comp.setCountry(txtLocation.getText());
+                comp.setDistrict("Mumbai");
+                comp.setPincode("400076");
+                comp.setState("Maharashtra");
+               
+                
+                
+                
+                
+                saveCompanyToDb(comp);
+                
+                clearAllFields();
+                populateCompaniesTable(companyDir);
+        
+            }
+           
+        
+    }
     public void saveStudentDetails(){
         if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
@@ -930,8 +900,33 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
         }
     }
     
+    public void getAllCompanies(){
+        try {
+            String queryStudents = "SELECT * FROM companies";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryStudents);                
+                while (rs.next())
+                {
+                    Company comp = companyDir.addCompany();
+                    
+                    comp.setId(rs.getInt("id"));
+                    comp.setName(rs.getString("company_name"));
+                    comp.setCountry(rs.getString("country"));
+                    comp.setState(rs.getString("state"));
+                    comp.setDistrict(rs.getString("district"));
+                    comp.setPincode(rs.getString("pincode"));
+                    comp.setUsername(rs.getString("username"));
+                    comp.setPassword(rs.getString("password"));
+                    
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminCompanyJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void populateStudentTable(UniStudentDir uniStudents){
-        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tblCompanyDetails.getModel();
         tableModel.setRowCount(0);
         
         for(UniStudent student : uniStudents.getUniStudentList()){
@@ -1072,4 +1067,117 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
             Logger.getLogger(SystemAdminCompanyJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void deleteCompany(Company company){
+        int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this entry?", "Confirm Deletion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.OK_OPTION ){
+            companyDir.deleteCompany(company);
+            deleteCompanyFromDb(company);
+            clearAllFields();
+            populateCompaniesTable(companyDir);
+        }else{
+            JOptionPane.showMessageDialog(this, "Deletion cancelled");
+        }
+        
+    }
+    
+    public void deleteCompanyFromDb(Company company){
+        try {
+            String queryDelCompany = "DELETE FROM companies WHERE "
+                    + "id = '" + company.getId()+ "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryDelCompany);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminCompanyJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void populateCompaniesTable(CompanyDir compDir){
+        DefaultTableModel tableModel = (DefaultTableModel) tblCompanyDetails.getModel();
+        tableModel.setRowCount(0);
+        
+        for(Company company : compDir.getCompanyList()){
+            Object row[] = new Object[5];
+            
+            row[0] = company;
+            row[1] = company.getUsername();
+            row[2] = company.getPassword();
+            row[3] = company.getCountry();
+            
+            
+            tableModel.addRow(row);
+        }
+    }
+
+    public void saveCompanyToDb(Company comp){
+        try {
+            String queryNewCompany = "INSERT into companies (company_name,country, state, district, pincode, username, password) VALUES "
+                    + "('" + comp.getName() + "', '" + comp.getCountry()+ "' , '" + comp.getState() + "' "
+                    + ", '" + comp.getDistrict()+ "' , '" + comp.getPincode()+ "' , '" + comp.getUsername() + "' , '" + comp.getPassword()+"' )";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewCompany); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminCompanyJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void displayCompany(Company company){
+        txtCompanyName.setText(company.getName());
+        
+        txtPassword.setText(company.getPassword());
+        txtUsername.setText(company.getUsername());
+        txtLocation.setText(company.getCountry());
+        
+        
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        
+        txtUsername.setEnabled(false);
+    }
+    
+    public void updateCompany(Company oldCompany){
+        if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+                txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
+                ){
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else{
+                Company comp = new Company();
+                
+               
+                comp.setName(txtCompanyName.getText());
+                comp.setUsername(txtUsername.getText());
+                comp.setPassword(txtPassword.getText());
+                comp.setCountry(txtLocation.getText());
+                comp.setDistrict("Mumbai");
+                comp.setPincode("400076");
+                comp.setState("Maharashtra");
+
+                
+                companyDir.updateCompany(oldCompany, comp);
+                             
+                updateCompanyToDb(oldCompany, comp);
+                clearAllFields();
+                populateCompaniesTable(companyDir);
+                
+            }
+        }
+    
+    
+    public void updateCompanyToDb(Company oldCompany, Company company){
+        try {
+            String queryUpdateCompany = "UPDATE companies SET company_name = '" + company.getName() + "' , country = '" + company.getCountry() + "'"
+                    + ", state = '" + company.getState()+ "', district = '" + company.getDistrict()+ "', pincode = '" + company.getPincode()+ "'"
+                    + ", username = '" + company.getUsername() + "', password = '" + company.getPassword() + "' WHERE "
+                    + "company_name = '" + oldCompany.getName()+ "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryUpdateCompany);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminCompanyJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
 }
