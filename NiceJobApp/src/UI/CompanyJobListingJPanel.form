@@ -292,7 +292,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Trebuchet MS" size="22" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Job Profile"/>
+                <Property name="text" type="java.lang.String" value="JOB PROFILE"/>
               </Properties>
             </Component>
             <Component class="button.Button" name="btnPostListing">
@@ -670,7 +670,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Trebuchet MS" size="30" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="JOB LISTING PANEL"/>
+                <Property name="text" type="java.lang.String" value="Job Listings Panel"/>
               </Properties>
             </Component>
           </SubComponents>
