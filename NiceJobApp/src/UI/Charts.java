@@ -6,6 +6,7 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.geom.Ellipse2D;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -101,7 +104,7 @@ public class Charts extends javax.swing.JPanel {
                     countNew++;
 //                    dataset.setValue(myRs.getInt("Hour_rate"), "Rate", myRs.getString("Level"));
 //                    System.out.println(myRs.getInt("Hour_rate")+" "+ myRs.getString("Level")+"\n");
-                   dataset.setValue(myRs.getInt("avg_salary"), "Rate", myRs.getString("role"));
+                   dataset.setValue(myRs.getInt("avg_salary"),"Rate", myRs.getString("role"));
                     System.out.println(myRs.getString("role")+" "+ myRs.getInt("avg_salary")+"\n");
                 } catch (SQLException ex) {
                     Logger.getLogger(Charts.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,6 +127,8 @@ public class Charts extends javax.swing.JPanel {
                 dataset, PlotOrientation.VERTICAL, false,true,false);
         
         CategoryPlot categoryPlot = chart.getCategoryPlot();
+        CategoryAxis xAxis= (CategoryAxis)categoryPlot.getDomainAxis();
+        xAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         //categoryPlot.setRangeGridlinePaint(Color.BLUE);
         categoryPlot.setBackgroundPaint(Color.WHITE);
         BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
@@ -172,13 +177,17 @@ public class Charts extends javax.swing.JPanel {
         //create plot object
          CategoryPlot lineCategoryPlot = linechart.getCategoryPlot();
        // lineCategoryPlot.setRangeGridlinePaint(Color.BLUE);
+       CategoryAxis xAxis= (CategoryAxis)lineCategoryPlot.getDomainAxis();
+        xAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         lineCategoryPlot.setBackgroundPaint(Color.white);
         
         //create render object to change the moficy the line properties like color
+        
         LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
         Color lineChartColor = new Color(204,0,51);
         lineRenderer.setSeriesPaint(0, lineChartColor);
-        
+        lineRenderer.setSeriesShape(0, new Ellipse2D.Double(-3d, -3d, 6d, 6d));
+        lineRenderer.setSeriesShapesVisible(0, Boolean.TRUE);
          //create chartPanel to display chart(graph)
         ChartPanel lineChartPanel = new ChartPanel(linechart);
         panelLineChart.removeAll();
