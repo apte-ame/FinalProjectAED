@@ -91,7 +91,7 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
 //        test.setVisible(true);
         
         tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
-        createPieChart();
+//        createPieChart();
 //        Charts charts2 = new Charts(conn);
         
     }
@@ -1149,20 +1149,20 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         return scaledImageIcon;
     }
     
-    public void createPieChart(){
+//    public void createPieChart(){
+//    
+//        DataConnection data = new DataConnection(conn);
+//        Integer count =-20;
+//        
+//        HashMap<String,Integer> myInp = data.dataConn();
+//        
+//        for (String myKey:myInp.keySet()){
+//            count+=10;
+////            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
+//        }
+//        
+////        polarAreaChart1.start();
     
-        DataConnection data = new DataConnection(conn);
-        Integer count =-20;
-        
-        HashMap<String,Integer> myInp = data.dataConn();
-        
-        for (String myKey:myInp.keySet()){
-            count+=10;
-//            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
-        }
-        
-//        polarAreaChart1.start();
-    
-    }
+   
     
 }

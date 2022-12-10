@@ -155,6 +155,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         jXMapViewer = new org.jxmapviewer.JXMapViewer();
         btnUpdate = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        back_btn = new button.Button();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
         dateChooser2.setEnabled(false);
@@ -181,7 +182,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         jLabel5.setText("Location");
 
         lblWelcome.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        lblWelcome.setText("company logo city services");
+        lblWelcome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Housing init.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
         jLabel3.setText("Title");
@@ -340,6 +341,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             .addGap(0, 263, Short.MAX_VALUE)
         );
 
+        btnUpdate.setBackground(new java.awt.Color(204, 204, 255));
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -348,11 +350,20 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(204, 204, 255));
         btnSave.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
+            }
+        });
+
+        back_btn.setBackground(new java.awt.Color(204, 204, 255));
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        back_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_btnActionPerformed(evt);
             }
         });
 
@@ -362,10 +373,6 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(lblWelcome)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -421,17 +428,24 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                                 .addGap(25, 25, 25))))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jScrollPane3)))
+                        .addComponent(jScrollPane3))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblWelcome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(lblWelcome)
+                .addContainerGap()
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,7 +522,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -747,8 +761,21 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+        // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if(res == 0) {
+            ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
+            splitPane.setRightComponent(choicePanel);
+        }
+        else{
+            //Pressed No
+        }
+    }//GEN-LAST:event_back_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private button.Button back_btn;
     private button.Button btnAdd;
     private button.Button btnClear;
     private button.Button btnDelete;

@@ -156,7 +156,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         cmbLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst", " " }));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel31.setText("Job Profile");
+        jLabel31.setText("JOB PROFILE");
 
         btnPostListing.setText("Post Opening");
         btnPostListing.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -325,7 +325,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         });
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel8.setText("JOB LISTING PANEL");
+        jLabel8.setText("Job Listings Panel");
 
         javax.swing.GroupLayout kGradientPanel5Layout = new javax.swing.GroupLayout(kGradientPanel5);
         kGradientPanel5.setLayout(kGradientPanel5Layout);

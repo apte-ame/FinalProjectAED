@@ -108,7 +108,6 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
         kGradientPanel7 = new keeptoo.KGradientPanel();
-        jLabel8 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel8 = new keeptoo.KGradientPanel();
@@ -117,7 +116,10 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         kGradientPanel9 = new keeptoo.KGradientPanel();
         polarAreaChart1 = new UI.PolarAreaChart();
         polarAreaChart2 = new UI.PolarAreaChart();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         back_btn = new button.Button();
+        jLabel9 = new javax.swing.JLabel();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
 
@@ -128,9 +130,8 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         kGradientPanel7.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel8.setText("ANALYTICS PANE");
-        kGradientPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jTabbedPane1.setBackground(new java.awt.Color(255, 204, 255));
+        jTabbedPane1.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
 
         kGradientPanel8.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel8.setkStartColor(new java.awt.Color(204, 255, 204));
@@ -158,8 +159,18 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         kGradientPanel9.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel9.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel9.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 330, 330));
-        kGradientPanel9.add(polarAreaChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 330, 330));
+        kGradientPanel9.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 330, 330));
+        kGradientPanel9.add(polarAreaChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 360, 330));
+
+        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Average Hourly Rate by City");
+        kGradientPanel9.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 330, -1));
+
+        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Segregation by Nationality");
+        kGradientPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 330, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,6 +198,10 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
             }
         });
         kGradientPanel7.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 70, 60));
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        jLabel9.setText("Analytics Dashboard");
+        kGradientPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -219,7 +234,9 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
     private button.Button back_btn;
     private UI.Charts charts1;
     private com.raven.datechooser.DateChooser dateChooser2;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;

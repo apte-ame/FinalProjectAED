@@ -491,7 +491,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         });
 
         btnClkAndUpload.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        btnClkAndUpload.setText("Click and Upload");
+        btnClkAndUpload.setText("Click & Upload");
         btnClkAndUpload.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClkAndUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -514,7 +514,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         kGradientPanel2Layout.setHorizontalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -539,13 +539,13 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnTakePic, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnClkAndUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(btnClkAndUpload)))))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jLabel2)))
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(185, 185, 185))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
@@ -567,11 +567,11 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(txtCourse, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                             .addComponent(txtUniversity)
                             .addComponent(txtCollege, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
-                        .addGap(0, 51, Short.MAX_VALUE))))
+                        .addGap(0, 60, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGap(20, 20, 20))
         );
 
         kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtAge, txtCollege, txtContactNo, txtCourse, txtDepartment, txtEmailId, txtExpGradDate, txtGPA, txtStudentName, txtUniversity});
@@ -615,15 +615,13 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                             .addComponent(lblAge))
                         .addGap(8, 8, 8)
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblPhoto)
                                     .addComponent(btnTakePic))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnClkAndUpload)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(116, Short.MAX_VALUE))
+                                .addComponent(btnClkAndUpload))
+                            .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -651,10 +649,10 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                         .addGap(5, 5, 5)
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAcadSummary))
-                        .addGap(18, 18, 18)
-                        .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(96, Short.MAX_VALUE))))
+                            .addComponent(lblAcadSummary))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblCourse, txtAge, txtCollege, txtContactNo, txtCourse, txtDepartment, txtEmailId, txtExpGradDate, txtGPA, txtStudentName, txtUniversity});
