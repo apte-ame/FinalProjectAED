@@ -681,6 +681,18 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         
     }
     
+    public void deleteOtherJobAppStudent(JobAppointments newJobApp){
+        try {
+            String queryDelDept = "DELETE FROM appointments WHERE "
+                    + "student_gov_id = '" + newJobApp.getSevisId() + "' AND status != 'Accepted'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryDelDept);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void deleteDepartmentFromDb(CompDepartment dept){
         try {
             String queryDelDept = "UPDATE job_listings SET visible = '0' WHERE "
@@ -904,6 +916,9 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
             jobAppDir.updateJobAppointment(jobApp, newJobApp);
             if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Accepted")){
                 saveJobAppUpdateToDb(newJobApp);
+                deleteOtherJobAppStudent(newJobApp);
+                jobAppDir.clearAllJobApps();
+                findAllJobAppsOfStudent(selectedComp);
                 updateStudentJobAccess(newJobApp);
                 saveAcceptedJobToDb(newJobApp);
             }else{

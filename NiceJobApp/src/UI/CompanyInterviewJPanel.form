@@ -5,9 +5,6 @@
     <Component class="com.raven.datechooser.DateChooser" name="dateChooser2">
       <Properties>
         <Property name="dateFormat" type="java.lang.String" value="yyyy-MM-dd"/>
-        <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
-        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="UniCareerAdvisorJPanel_dateChooser2"/>

@@ -116,7 +116,8 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login and pass 1.png"))); // NOI18N
         kGradientPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
 
-        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitment Team", "Interview Panel", "Human Resources", "System Admin" }));
+        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitment Team", "Interview Panel", "Human Resources", "Analytics Panel", "System Admin" }));
+        cmbRoleSelection.setSelectedIndex(-1);
         cmbRoleSelection.setLabeText("Role Selection");
         kGradientPanel2.add(cmbRoleSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 190, 240, -1));
 
