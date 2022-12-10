@@ -4,6 +4,7 @@
  */
 package UI;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JSplitPane;
 import model.CompDepartment;
 import model.CompDepartmentDir;
@@ -72,10 +74,11 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     
     
     public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
+        this.conn = conn;
         initComponents();
         btnPostListing.setEnabled(false);
         splitPane = splitPaneMain;
-        this.conn = conn;
+        
         this.selectedComp = selectedComp;
         lblHeading.setText(this.selectedComp.getName());
         getAllDepartments();
@@ -85,8 +88,13 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         getAllStudents();
         findAllJobAppsOfStudent(selectedComp);
         populateStudentDetilsTable(jobAppDir);
+//        Test test = new Test();
+//        test.setVisible(true);
         tblJobListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+        createPieChart();
+//        Charts charts2 = new Charts(conn);
+        
     }
 
     /**
@@ -157,6 +165,12 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaComments = new javax.swing.JTextArea();
         btnRefreshTable2 = new button.Button();
+        jPanel1 = new javax.swing.JPanel();
+        panelPostOpenings1 = new javax.swing.JPanel();
+        kGradientPanel6 = new keeptoo.KGradientPanel();
+        kGradientPanel7 = new keeptoo.KGradientPanel();
+        polarAreaChart1 = new UI.PolarAreaChart();
+        charts1 = new UI.Charts();
         lblHeading = new javax.swing.JLabel();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
@@ -468,7 +482,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -774,6 +788,73 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         );
 
         studentTabbedPane.addTab("VIEW APPLICANTS", panelStudentProfile);
+
+        kGradientPanel6.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel6.setkStartColor(new java.awt.Color(204, 255, 204));
+
+        kGradientPanel7.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel7.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel7.setPreferredSize(new java.awt.Dimension(850, 531));
+        kGradientPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        kGradientPanel7.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 210, 140));
+        kGradientPanel7.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 890, 380));
+
+        javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
+        kGradientPanel6.setLayout(kGradientPanel6Layout);
+        kGradientPanel6Layout.setHorizontalGroup(
+            kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        kGradientPanel6Layout.setVerticalGroup(
+            kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelPostOpenings1Layout = new javax.swing.GroupLayout(panelPostOpenings1);
+        panelPostOpenings1.setLayout(panelPostOpenings1Layout);
+        panelPostOpenings1Layout.setHorizontalGroup(
+            panelPostOpenings1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPostOpenings1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelPostOpenings1Layout.setVerticalGroup(
+            panelPostOpenings1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPostOpenings1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 988, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelPostOpenings1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 525, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panelPostOpenings1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        studentTabbedPane.addTab("ANALYTICS", jPanel1);
 
         lblHeading.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
 
@@ -1124,6 +1205,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private button.Button btnUpdate;
     private button.Button btnViewSelected;
     private button.Button btnViewSelected1;
+    private UI.Charts charts1;
     private javax.swing.JComboBox<String> cmbLevel;
     private javax.swing.JComboBox<String> cmbLocation;
     private javax.swing.JComboBox<String> cmbPosition;
@@ -1134,6 +1216,7 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1142,6 +1225,8 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
+    private keeptoo.KGradientPanel kGradientPanel6;
+    private keeptoo.KGradientPanel kGradientPanel7;
     private javax.swing.JLabel lblAppDate;
     private javax.swing.JLabel lblComments;
     private javax.swing.JLabel lblHeading;
@@ -1159,7 +1244,9 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblUniversity;
     private button.Button nxtSavebtn;
     private javax.swing.JPanel panelPostOpenings;
+    private javax.swing.JPanel panelPostOpenings1;
     private javax.swing.JPanel panelStudentProfile;
+    private UI.PolarAreaChart polarAreaChart1;
     private javax.swing.JTabbedPane studentTabbedPane;
     private javax.swing.JTable tblJobListings;
     private javax.swing.JTable tblStudentDetails;
@@ -1739,6 +1826,22 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         return scaledImageIcon;
+    }
+    
+    public void createPieChart(){
+    
+        DataConnection data = new DataConnection(conn);
+        Integer count =-20;
+        
+        HashMap<String,Integer> myInp = data.dataConn();
+        
+        for (String myKey:myInp.keySet()){
+            count+=10;
+            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
+        }
+        
+        polarAreaChart1.start();
+    
     }
     
 }
