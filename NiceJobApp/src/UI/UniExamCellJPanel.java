@@ -61,6 +61,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     UniversityDir universities = new UniversityDir();
     UniDepartmentDir uniDepartments = new UniDepartmentDir();
     UniStudentDir uniStudents = new UniStudentDir();
+    UniStudentDir allUniStudents = new UniStudentDir();
     UniExamCell selectedUniExamCell = new UniExamCell();
     Integer selectedUniversityId = 0;
     Integer selectedCollegeId = 0;
@@ -82,6 +83,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
         
         selectedCollegeId = 1;
         getAllStudents();
+        getEachAndEveryStudent();
         clearAllFields();
         populateStudentTable(uniStudents);
     }
@@ -931,7 +933,7 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
     
      public boolean isSevisIdUnique(String str){
         Boolean valid = true;
-        for(UniStudent student : uniStudents.getUniStudentList()){
+        for(UniStudent student : allUniStudents.getUniStudentList()){
             if(student.getSevisId().equalsIgnoreCase(str)){
                 valid = false;
             }
@@ -1044,6 +1046,33 @@ public class UniExamCellJPanel extends javax.swing.JPanel {
                 while (rs.next())
                 {
                     UniStudent student = uniStudents.addUniStudent();
+                    
+                    student.setName(rs.getString("name"));
+                    student.setSevisId(rs.getString("student_gov_id"));
+                    student.setContactNo(rs.getLong("contact_no"));
+                    student.setEmailId(rs.getString("email"));
+                    student.setGpa(rs.getDouble("gpa"));
+                    student.setIntake(rs.getString("intake"));
+                    student.setSemester(rs.getInt("semester"));
+                    student.setCourse(rs.getString("course"));
+                    
+                    UniDepartment department = uniDepartments.searchById(rs.getInt("uni_department_id"));
+                    student.setDepartment(department);
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getEachAndEveryStudent(){
+        try {
+            String queryStudents = "SELECT * FROM uni_student";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryStudents);                
+                while (rs.next())
+                {
+                    UniStudent student = allUniStudents.addUniStudent();
                     
                     student.setName(rs.getString("name"));
                     student.setSevisId(rs.getString("student_gov_id"));
