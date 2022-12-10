@@ -19,7 +19,7 @@ import model.CompanyDir;
 
 /**
  *
- * @author naini
+ * @author Aditya, Ameya, Nainil
  */
 public class CompanyLoginJPanel extends javax.swing.JPanel {
 
@@ -116,8 +116,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login and pass 1.png"))); // NOI18N
         kGradientPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
 
-        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitement Team", "Human Resources", "Company Departments" }));
-        cmbRoleSelection.setSelectedIndex(-1);
+        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitment Team", "Interview Panel", "Human Resources", "System Admin" }));
         cmbRoleSelection.setLabeText("Role Selection");
         kGradientPanel2.add(cmbRoleSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 190, 240, -1));
 
@@ -179,9 +178,15 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Company does not exist");
             clearAllFields();
         }else{
-            if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Recruitement Team")){
-                CompanyDepartmentJPanel departmentPanel = new CompanyDepartmentJPanel(splitPane,conn,selectedCompany);
-                splitPane.setRightComponent(departmentPanel);
+            if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Recruitment Team")){
+                CompanyJobListingJPanel listingPanel = new CompanyJobListingJPanel(splitPane,conn,selectedCompany);
+                splitPane.setRightComponent(listingPanel);
+            }else if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Interview Panel")){
+                CompanyInterviewJPanel interviewPanel = new CompanyInterviewJPanel(splitPane,conn,selectedCompany);
+                splitPane.setRightComponent(interviewPanel);
+            }else if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Analytics Panel")){
+                AnalyticsJPanel analyticsPanel = new AnalyticsJPanel(splitPane,conn,selectedCompany);
+                splitPane.setRightComponent(analyticsPanel);
             }else if(selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword())) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Human Resources")){
                 CompanyHRJPanel hrPanel = new CompanyHRJPanel(splitPane, conn, selectedCompany);
                 splitPane.setRightComponent(hrPanel);
