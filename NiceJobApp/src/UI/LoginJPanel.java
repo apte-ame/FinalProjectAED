@@ -211,8 +211,9 @@ public class LoginJPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
                 }
             }
-        }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
-            
+        }else if(choice.equalsIgnoreCase("admin")){
+            SystemAdminCompanyJPanel sysAdminComp = new SystemAdminCompanyJPanel(splitPane, conn);
+            splitPane.setRightComponent(sysAdminComp);
         }else{
             selectedStudent = uniStudents.searchBySevisId(txtUsername.getText());
             if(selectedStudent == null){
