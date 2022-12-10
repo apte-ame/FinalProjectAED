@@ -74,7 +74,7 @@ public class MainJPanel extends javax.swing.JPanel {
 
         btnRecruitmentHub.setBackground(new java.awt.Color(254, 93, 124));
         btnRecruitmentHub.setForeground(new java.awt.Color(255, 255, 255));
-        btnRecruitmentHub.setText("NGO Rentals");
+        btnRecruitmentHub.setText("Housing Rentals");
         btnRecruitmentHub.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         btnRecruitmentHub.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
