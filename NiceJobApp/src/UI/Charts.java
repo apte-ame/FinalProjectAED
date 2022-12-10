@@ -25,11 +25,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Charts extends javax.swing.JPanel {
 
+    Connection conn = null;
     public Charts() {
         initComponents();
 //        showLineChart();
 //        showBarChart();
-getData();
+//        getData();
     }
 
 //    public void showBarChart(){
@@ -185,13 +186,13 @@ getData();
         panelLineChart.validate();
     }
 
-    public void getData(){
-      String url1 = "jdbc:mysql://remotemysql.com:3306/X3utimq6Oc?autoConnect=true";
-            String user = "X3utimq6Oc";
-            String password = "YhPSJWB1Qu";
+    public void getData(Connection connect){
+//      String url1 = "jdbc:mysql://remotemysql.com:3306/X3utimq6Oc?autoConnect=true";
+//            String user = "X3utimq6Oc";
+//            String password = "YhPSJWB1Qu";
+//
 
-
-            Connection conn =null;
+        conn = connect;
         
 
         ResultSet rs = null;
@@ -202,7 +203,7 @@ getData();
                 String query = "SELECT level,AVG(salary_offered) as avg_salary FROM job_listings GROUP BY level";
                 String queryNew = "SELECT role,AVG(salary_offered) as avg_salary FROM job_listings GROUP BY role";
                 ArrayList<String> myArray= new ArrayList<>();
-                conn = DriverManager.getConnection(url1, user, password);
+//                conn = DriverManager.getConnection(url1, user, password);
                 Statement stStudent = conn.createStatement();
                 Statement stStudent2 = conn.createStatement();
                 rs = stStudent.executeQuery(queryNew); 

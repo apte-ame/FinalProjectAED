@@ -50,7 +50,7 @@ import model.UniversityDir;
  *
  * @author Aditya, Ameya, Nainil
  */
-public class CompanyDepartmentJPanel extends javax.swing.JPanel {
+public class CompanyJobListingJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Choice_JPanel
@@ -73,28 +73,28 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     Government selectedGov = new Government();
     
     
-    public CompanyDepartmentJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
+    public CompanyJobListingJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
         this.conn = conn;
         initComponents();
         btnPostListing.setEnabled(false);
         splitPane = splitPaneMain;
         
         this.selectedComp = selectedComp;
-        lblHeading.setText(this.selectedComp.getName());
+        
         getAllDepartments();
         populateJobListingsTable(compDeptDir);
         clearAllFields();
         getAllUniversityData();
         getAllStudents();
         findAllJobAppsOfStudent(selectedComp);
-        populateStudentDetilsTable(jobAppDir);
+//        populateStudentDetilsTable(jobAppDir);
 //        Test test = new Test();
 //        test.setVisible(true);
         tblJobListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
-        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+        
         createPieChart();
 //        Charts charts2 = new Charts(conn);
-        charts1.getData(conn);
+        
     }
 
     /**
@@ -107,9 +107,6 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
-        kGradientPanel1 = new keeptoo.KGradientPanel();
-        studentTabbedPane = new javax.swing.JTabbedPane();
-        panelPostOpenings = new javax.swing.JPanel();
         kGradientPanel4 = new keeptoo.KGradientPanel();
         kGradientPanel5 = new keeptoo.KGradientPanel();
         cmbLevel = new javax.swing.JComboBox<>();
@@ -140,51 +137,11 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         btnClear = new button.Button();
         lblJobTitle = new javax.swing.JLabel();
         txtJobTitle = new javax.swing.JTextField();
-        panelStudentProfile = new javax.swing.JPanel();
-        kGradientPanel2 = new keeptoo.KGradientPanel();
-        txtUniversity = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        nxtSavebtn = new button.Button();
-        lblUniversity = new javax.swing.JLabel();
-        txtStudentName = new javax.swing.JTextField();
-        lblAppDate = new javax.swing.JLabel();
-        txtApplicationDate = new javax.swing.JTextField();
-        lblImage = new javax.swing.JLabel();
-        lblPhoto = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tblStudentDetails = new javax.swing.JTable();
-        btnSearch2 = new button.Button();
-        btnRefreshTable1 = new button.Button();
-        btnClear1 = new button.Button();
-        btnViewSelected1 = new button.Button();
-        lblStatus = new javax.swing.JLabel();
-        cmbStatus = new javax.swing.JComboBox<>();
-        lblComments = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaComments = new javax.swing.JTextArea();
-        btnRefreshTable2 = new button.Button();
-        jPanel1 = new javax.swing.JPanel();
-        panelPostOpenings1 = new javax.swing.JPanel();
-        kGradientPanel6 = new keeptoo.KGradientPanel();
-        kGradientPanel7 = new keeptoo.KGradientPanel();
-        polarAreaChart1 = new UI.PolarAreaChart();
-        charts1 = new UI.Charts();
-        lblHeading = new javax.swing.JLabel();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
         dateChooser2.setTextRefernce(txtStartDate);
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
-
-        kGradientPanel1.setkEndColor(new java.awt.Color(189, 188, 240));
-        kGradientPanel1.setkGradientFocus(800);
-        kGradientPanel1.setkStartColor(new java.awt.Color(217, 247, 228));
-        kGradientPanel1.setPreferredSize(new java.awt.Dimension(100, 630));
-
-        studentTabbedPane.setBackground(new java.awt.Color(204, 255, 204));
-        studentTabbedPane.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
 
         kGradientPanel4.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel4.setkStartColor(new java.awt.Color(204, 255, 204));
@@ -365,48 +322,46 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 .addGap(0, 148, Short.MAX_VALUE)
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(cmbLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbRole, 0, 185, Short.MAX_VALUE))))
+                    .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                            .addComponent(lblSalaryOffered3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                            .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                            .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(lblJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
                         .addComponent(lblJobDescription)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(81, 81, 81))
-                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(cmbLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cmbRole, 0, 185, Short.MAX_VALUE))))
-                            .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                    .addComponent(lblSalaryOffered3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cmbLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                    .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                    .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(lblSalaryOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(lblJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtJobTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(133, 133, 133))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40))
             .addGroup(kGradientPanel5Layout.createSequentialGroup()
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -517,379 +472,21 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelPostOpeningsLayout = new javax.swing.GroupLayout(panelPostOpenings);
-        panelPostOpenings.setLayout(panelPostOpeningsLayout);
-        panelPostOpeningsLayout.setHorizontalGroup(
-            panelPostOpeningsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPostOpeningsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelPostOpeningsLayout.setVerticalGroup(
-            panelPostOpeningsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPostOpeningsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        studentTabbedPane.addTab("POST OPENINGS", panelPostOpenings);
-
-        panelStudentProfile.setPreferredSize(new java.awt.Dimension(900, 500));
-
-        kGradientPanel2.setkEndColor(new java.awt.Color(255, 204, 255));
-        kGradientPanel2.setkStartColor(new java.awt.Color(204, 255, 204));
-
-        txtUniversity.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        txtUniversity.setEnabled(false);
-
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel10.setText("Personal Details");
-
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel8.setText("Application Details");
-
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel9.setText("Student Name");
-
-        nxtSavebtn.setText("Update");
-        nxtSavebtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        nxtSavebtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nxtSavebtnActionPerformed(evt);
-            }
-        });
-
-        lblUniversity.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblUniversity.setText("University");
-
-        txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        txtStudentName.setEnabled(false);
-
-        lblAppDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblAppDate.setText("Application Date");
-
-        txtApplicationDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        txtApplicationDate.setEnabled(false);
-
-        lblImage.setBackground(new java.awt.Color(150, 150, 150));
-        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImage.setText("No Image");
-        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblPhoto.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblPhoto.setText("Photo");
-
-        tblStudentDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Application No", "Job Listing Id", "Student Name", "University", "Course", "GPA", "Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane6.setViewportView(tblStudentDetails);
-
-        btnSearch2.setBackground(new java.awt.Color(204, 255, 204));
-        btnSearch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
-        btnSearch2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearch2ActionPerformed(evt);
-            }
-        });
-
-        btnRefreshTable1.setBackground(new java.awt.Color(204, 255, 204));
-        btnRefreshTable1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
-        btnRefreshTable1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshTable1ActionPerformed(evt);
-            }
-        });
-
-        btnClear1.setBackground(new java.awt.Color(204, 255, 204));
-        btnClear1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
-        btnClear1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClear1ActionPerformed(evt);
-            }
-        });
-
-        btnViewSelected1.setBackground(new java.awt.Color(204, 255, 204));
-        btnViewSelected1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
-        btnViewSelected1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewSelected1ActionPerformed(evt);
-            }
-        });
-
-        lblStatus.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblStatus.setText("Status");
-
-        cmbStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Applied", "Interview Scheduled", "Accepted", "On-Hold", "Rejected" }));
-
-        lblComments.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblComments.setText("Comments");
-
-        txtAreaComments.setColumns(20);
-        txtAreaComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        txtAreaComments.setRows(5);
-        jScrollPane2.setViewportView(txtAreaComments);
-
-        btnRefreshTable2.setBackground(new java.awt.Color(204, 255, 204));
-        btnRefreshTable2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
-        btnRefreshTable2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshTable2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout kGradientPanel2Layout = new javax.swing.GroupLayout(kGradientPanel2);
-        kGradientPanel2.setLayout(kGradientPanel2Layout);
-        kGradientPanel2Layout.setHorizontalGroup(
-            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6)
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 697, Short.MAX_VALUE)
-                        .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(lblPhoto)
-                                    .addComponent(lblUniversity))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtStudentName)
-                                    .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(73, 73, 73))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(btnRefreshTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRefreshTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(186, 186, 186)
-                                .addComponent(jLabel10)))
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                                            .addComponent(lblAppDate)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtApplicationDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(88, 88, 88))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lblComments, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(1, 1, 1)
-                                .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(182, 182, 182))))))
-        );
-
-        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear1, btnRefreshTable1, btnSearch2, btnViewSelected1});
-
-        kGradientPanel2Layout.setVerticalGroup(
-            kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefreshTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefreshTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtApplicationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAppDate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblComments))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblUniversity))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPhoto)
-                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
-        );
-
-        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear1, btnRefreshTable1, btnSearch2, btnViewSelected1});
-
-        javax.swing.GroupLayout panelStudentProfileLayout = new javax.swing.GroupLayout(panelStudentProfile);
-        panelStudentProfile.setLayout(panelStudentProfileLayout);
-        panelStudentProfileLayout.setHorizontalGroup(
-            panelStudentProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStudentProfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelStudentProfileLayout.setVerticalGroup(
-            panelStudentProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStudentProfileLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        studentTabbedPane.addTab("VIEW APPLICANTS", panelStudentProfile);
-
-        kGradientPanel6.setkEndColor(new java.awt.Color(255, 204, 255));
-        kGradientPanel6.setkStartColor(new java.awt.Color(204, 255, 204));
-
-        kGradientPanel7.setkEndColor(new java.awt.Color(255, 204, 255));
-        kGradientPanel7.setkStartColor(new java.awt.Color(204, 255, 204));
-        kGradientPanel7.setPreferredSize(new java.awt.Dimension(850, 531));
-        kGradientPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel7.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 210, 140));
-        kGradientPanel7.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 890, 380));
-
-        javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
-        kGradientPanel6.setLayout(kGradientPanel6Layout);
-        kGradientPanel6Layout.setHorizontalGroup(
-            kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        kGradientPanel6Layout.setVerticalGroup(
-            kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout panelPostOpenings1Layout = new javax.swing.GroupLayout(panelPostOpenings1);
-        panelPostOpenings1.setLayout(panelPostOpenings1Layout);
-        panelPostOpenings1Layout.setHorizontalGroup(
-            panelPostOpenings1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPostOpenings1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelPostOpenings1Layout.setVerticalGroup(
-            panelPostOpenings1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPostOpenings1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 988, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelPostOpenings1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 525, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelPostOpenings1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        studentTabbedPane.addTab("ANALYTICS", jPanel1);
-
-        lblHeading.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-
-        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
-        kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(studentTabbedPane)
-                .addContainerGap())
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(lblHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHeading, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(kGradientPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
+                .addGap(59, 59, 59))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1046,120 +643,6 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         clearAllFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnViewSelected1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelected1ActionPerformed
-        // TODO add your handling code here:
-        selectedRowStudent = tblStudentDetails.getSelectedRow();
-        if(selectedRowStudent < 0){
-            JOptionPane.showMessageDialog(this, "Please select a row");
-            return;
-        }else{
-            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-            JobAppointments jobApp = (JobAppointments) tableModel.getValueAt(selectedRowStudent, 0);
-            viewJobAppointment(jobApp);
-            selectedJob = jobApp;
-        }
-    }//GEN-LAST:event_btnViewSelected1ActionPerformed
-
-    private void btnClear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClear1ActionPerformed
-        // TODO add your handling code here:
-         clearAllFieldsViewApplicants();
-    }//GEN-LAST:event_btnClear1ActionPerformed
-
-    private void btnRefreshTable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTable1ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnRefreshTable1ActionPerformed
-
-    private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
-        // TODO add your handling code here:
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.add(new JLabel("Please select a field:"));
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        model.addElement("University");
-        model.addElement("Status");
-       
-        JComboBox comboBox = new JComboBox(model);
-        panel.add(comboBox);
-
-        int resultField = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(resultField == JOptionPane.OK_OPTION){
-            String fieldSelected = comboBox.getSelectedItem().toString();
-            DefaultComboBoxModel status = new DefaultComboBoxModel();
-            
-            status.addElement("Applied");
-            status.addElement("Interview Scheduled");
-            status.addElement("Accepted");
-            status.addElement("Rejected");
-            
-            JComboBox comboBoxStatus = new JComboBox(status);
-
-            DefaultComboBoxModel uni = new DefaultComboBoxModel();
-            for(University univ : universities.getUniversityList()){
-                uni.addElement(univ.getName());
-            }
-            
-            JComboBox comboBoxUni = new JComboBox(uni);
-            
-            panel.add(new JLabel("Value:"));
-            
-            if(fieldSelected.equalsIgnoreCase("University")){
-                comboBox.setEnabled(false);
-                panel.add(comboBoxUni);
-            }else if(fieldSelected.equalsIgnoreCase("Status")){
-                comboBox.setEnabled(false);
-                panel.add(comboBoxStatus);
-            }else{
-                
-            }
-
-            int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if(resultValue == JOptionPane.OK_OPTION) {
-
-                String fieldValue;
-                if(fieldSelected.equalsIgnoreCase("University")){
-                    fieldValue = comboBoxUni.getSelectedItem().toString();
-                } else if(fieldSelected.equalsIgnoreCase("Status")){
-                    fieldValue = comboBoxStatus.getSelectedItem().toString();
-                } else {
-                    fieldValue = "";
-                }
-
-                if(fieldValue.equalsIgnoreCase("")){
-                    JOptionPane.showMessageDialog(this, "Please enter a value");
-                }else{
-                    JobAppointmentsDir resultJobAppDir = new JobAppointmentsDir();
-                    ArrayList<JobAppointments> resultJobApps = new ArrayList<JobAppointments>();
-                    
-                    if(fieldSelected.equalsIgnoreCase("Status")){
-                        resultJobApps = jobAppDir.searchByStatus(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("University")){
-                        resultJobApps = jobAppDir.searchByUniversity(fieldValue, uniStudents);
-                    }else{
-                    }
-
-                    if(resultJobApps.isEmpty()){
-                        JOptionPane.showMessageDialog(this, "No Results Found");
-                        populateStudentDetilsTable(jobAppDir);
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Entries found");
-                        resultJobAppDir.setJobAppointmentsList(resultJobApps);
-                        populateStudentDetilsTable(resultJobAppDir);
-                    }
-                }
-            }else{
-                JOptionPane.showMessageDialog(this, "Search Cancelled");
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Search Cancelled");
-        }
-         
-    }//GEN-LAST:event_btnSearch2ActionPerformed
-
-    private void nxtSavebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nxtSavebtnActionPerformed
-        // TODO add your handling code here:
-        updateStatus(selectedJob);
-    }//GEN-LAST:event_nxtSavebtnActionPerformed
-
     private void txtJobTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJobTitleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtJobTitleActionPerformed
@@ -1185,79 +668,39 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         btnPostListing.setEnabled(false);
     }//GEN-LAST:event_btnPostListingActionPerformed
 
-    private void btnRefreshTable2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTable2ActionPerformed
-        // TODO add your handling code here:
-        populateStudentDetilsTable(jobAppDir);
-    }//GEN-LAST:event_btnRefreshTable2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdd;
     private button.Button btnClear;
-    private button.Button btnClear1;
     private button.Button btnDelete;
     private button.Button btnPostListing;
     private button.Button btnRefreshTable;
-    private button.Button btnRefreshTable1;
-    private button.Button btnRefreshTable2;
     private button.Button btnSearch;
-    private button.Button btnSearch2;
     private button.Button btnUpdate;
     private button.Button btnViewSelected;
-    private button.Button btnViewSelected1;
-    private UI.Charts charts1;
     private javax.swing.JComboBox<String> cmbLevel;
     private javax.swing.JComboBox<String> cmbLocation;
     private javax.swing.JComboBox<String> cmbPosition;
     private javax.swing.JComboBox<String> cmbRole;
-    private javax.swing.JComboBox<String> cmbStatus;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane6;
-    private keeptoo.KGradientPanel kGradientPanel1;
-    private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
-    private keeptoo.KGradientPanel kGradientPanel6;
-    private keeptoo.KGradientPanel kGradientPanel7;
-    private javax.swing.JLabel lblAppDate;
-    private javax.swing.JLabel lblComments;
-    private javax.swing.JLabel lblHeading;
-    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblJobDescription;
     private javax.swing.JLabel lblJobTitle;
-    private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JLabel lblSalaryOffered;
     private javax.swing.JLabel lblSalaryOffered1;
     private javax.swing.JLabel lblSalaryOffered2;
     private javax.swing.JLabel lblSalaryOffered3;
     private javax.swing.JLabel lblStartDate;
-    private javax.swing.JLabel lblStatus;
-    private javax.swing.JLabel lblUniversity;
-    private button.Button nxtSavebtn;
-    private javax.swing.JPanel panelPostOpenings;
-    private javax.swing.JPanel panelPostOpenings1;
-    private javax.swing.JPanel panelStudentProfile;
-    private UI.PolarAreaChart polarAreaChart1;
-    private javax.swing.JTabbedPane studentTabbedPane;
     private javax.swing.JTable tblJobListings;
-    private javax.swing.JTable tblStudentDetails;
-    private javax.swing.JTextField txtApplicationDate;
-    private javax.swing.JTextArea txtAreaComments;
     private javax.swing.JTextArea txtAreaJobDescription;
     private javax.swing.JTextField txtJobTitle;
     private javax.swing.JTextField txtSalaryOffered;
     private javax.swing.JTextField txtStartDate;
-    private javax.swing.JTextField txtStudentName;
-    private javax.swing.JTextField txtUniversity;
     // End of variables declaration//GEN-END:variables
     
     public void getAllDepartments(){
@@ -1443,14 +886,14 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         
     }
 
-    public void clearAllFieldsViewApplicants(){
-        txtStudentName.setText("");
-        txtUniversity.setText("");
-        txtApplicationDate.setText("");
-        txtAreaComments.setText("");
-        
-        cmbStatus.setSelectedIndex(0);
-    }
+//    public void clearAllFieldsViewApplicants(){
+//        txtStudentName.setText("");
+//        txtUniversity.setText("");
+//        txtApplicationDate.setText("");
+//        txtAreaComments.setText("");
+//        
+//        cmbStatus.setSelectedIndex(0);
+//    }
 
     public void getAllStudents(){
         try {
@@ -1580,69 +1023,69 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         }
     }
     
-    public void populateStudentDetilsTable(JobAppointmentsDir jobAppDir){
-        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-        tableModel.setRowCount(0);
-        
-        for(JobAppointments jobApp : jobAppDir.getJobAppointmentsList()){
-            Object row[] = new Object[7];
-            row[0] = jobApp;
-            row[1] = jobApp.getJobListingsId().toString();
-            row[2] = uniStudents.searchBySevisId(jobApp.getSevisId()).getName();
-            row[3] = uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName();
-            row[4] = uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse();
-            row[5] = uniStudents.searchBySevisId(jobApp.getSevisId()).getGpa().toString();
-            row[6] = jobApp.getStatus();
-            
-            tableModel.addRow(row);
-        }
-    }
+//    public void populateStudentDetilsTable(JobAppointmentsDir jobAppDir){
+//        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+//        tableModel.setRowCount(0);
+//        
+//        for(JobAppointments jobApp : jobAppDir.getJobAppointmentsList()){
+//            Object row[] = new Object[7];
+//            row[0] = jobApp;
+//            row[1] = jobApp.getJobListingsId().toString();
+//            row[2] = uniStudents.searchBySevisId(jobApp.getSevisId()).getName();
+//            row[3] = uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName();
+//            row[4] = uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse();
+//            row[5] = uniStudents.searchBySevisId(jobApp.getSevisId()).getGpa().toString();
+//            row[6] = jobApp.getStatus();
+//            
+//            tableModel.addRow(row);
+//        }
+//    }
+//    
+//    public void viewJobAppointment(JobAppointments jobApp){
+//        txtStudentName.setText(uniStudents.searchBySevisId(jobApp.getSevisId()).getName());
+//        txtUniversity.setText(uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName());
+//        txtApplicationDate.setText(jobApp.getDateApplied().toString());
+//        ImageIcon myImg = retrieveImage(uniStudents.searchBySevisId(jobApp.getSevisId()));
+//        lblImage.setText("");
+//        lblImage.setIcon(myImg);
+//        if(jobApp.getComments()!=null){
+//            txtAreaComments.setText(jobApp.getComments());
+//        }else{
+//            txtAreaComments.setText("");
+//        }
+//        
+//        if(jobApp.getStatus()!=null){
+//            cmbStatus.setSelectedItem(jobApp.getStatus());
+//        }else{
+//            cmbStatus.setSelectedItem("");
+//        }
+//        
+//    }
     
-    public void viewJobAppointment(JobAppointments jobApp){
-        txtStudentName.setText(uniStudents.searchBySevisId(jobApp.getSevisId()).getName());
-        txtUniversity.setText(uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName());
-        txtApplicationDate.setText(jobApp.getDateApplied().toString());
-        ImageIcon myImg = retrieveImage(uniStudents.searchBySevisId(jobApp.getSevisId()));
-        lblImage.setText("");
-        lblImage.setIcon(myImg);
-        if(jobApp.getComments()!=null){
-            txtAreaComments.setText(jobApp.getComments());
-        }else{
-            txtAreaComments.setText("");
-        }
-        
-        if(jobApp.getStatus()!=null){
-            cmbStatus.setSelectedItem(jobApp.getStatus());
-        }else{
-            cmbStatus.setSelectedItem("");
-        }
-        
-    }
-    
-    public void updateStatus(JobAppointments jobApp){
-        if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Applied")){
-            JOptionPane.showMessageDialog(this, "Incorrect selection. Please try again.");
-            clearAllFieldsViewApplicants();
-        }else{
-            JobAppointments newJobApp = new JobAppointments();
-            newJobApp = jobApp;
-            newJobApp.setStatus(cmbStatus.getSelectedItem().toString());
-            newJobApp.setComments(txtAreaComments.getText());
-
-            jobAppDir.updateJobAppointment(jobApp, newJobApp);
-            if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Accepted")){
-                saveJobAppUpdateToDb(newJobApp);
-                updateStudentJobAccess(newJobApp);
-                saveAcceptedJobToDb(newJobApp);
-            }else{
-                saveJobAppUpdateToDb(newJobApp);
-                updateStudentJobAccess(newJobApp);
-                deleteAcceptedJobToDb(newJobApp);
-            }
-            populateStudentDetilsTable(jobAppDir);
-            clearAllFieldsViewApplicants();
-        }
-    }
+//    public void updateStatus(JobAppointments jobApp){
+//        if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Applied")){
+//            JOptionPane.showMessageDialog(this, "Incorrect selection. Please try again.");
+//            clearAllFieldsViewApplicants();
+//        }else{
+//            JobAppointments newJobApp = new JobAppointments();
+//            newJobApp = jobApp;
+//            newJobApp.setStatus(cmbStatus.getSelectedItem().toString());
+//            newJobApp.setComments(txtAreaComments.getText());
+//
+//            jobAppDir.updateJobAppointment(jobApp, newJobApp);
+//            if(cmbStatus.getSelectedItem().toString().equalsIgnoreCase("Accepted")){
+//                saveJobAppUpdateToDb(newJobApp);
+//                updateStudentJobAccess(newJobApp);
+//                saveAcceptedJobToDb(newJobApp);
+//            }else{
+//                saveJobAppUpdateToDb(newJobApp);
+//                updateStudentJobAccess(newJobApp);
+//                deleteAcceptedJobToDb(newJobApp);
+//            }
+//            populateStudentDetilsTable(jobAppDir);
+//            clearAllFieldsViewApplicants();
+//        }
+//    }
     
     public void saveJobAppUpdateToDb(JobAppointments jobApp){
         try {
@@ -1838,10 +1281,10 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         
         for (String myKey:myInp.keySet()){
             count+=10;
-            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
+//            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
         }
         
-        polarAreaChart1.start();
+//        polarAreaChart1.start();
     
     }
     
