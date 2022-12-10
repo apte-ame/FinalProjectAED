@@ -46,6 +46,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 import javax.swing.table.DefaultTableModel;
+import model.AcceptedJobs;
+import model.AcceptedJobsDir;
 import model.CompDepartment;
 import model.CompDepartmentDir;
 import model.Company;
@@ -85,7 +87,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     CompDepartmentDir compDeptDirStudent = new CompDepartmentDir();
     CompanyDir compDir = new CompanyDir();
     JobAppointmentsDir jobAppDir = new JobAppointmentsDir();
-    
+    JobAppointmentsDir jobAppDirAcc = new JobAppointmentsDir();
+    AcceptedJobsDir acceptedJobs = new AcceptedJobsDir();
     Integer selectedRow = -1;
     Integer selectedRowApps = -1;
     
@@ -128,10 +131,25 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblImage.setIcon(myImg);
         getAllListings();
         findAllJobAppsOfStudent(student);
+        findAllAcceptedJobAppsOfStudent(student);
+        
+        
         
         removeJobAppFromListings();
         populateJobListingsTable(compDeptDir);
-        populateJobListingsAppsTable(compDeptDirStudent);
+        
+        
+        if(jobAppDirAcc.getJobAppointmentsList().isEmpty()){
+            studentTabbedPane.setEnabledAt(3, false);
+            populateJobListingsAppsTable(compDeptDirStudent);
+        }else{
+            studentTabbedPane.setEnabledAt(3, true);
+            CompDepartmentDir dir = new CompDepartmentDir();
+            getAllAcceptedJobs();
+            dir.setCompDepartmentList(compDeptDirStudent.deleteAllNonAccepted(jobAppDir));
+            populateJobListingsAppsTable(dir);
+            displayJob(acceptedJobs.getAcceptedJobsList().get(0));
+        }
         
         tblJobListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         tblJobListingsApps.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
@@ -287,6 +305,38 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         btnWithdraw = new button.Button();
         txtJobAppId = new javax.swing.JTextField();
         lblJobAppId = new javax.swing.JLabel();
+        panelMyJob = new javax.swing.JPanel();
+        kGradientPanel10 = new keeptoo.KGradientPanel();
+        kGradientPanel11 = new keeptoo.KGradientPanel();
+        btnViewSelected1 = new button.Button();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtCompanyName1 = new javax.swing.JTextField();
+        lblCompanyName = new javax.swing.JLabel();
+        cmbLevel1 = new javax.swing.JComboBox<>();
+        lblLevel1 = new javax.swing.JLabel();
+        txtJobTitle1 = new javax.swing.JTextField();
+        lblTitle = new javax.swing.JLabel();
+        txtStartDate1 = new javax.swing.JTextField();
+        lblStartDate1 = new javax.swing.JLabel();
+        txtSalary1 = new javax.swing.JTextField();
+        lblSalary = new javax.swing.JLabel();
+        txtGovComments1 = new javax.swing.JTextField();
+        lblSalary1 = new javax.swing.JLabel();
+        txtStatus2 = new javax.swing.JTextField();
+        lblSalary3 = new javax.swing.JLabel();
+        cmbGov1 = new javax.swing.JComboBox<>();
+        lblSalary2 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtStudentName1 = new javax.swing.JTextField();
+        txtUniversity1 = new javax.swing.JTextField();
+        lblUniversity1 = new javax.swing.JLabel();
+        lblUniversity2 = new javax.swing.JLabel();
+        txtSevisId1 = new javax.swing.JTextField();
+        txtExpGradDate1 = new javax.swing.JTextField();
+        lblUniversity3 = new javax.swing.JLabel();
+        lblCourse1 = new javax.swing.JLabel();
+        txtCourse1 = new javax.swing.JTextField();
         panelRentals = new javax.swing.JPanel();
         kGradientPanel8 = new keeptoo.KGradientPanel();
         kGradientPanel9 = new keeptoo.KGradientPanel();
@@ -1246,6 +1296,291 @@ public class UniStudentJPanel extends javax.swing.JPanel {
 
         studentTabbedPane.addTab("MY APPLICATIONS", panelMyApplications);
 
+        kGradientPanel10.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel10.setkStartColor(new java.awt.Color(204, 255, 204));
+
+        kGradientPanel11.setkEndColor(new java.awt.Color(255, 204, 255));
+        kGradientPanel11.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel11.setPreferredSize(new java.awt.Dimension(850, 531));
+
+        btnViewSelected1.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelected1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelected1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewSelected1ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel14.setText("Employee Details");
+
+        jLabel15.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel15.setText("Employee Details");
+
+        txtCompanyName1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCompanyName1.setEnabled(false);
+
+        lblCompanyName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblCompanyName.setText("Company Name");
+
+        cmbLevel1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbLevel1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst" }));
+        cmbLevel1.setEnabled(false);
+
+        lblLevel1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblLevel1.setText("Level");
+
+        txtJobTitle1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtJobTitle1.setEnabled(false);
+
+        lblTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblTitle.setText("Job Title");
+
+        txtStartDate1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStartDate1.setEnabled(false);
+
+        lblStartDate1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblStartDate1.setText("Start Date");
+
+        txtSalary1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSalary1.setEnabled(false);
+
+        lblSalary.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary.setText("Salary");
+
+        txtGovComments1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtGovComments1.setEnabled(false);
+
+        lblSalary1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary1.setText("Comments");
+
+        txtStatus2.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStatus2.setEnabled(false);
+
+        lblSalary3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary3.setText("Status");
+
+        cmbGov1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        cmbGov1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst", " " }));
+        cmbGov1.setEnabled(false);
+        cmbGov1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGov1ActionPerformed(evt);
+            }
+        });
+
+        lblSalary2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSalary2.setText("Send To");
+
+        jLabel16.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel16.setText("Name");
+
+        txtStudentName1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtStudentName1.setEnabled(false);
+
+        txtUniversity1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtUniversity1.setEnabled(false);
+
+        lblUniversity1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity1.setText("University");
+
+        lblUniversity2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity2.setText("Sevis Id");
+
+        txtSevisId1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtSevisId1.setEnabled(false);
+
+        txtExpGradDate1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtExpGradDate1.setEnabled(false);
+
+        lblUniversity3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUniversity3.setText("Expected Grad Date");
+
+        lblCourse1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblCourse1.setText("Course");
+
+        txtCourse1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+        txtCourse1.setEnabled(false);
+
+        javax.swing.GroupLayout kGradientPanel11Layout = new javax.swing.GroupLayout(kGradientPanel11);
+        kGradientPanel11.setLayout(kGradientPanel11Layout);
+        kGradientPanel11Layout.setHorizontalGroup(
+            kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSalary3)
+                            .addComponent(lblSalary2))
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtStatus2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(cmbGov1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addComponent(lblUniversity2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtSevisId1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16)
+                            .addComponent(lblUniversity1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtStudentName1)
+                            .addComponent(txtUniversity1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addComponent(lblUniversity3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtExpGradDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14)
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addComponent(lblCourse1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCourse1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                                .addComponent(lblSalary)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSalary1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                                .addComponent(lblTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtJobTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCompanyName)
+                                    .addComponent(lblLevel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCompanyName1)
+                                    .addComponent(cmbLevel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                                .addComponent(lblStartDate1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtStartDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(48, 48, 48))))
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSalary1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtGovComments1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)))
+                .addGap(40, 40, 40)
+                .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        kGradientPanel11Layout.setVerticalGroup(
+            kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCompanyName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCompanyName))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblLevel1)
+                                    .addComponent(cmbLevel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtJobTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblTitle))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtStartDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblStartDate1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtSalary1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSalary)))
+                            .addGroup(kGradientPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtStudentName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtUniversity1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblUniversity1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtSevisId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblUniversity2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtExpGradDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblUniversity3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCourse1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCourse1))))
+                        .addGap(18, 18, 18)
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSalary2)
+                            .addComponent(cmbGov1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSalary1)
+                            .addComponent(txtGovComments1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSalary3)
+                            .addComponent(txtStatus2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(130, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout kGradientPanel10Layout = new javax.swing.GroupLayout(kGradientPanel10);
+        kGradientPanel10.setLayout(kGradientPanel10Layout);
+        kGradientPanel10Layout.setHorizontalGroup(
+            kGradientPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        kGradientPanel10Layout.setVerticalGroup(
+            kGradientPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelMyJobLayout = new javax.swing.GroupLayout(panelMyJob);
+        panelMyJob.setLayout(panelMyJobLayout);
+        panelMyJobLayout.setHorizontalGroup(
+            panelMyJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMyJobLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelMyJobLayout.setVerticalGroup(
+            panelMyJobLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMyJobLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        studentTabbedPane.addTab("MY JOB", panelMyJob);
+
         kGradientPanel8.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel8.setkStartColor(new java.awt.Color(204, 255, 204));
 
@@ -2075,6 +2410,14 @@ public class UniStudentJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnViewSelectedMapActionPerformed
 
+    private void btnViewSelected1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelected1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewSelected1ActionPerformed
+
+    private void cmbGov1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGov1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGov1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button back_btn;
@@ -2091,11 +2434,14 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnTakePic;
     private javax.swing.JButton btnUpdate;
     private button.Button btnViewSelected;
+    private button.Button btnViewSelected1;
     private button.Button btnViewSelectedMap;
     private button.Button btnWithdraw;
     private javax.swing.JComboBox<String> cmbAvailability;
     private javax.swing.JComboBox<String> cmbGender;
+    private javax.swing.JComboBox<String> cmbGov1;
     private javax.swing.JComboBox<String> cmbLevel;
+    private javax.swing.JComboBox<String> cmbLevel1;
     private javax.swing.JComboBox<String> cmbLocation;
     private javax.swing.JComboBox<String> cmbNationality;
     private javax.swing.JComboBox<String> cmbRole;
@@ -2105,6 +2451,9 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
@@ -2125,6 +2474,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane9;
     private org.jxmapviewer.JXMapViewer jXMapViewer;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private keeptoo.KGradientPanel kGradientPanel10;
+    private keeptoo.KGradientPanel kGradientPanel11;
     private keeptoo.KGradientPanel kGradientPanel2;
     private keeptoo.KGradientPanel kGradientPanel4;
     private keeptoo.KGradientPanel kGradientPanel5;
@@ -2138,8 +2489,10 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblCollege;
     private javax.swing.JLabel lblCompany;
     private javax.swing.JLabel lblCompanyMyApp;
+    private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblContactNo;
     private javax.swing.JLabel lblCourse;
+    private javax.swing.JLabel lblCourse1;
     private javax.swing.JLabel lblDateApplied;
     private javax.swing.JLabel lblDepartment;
     private javax.swing.JLabel lblEmailId;
@@ -2154,20 +2507,31 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblJobProfile;
     private javax.swing.JLabel lblJobTitle;
     private javax.swing.JLabel lblLevel;
+    private javax.swing.JLabel lblLevel1;
     private javax.swing.JLabel lblNationality;
     private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JLabel lblResults;
     private javax.swing.JLabel lblRoleFilter;
+    private javax.swing.JLabel lblSalary;
+    private javax.swing.JLabel lblSalary1;
+    private javax.swing.JLabel lblSalary2;
+    private javax.swing.JLabel lblSalary3;
     private javax.swing.JLabel lblSalaryOffered;
     private javax.swing.JLabel lblSkills;
     private javax.swing.JLabel lblStartDate;
+    private javax.swing.JLabel lblStartDate1;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUniversity;
+    private javax.swing.JLabel lblUniversity1;
+    private javax.swing.JLabel lblUniversity2;
+    private javax.swing.JLabel lblUniversity3;
     private javax.swing.JLabel lblWelcome;
     private button.Button nxtSavebtn;
     private javax.swing.JPanel panelJDWatch;
     private javax.swing.JPanel panelMyApplications;
+    private javax.swing.JPanel panelMyJob;
     private javax.swing.JPanel panelRentals;
     private javax.swing.JPanel panelStudentProfile;
     private javax.swing.JTabbedPane studentTabbedPane;
@@ -2183,28 +2547,39 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCollege;
     private javax.swing.JTextField txtCompanyMyApp;
     private javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtCompanyName1;
     private javax.swing.JTextField txtContactNo;
     private javax.swing.JTextField txtCoords;
     private javax.swing.JTextField txtCourse;
+    private javax.swing.JTextField txtCourse1;
     private javax.swing.JTextField txtDateApplied;
     private javax.swing.JTextField txtDepartment;
     private javax.swing.JTextField txtEmailId;
     private javax.swing.JTextField txtExpGradDate;
+    private javax.swing.JTextField txtExpGradDate1;
     private javax.swing.JTextField txtGPA;
+    private javax.swing.JTextField txtGovComments1;
     private javax.swing.JTextField txtJobAppId;
     private javax.swing.JTextField txtJobId;
     private javax.swing.JTextField txtJobTitle;
+    private javax.swing.JTextField txtJobTitle1;
     private javax.swing.JTextField txtLeasee;
     private javax.swing.JTextField txtMoveDate;
     private javax.swing.JTextField txtPosition;
     private javax.swing.JTextField txtRent;
+    private javax.swing.JTextField txtSalary1;
     private javax.swing.JTextField txtSalaryOffered;
+    private javax.swing.JTextField txtSevisId1;
     private javax.swing.JTextField txtSkills;
     private javax.swing.JTextField txtStartDate;
+    private javax.swing.JTextField txtStartDate1;
     private javax.swing.JTextField txtStatus;
+    private javax.swing.JTextField txtStatus2;
     private javax.swing.JTextField txtStudentName;
+    private javax.swing.JTextField txtStudentName1;
     private javax.swing.JTextField txtTitle;
     private javax.swing.JTextField txtUniversity;
+    private javax.swing.JTextField txtUniversity1;
     // End of variables declaration//GEN-END:variables
 
     public void populateAllFields(UniStudent student){
@@ -2482,6 +2857,33 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                 while (rs.next())
                 {
                     JobAppointments jobApp = jobAppDir.addJobAppointment();
+                    
+                    jobApp.setApplicationId(rs.getInt("application_id"));
+                    jobApp.setSevisId(rs.getString("student_gov_id"));
+                    jobApp.setCompanyId(rs.getInt("company_id"));
+                    jobApp.setJobListingsId(rs.getInt("job_listings_id"));
+                    jobApp.setDateApplied(LocalDate.parse(rs.getString("date_applied")));
+                    if(rs.getString("status")!=null){
+                        jobApp.setStatus(rs.getString("status"));
+                    }
+                    if(rs.getString("comments")!=null){
+                        jobApp.setComments(rs.getString("comments"));
+                    }
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void findAllAcceptedJobAppsOfStudent(UniStudent student){
+        try {
+            String queryStudents = "SELECT * FROM appointments WHERE student_gov_id = '" + student.getSevisId() + "' AND status = 'Accepted'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryStudents);                
+                while (rs.next())
+                {
+                    JobAppointments jobApp = jobAppDirAcc.addJobAppointment();
                     
                     jobApp.setApplicationId(rs.getInt("application_id"));
                     jobApp.setSevisId(rs.getString("student_gov_id"));
@@ -2968,5 +3370,77 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void getAllAcceptedJobs(){
+        try {
+            String queryAcceptedJobs = "SELECT * FROM accepted_jobs WHERE student_gov_id = '" + student.getSevisId() + "'";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryAcceptedJobs);                
+                while (rs.next())
+                {
+                    AcceptedJobs acceptedJob = acceptedJobs.addAcceptedJobs();
+                    
+                    acceptedJob.setCompanyId(rs.getInt("company_id"));
+                    acceptedJob.setCompanyName(rs.getString("company_name"));
+                    acceptedJob.setCourse(rs.getString("course"));
+                    acceptedJob.setJobListingsId(rs.getInt("job_listings_id"));
+                    acceptedJob.setSevisId(rs.getString("student_gov_id"));
+                    acceptedJob.setExpectedGradDate(LocalDate.parse(rs.getString("expected_grad_date")));
+                    acceptedJob.setJobTitle(rs.getString("job_title"));
+                    acceptedJob.setLevel(rs.getString("level"));
+                    acceptedJob.setNationality(rs.getString("nationality"));
+                    acceptedJob.setPosition(rs.getString("position"));
+                    acceptedJob.setRole(rs.getString("role"));
+                    acceptedJob.setStudentName(rs.getString("student_name"));
+                    acceptedJob.setUniversity(rs.getString("university"));
+                    acceptedJob.setSalary(Double.valueOf(rs.getString("salary")));
+                    acceptedJob.setStartDate(LocalDate.parse(rs.getString("start_date")));
+                    
+                    if(rs.getString("gov_comments")!=null){
+                        acceptedJob.setGovComments(rs.getString("gov_comments"));
+                    }else{
+                        acceptedJob.setGovComments("");
+                    }
+                    
+                    if(rs.getString("gov_status")!=null){
+                        acceptedJob.setGovStatus(rs.getString("gov_status"));
+                    }else{
+                        acceptedJob.setGovStatus("Pending with HR");
+                    }
+                    
+                    acceptedJob.setGovIssues(rs.getString("gov_issues"));
+                    
+                    if(rs.getString("government_name")!=null){
+                        acceptedJob.setGovName(rs.getString("government_name"));
+                    }
+
+                    acceptedJob.setLocation(rs.getString("location"));
+                    
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void displayJob(AcceptedJobs acceptedJob){
+        txtStudentName1.setText(acceptedJob.getStudentName());
+        txtCompanyName1.setText(acceptedJob.getCompanyName());
+        txtCourse1.setText(acceptedJob.getCourse());
+        txtExpGradDate1.setText(acceptedJob.getExpectedGradDate().toString());
+        txtGovComments1.setText(acceptedJob.getGovComments());
+        txtJobTitle1.setText(acceptedJob.getJobTitle());
+        txtSalary1.setText(acceptedJob.getSalary().toString());
+        txtSevisId1.setText(acceptedJob.getSevisId());
+        txtStartDate1.setText(acceptedJob.getStartDate().toString());
+        txtUniversity1.setText(acceptedJob.getUniversity());
+        
+        cmbLevel1.setSelectedItem(acceptedJob.getLevel());
+        cmbGov1.setSelectedItem(acceptedJob.getGovName());
+        
+        txtStatus2.setText(acceptedJob.getGovIssues());
+        txtGovComments1.setText(acceptedJob.getGovComments());
+        
     }
 }

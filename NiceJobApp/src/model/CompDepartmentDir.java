@@ -145,4 +145,15 @@ public class CompDepartmentDir {
         compDepartmentList.set(ind, updateCompDepartment);
         return compDepartmentList;
     }
+    
+    public ArrayList<CompDepartment> deleteAllNonAccepted(JobAppointmentsDir jobApps){
+        ArrayList<CompDepartment> newList = new ArrayList<CompDepartment>();
+        for(CompDepartment dept : compDepartmentList){
+            if(jobApps.searchByJobListingId(dept.getJobId()).get(0).getStatus().equalsIgnoreCase("Accepted")){
+                newList.add(dept);
+            }
+        }
+        compDepartmentList = newList;
+        return compDepartmentList;
+    }
 }
