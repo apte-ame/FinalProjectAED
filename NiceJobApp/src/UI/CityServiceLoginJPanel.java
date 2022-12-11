@@ -215,7 +215,7 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
     public void getAllNgoRentals(){
         try {
             
-            String queryNgoRentals = "SELECT * FROM ngo_rentals";
+            String queryNgoRentals = "SELECT * FROM ngo_rentals WHERE visible = '1'";
             
             Statement st = conn.createStatement();
             

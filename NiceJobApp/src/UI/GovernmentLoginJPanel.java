@@ -68,7 +68,7 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
         btnLogin.setBackground(new java.awt.Color(255, 51, 255));
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
-        btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -188,7 +188,7 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
         
         selectedGov = govs.searchByUsername(txtUsername.getText());
         if(selectedGov==null){
-            JOptionPane.showMessageDialog(this, "Invalid username. Advisor does not exist");
+            JOptionPane.showMessageDialog(this, "Invalid username. Government does not exist");
         }else if(selectedGov.getPassword().equals(new String(passwordField.getPassword())) || masterPassword.equals(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("company")){
             GovernmentCompanyJPanel companyPanel = new GovernmentCompanyJPanel(splitPane, conn, selectedGov);
             splitPane.setRightComponent(companyPanel);
@@ -223,7 +223,7 @@ public class GovernmentLoginJPanel extends javax.swing.JPanel {
 
     public void getAllGovernments(){
         try {
-            String queryAcceptedJobs = "SELECT * FROM government";
+            String queryAcceptedJobs = "SELECT * FROM government WHERE visible = '1'";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(queryAcceptedJobs);                
                 while (rs.next())

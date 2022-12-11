@@ -26,7 +26,9 @@ public class GovernmentDir {
         this.governmentList = governmentList;
     }
     
-    
+    public void clearAll(){
+        governmentList.clear();
+    }
     
     public Government addGovernment(){
         Government newGovernment = new Government();

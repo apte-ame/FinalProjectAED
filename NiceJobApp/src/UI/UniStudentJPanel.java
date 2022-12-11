@@ -3225,18 +3225,35 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         DefaultTableModel tableModel = (DefaultTableModel) tblListings.getModel();
         tableModel.setRowCount(0);
         
-        for(RentalApps rental : rentals.getRentalAppsList()){
-            Object row[] = new Object[7];
-            row[0] = rental;
-            row[1] = ngoRents.searchById(rental.getNgoRentalId()).getName();
-            row[2] = rental.getTitle();
-            row[3] = rental.getLocation();
-            row[4] = rental.getRent().toString();
-            row[5] = rental.getAvailability();
-            row[6] = rental.getStatus();
-            
-            tableModel.addRow(row);
-        }
+        if(rentals.getRentalAppsList().size() == 1){
+            for(RentalApps rental : rentals.getRentalAppsList()){
+                Object row[] = new Object[7];
+                row[0] = rental;
+                row[1] = ngoRents.searchById(rental.getNgoRentalId()).getName();
+                row[2] = rental.getTitle();
+                row[3] = rental.getLocation();
+                row[4] = rental.getRent().toString();
+                row[5] = rental.getAvailability();
+                row[6] = rental.getStatus();
+
+                tableModel.addRow(row);
+            }
+        }else{
+            for(RentalApps rental : rentals.getRentalAppsList()){
+                if(ngoRents.searchById(rental.getNgoRentalId()).getVisible()){
+                    Object row[] = new Object[7];
+                    row[0] = rental;
+                    row[1] = ngoRents.searchById(rental.getNgoRentalId()).getName();
+                    row[2] = rental.getTitle();
+                    row[3] = rental.getLocation();
+                    row[4] = rental.getRent().toString();
+                    row[5] = rental.getAvailability();
+                    row[6] = rental.getStatus();
+
+                    tableModel.addRow(row);
+                }
+            }
+        }   
     }
     
     public void loadAllRentals(){
@@ -3365,7 +3382,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                     rental.setName(rs.getString("name"));
                     rental.setCountry(rs.getString("country"));
                     rental.setLocation(rs.getString("location"));
-                    
+                    rental.setVisible(rs.getBoolean("visible"));
                 }
             
                 st.close();

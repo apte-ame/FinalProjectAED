@@ -71,6 +71,11 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         btnSystemAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnSystemAdmin.setText("SYSTEM ADMIN");
         btnSystemAdmin.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnSystemAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSystemAdminActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title_Housing.png"))); // NOI18N
 
@@ -161,6 +166,13 @@ public class CityServicesChoiceJPanel extends javax.swing.JPanel {
         MainJPanel choicePanel = new MainJPanel(splitPane, conn);
         splitPane.setRightComponent(choicePanel);
     }//GEN-LAST:event_back_btnActionPerformed
+
+    private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
+        // TODO add your handling code here:
+        choice = "rental admin";
+        AdminLoginJPanel loginPanel = new AdminLoginJPanel(splitPane, choice, conn);
+        splitPane.setRightComponent(loginPanel);
+    }//GEN-LAST:event_btnSystemAdminActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button back_btn;

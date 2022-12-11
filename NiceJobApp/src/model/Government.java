@@ -19,6 +19,18 @@ public class Government {
     
     private String username;
     private String password;
+    
+    private Boolean visible;
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+    
+    
 
     public String getUsername() {
         return username;
