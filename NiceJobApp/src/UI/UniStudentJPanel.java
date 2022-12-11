@@ -52,6 +52,8 @@ import model.CompDepartment;
 import model.CompDepartmentDir;
 import model.Company;
 import model.CompanyDir;
+import model.Government;
+import model.GovernmentDir;
 import model.JobAppointments;
 import model.JobAppointmentsDir;
 import model.NgoRentals;
@@ -109,6 +111,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     MouseInputListener mm;
     
     private RentalApps rentalApp;
+    GovernmentDir govs = new GovernmentDir();
     
     public UniStudentJPanel(JSplitPane splitPane, Connection conn, UniStudent student) {
         initComponents();
@@ -137,7 +140,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         
         removeJobAppFromListings();
         populateJobListingsTable(compDeptDir);
-        
+        getAllGovernments();
+        setGovCmb();
         
         if(jobAppDirAcc.getJobAppointmentsList().isEmpty()){
             studentTabbedPane.setEnabledAt(3, false);
@@ -3440,5 +3444,40 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         txtStatus2.setText(acceptedJob.getGovIssues());
         txtGovComments1.setText(acceptedJob.getGovComments());
         
+    }
+    
+    public void setGovCmb(){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        
+        for(Government gov : govs.getGovernmentList()){
+            
+            model.addElement(gov.getName());
+        }
+        
+        cmbGov1.setModel(model);
+    }
+    
+    public void getAllGovernments(){
+        try {
+            String queryAcceptedJobs = "SELECT * FROM government";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(queryAcceptedJobs);                
+                while (rs.next())
+                {
+                    Government gov = govs.addGovernment();
+                    
+                    gov.setCountry(rs.getString("country"));
+                    gov.setId(rs.getInt("id"));
+                    gov.setName(rs.getString("name"));
+                    gov.setPassword(rs.getString("password"));
+                    gov.setPincode(rs.getString("pincode"));
+                    gov.setState(rs.getString("state"));
+                    gov.setUsername(rs.getString("username"));
+                    
+                }
+                st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -62,6 +62,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         cmbRoleSelection = new button.Combobox();
         jLabel1 = new javax.swing.JLabel();
+        back_btn = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -126,6 +127,14 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("COMMON ACCESS LOGIN");
 
+        back_btn.setBackground(new java.awt.Color(204, 204, 255));
+        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        back_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_btnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -138,19 +147,29 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(92, 92, 92)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(58, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1)))
+                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
@@ -186,9 +205,6 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
             }else if((selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword()))) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Interview Panel")){
                 CompanyInterviewJPanel interviewPanel = new CompanyInterviewJPanel(splitPane,conn,selectedCompany);
                 splitPane.setRightComponent(interviewPanel);
-            }else if((selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword()))) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Analytics Panel")){
-                AnalyticsJPanel analyticsPanel = new AnalyticsJPanel(splitPane,conn,selectedCompany);
-                splitPane.setRightComponent(analyticsPanel);
             }else if((selectedCompany.getPassword().equals(new String(passfieldPassword .getPassword())) || masterPassword.equals(new String(passfieldPassword.getPassword()))) && cmbRoleSelection.getSelectedItem().toString().equalsIgnoreCase("Human Resources")){
                 CompanyHRJPanel hrPanel = new CompanyHRJPanel(splitPane, conn, selectedCompany);
                 splitPane.setRightComponent(hrPanel);
@@ -238,8 +254,15 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_showMousePressed
 
+    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+        // TODO add your handling code here:
+        CompanyChoiceJPanel choicePanel = new CompanyChoiceJPanel(splitPane, conn);
+        splitPane.setRightComponent(choicePanel);
+    }//GEN-LAST:event_back_btnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private button.Button back_btn;
     private button.ButtonGradient btnLogin;
     private clock.Clock clock1;
     private button.Combobox cmbRoleSelection;
