@@ -63,6 +63,16 @@ public class NgoRentalsDir {
         return null;
     }
     
+    public ArrayList<NgoRentals> searchByNgoName(String name){
+        ArrayList<NgoRentals> newNgo = new ArrayList<>();
+        for(NgoRentals ngoRentals : ngoRentalsList){
+            if(ngoRentals.getName().equals(name)){
+               newNgo.add(ngoRentals);
+            }
+        }
+        return newNgo;
+    }
+    
     public NgoRentals searchByUsername(String username){
         for(NgoRentals ngoRentals : ngoRentalsList){
             if(ngoRentals.getUsername().equals(username)){

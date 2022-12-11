@@ -224,6 +224,10 @@ public class LoginJPanel extends javax.swing.JPanel {
                 }
             }
         }else if(username.equalsIgnoreCase(txtUsername.getText()) && password.equalsIgnoreCase(new String(passwordField.getPassword())) && choice.equalsIgnoreCase("admin")){
+//            SystemAdminCompanyJPanel sysAdminComp = new SystemAdminCompanyJPanel(splitPane, conn);
+//            splitPane.setRightComponent(sysAdminComp);
+               // SystemAdminHousingJPanel sysAdminComp = new SystemAdminHousingJPanel(splitPane, conn);
+            //splitPane.setRightComponent(sysAdminComp);
             SystemAdminUniversityJPanel adminUni = new SystemAdminUniversityJPanel(splitPane, conn);
             splitPane.setRightComponent(adminUni);
         }else{
