@@ -19,6 +19,17 @@ public class NgoRentals {
     private String username;
     private String password;
     private String location;
+    private Boolean visible;
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+    
+    
 
     public String getLocation() {
         return location;

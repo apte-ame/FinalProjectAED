@@ -44,6 +44,7 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         back_btn = new button.Button();
+        btnAdvisor1 = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -88,6 +89,16 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnAdvisor1.setBackground(new java.awt.Color(255, 177, 34));
+        btnAdvisor1.setForeground(new java.awt.Color(0, 51, 204));
+        btnAdvisor1.setText("SYSTEM ADMIN");
+        btnAdvisor1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnAdvisor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdvisor1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -104,13 +115,17 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btnAdvisor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(109, 109, 109))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -136,7 +151,9 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
                 .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAdvisor1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -171,10 +188,18 @@ public class GovernmentChoiceJPanel extends javax.swing.JPanel {
         splitPane.setRightComponent(choicePanel);
     }//GEN-LAST:event_back_btnActionPerformed
 
+    private void btnAdvisor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisor1ActionPerformed
+        // TODO add your handling code here:
+        choice = "government admin";
+        AdminLoginJPanel loginPanel = new AdminLoginJPanel(splitPane, choice, conn);
+        splitPane.setRightComponent(loginPanel);
+    }//GEN-LAST:event_btnAdvisor1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button back_btn;
     private button.Button btnAdvisor;
+    private button.Button btnAdvisor1;
     private button.Button btnRecord;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

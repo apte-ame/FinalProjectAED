@@ -26,6 +26,10 @@ public class NgoRentalsDir {
         this.ngoRentalsList = ngoRentalsList;
     }
     
+    public void clearAll(){
+        ngoRentalsList.clear();
+    }
+    
     public NgoRentals addNgoRentals(){
         NgoRentals newNgoRentals = new NgoRentals();
         ngoRentalsList.add(newNgoRentals);

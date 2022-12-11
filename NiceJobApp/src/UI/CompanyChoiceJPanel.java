@@ -167,8 +167,8 @@ public class CompanyChoiceJPanel extends javax.swing.JPanel {
 
     private void btnSystemAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemAdminActionPerformed
         // TODO add your handling code here:
-        choice = "admin";
-        LoginJPanel loginPanel = new LoginJPanel(splitPane, choice, conn);
+        choice = "company admin";
+        AdminLoginJPanel loginPanel = new AdminLoginJPanel(splitPane, choice, conn);
         splitPane.setRightComponent(loginPanel);
     }//GEN-LAST:event_btnSystemAdminActionPerformed
 

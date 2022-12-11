@@ -190,7 +190,6 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(204, 255, 204));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_6.png"))); // NOI18N
-        btnDelete.setEnabled(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -296,32 +295,38 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(lblHeading1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(237, 237, 237)
-                                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
+                                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
+                                .addGap(397, 397, 397)
+                                .addComponent(btnSave)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnUpdate))
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGap(290, 290, 290)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,13 +343,13 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(143, 143, 143)
-                                .addComponent(btnSave)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnUpdate)))
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(313, 313, 313)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
@@ -356,17 +361,14 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHeading1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(lblHeading1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 8, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,22 +383,15 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStudentName)
                     .addComponent(txtHousingName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -404,7 +399,11 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
@@ -447,15 +446,11 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             return;
         }else{
             DefaultTableModel tableModel = (DefaultTableModel) tblHousingDetails.getModel();
-            Company company = (Company) tableModel.getValueAt(selectedRow, 0);
-            getAllAcceptedJobs();
-            getAllJobAppointments();
-            getAllJobListings();
-            ArrayList<AcceptedJobs> acptJobDel = acptJobDir.searchByCompanyId(companyDir.searchByCompanyName(company.getName()).getId());
-            ArrayList<JobAppointments> jobAptDel = jobAptDir.searchByCompanyId(companyDir.searchByCompanyName(company.getName()).getId());
-            ArrayList<RHJobPosting> jobListingDel = jobPosting.searchByCompanyName(company.getName());
-            deleteCompany(company,acptJobDel,jobAptDel,jobListingDel);
-            
+            NgoRentals ngoRentals = (NgoRentals) tableModel.getValueAt(selectedRow, 0);
+            deleteNgoRentals(ngoRentals);
+            ngoRentalsDir.clearAll();
+            getAllHousing();
+            populateHousingTable(ngoRentalsDir);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -469,7 +464,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
-            ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
+            CityServicesChoiceJPanel choicePanel = new CityServicesChoiceJPanel(splitPane, conn);
             splitPane.setRightComponent(choicePanel);
         }
         else{
@@ -1309,7 +1304,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                     ngoRentals.setUsername(rs.getString("username"));
                     ngoRentals.setPassword(rs.getString("password"));
                     ngoRentals.setLocation(rs.getString("location"));
-                    
+                    ngoRentals.setVisible(rs.getBoolean("visible"));
                 }
                 st.close();
         } catch (SQLException ex) {
@@ -1322,15 +1317,18 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         
         for(NgoRentals ngoRentalsElement : ngoRentalsDir.getCompanyList()){
-            Object row[] = new Object[5];
+            if(ngoRentalsElement.getVisible()){
+                Object row[] = new Object[5];
             
-            row[0] = ngoRentalsElement;
-            row[1] = ngoRentalsElement.getUsername();
-            row[2] = ngoRentalsElement.getPassword();
-            row[3] = ngoRentalsElement.getLocation();
+                row[0] = ngoRentalsElement;
+                row[1] = ngoRentalsElement.getUsername();
+                row[2] = ngoRentalsElement.getPassword();
+                row[3] = ngoRentalsElement.getLocation();
+
+
+                tableModel.addRow(row);
+            }
             
-            
-            tableModel.addRow(row);
         }
     }
     
@@ -1367,9 +1365,9 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     
     public void saveNgoToDb(NgoRentals ngo){
         try {
-            String queryNewCompany = "INSERT into ngo_rentals (name,country, location, username, password) VALUES "
+            String queryNewCompany = "INSERT into ngo_rentals (name,country, location, username, password, visible) VALUES "
                     + "('" + ngo.getName() + "', '" + ngo.getCountry()+ "' , '" + ngo.getLocation()+ "' "
-                    + ", '" + ngo.getUsername()+ "' , '" + ngo.getPassword()+ "' )";
+                    + ", '" + ngo.getUsername()+ "' , '" + ngo.getPassword()+ "' , '1')";
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewCompany); 
             st.close();
@@ -1418,4 +1416,15 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         }
     }
     
+    public void deleteNgoRentals(NgoRentals ngo){
+        try {
+            String queryUpdateCompany = "UPDATE ngo_rentals SET visible = '0' WHERE "
+                    + "id = '" + ngo.getId()+ "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryUpdateCompany);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminHousingJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
