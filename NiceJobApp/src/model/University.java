@@ -16,6 +16,17 @@ public class University {
     private String state;
     private String country;
     private Long pincode;
+    private Boolean visible;
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+    
+    
 
     public Integer getId() {
         return id;
@@ -63,6 +74,11 @@ public class University {
 
     public void setPincode(Long pincode) {
         this.pincode = pincode;
+    }
+
+    @Override
+    public String toString() {
+        return id.toString();
     }
     
     

@@ -17,6 +17,18 @@ public class UniCareerAdvisorDir {
     public UniCareerAdvisorDir() {
         uniCareerAdvisorList = new ArrayList<>();
     }
+
+    public ArrayList<UniCareerAdvisor> getUniCareerAdvisorList() {
+        return uniCareerAdvisorList;
+    }
+
+    public void setUniCareerAdvisorList(ArrayList<UniCareerAdvisor> uniCareerAdvisorList) {
+        this.uniCareerAdvisorList = uniCareerAdvisorList;
+    }
+    
+    public void clearAll(){
+        uniCareerAdvisorList.clear();
+    }
     
     public UniCareerAdvisor addUniCareerAdvisor(){
         UniCareerAdvisor newUniCareerAdvisor = new UniCareerAdvisor();

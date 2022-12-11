@@ -26,6 +26,10 @@ public class UniversityDir {
         universityList = new ArrayList<>();
     }
     
+    public void clearAll(){
+        universityList.clear();
+    }
+    
     public University addUniversity(){
         University newUniversity = new University();
         universityList.add(newUniversity);
@@ -103,5 +107,25 @@ public class UniversityDir {
             }
         }
         return null;
+    }
+    
+    public ArrayList<University> searchByNameMany(String name){
+        ArrayList<University> unis = new ArrayList<University>();
+        for(University university : universityList){
+            if(university.getName().equalsIgnoreCase(name)){
+                unis.add(university);
+            }
+        }
+        return unis;
+    }
+    
+    public ArrayList<University> searchByLocationMany(String location){
+        ArrayList<University> unis = new ArrayList<University>();
+        for(University university : universityList){
+            if(university.getCountry().equalsIgnoreCase(location)){
+                unis.add(university);
+            }
+        }
+        return unis;
     }
 }

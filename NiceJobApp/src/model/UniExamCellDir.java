@@ -22,7 +22,9 @@ public class UniExamCellDir {
         this.uniExamCells = uniExamCells;
     }
 
-   
+   public void clearAll(){
+       uniExamCells.clear();
+   }
     
     public UniExamCellDir() {
         uniExamCells = new ArrayList<>();

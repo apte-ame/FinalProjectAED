@@ -26,6 +26,10 @@ public class UniDepartmentDir {
         uniDepartmentList = new ArrayList<>();
     }
     
+    public void clearAll(){
+        uniDepartmentList.clear();
+    }
+    
     public UniDepartment addUniDepartment(){
         UniDepartment newUniDepartment = new UniDepartment();
         uniDepartmentList.add(newUniDepartment);
@@ -85,5 +89,15 @@ public class UniDepartmentDir {
             }
         }
         return null;
+    }
+    
+    public ArrayList<UniDepartment> searchByIdArray(Integer id){
+        ArrayList<UniDepartment> depts = new ArrayList<UniDepartment>();
+        for(UniDepartment uniDept : uniDepartmentList){
+            if(uniDept.getCollege().getUniversity().getId().equals(id)){
+                depts.add(uniDept);
+            }
+        }
+        return depts;
     }
 }

@@ -26,6 +26,10 @@ public class UniCollegeDir {
         uniCollegeList = new ArrayList<>();
     }
     
+    public void clearAll(){
+        uniCollegeList.clear();
+    }
+    
     public UniCollege addUniCollege(){
         UniCollege newUniCollege = new UniCollege();
         uniCollegeList.add(newUniCollege);
@@ -76,5 +80,15 @@ public class UniCollegeDir {
             }
         }
         return null;
+    }
+    
+    public ArrayList<UniCollege> searchByIdArray(Integer id){
+        ArrayList<UniCollege> colleges = new ArrayList<UniCollege>();
+        for(UniCollege uniCollege : uniCollegeList){
+            if(uniCollege.getUniversity().getId().equals(id)){
+                colleges.add(uniCollege);
+            }
+        }
+        return colleges;
     }
 }
