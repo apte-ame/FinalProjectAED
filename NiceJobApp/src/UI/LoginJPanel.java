@@ -237,7 +237,10 @@ public class LoginJPanel extends javax.swing.JPanel {
 //            splitPane.setRightComponent(sysAdminComp);
                // SystemAdminHousingJPanel sysAdminComp = new SystemAdminHousingJPanel(splitPane, conn);
             //splitPane.setRightComponent(sysAdminComp);
-            SystemAdminUniversityJPanel adminUni = new SystemAdminUniversityJPanel(splitPane, conn);
+//            SystemAdminUniversityJPanel adminUni = new SystemAdminUniversityJPanel(splitPane, conn);
+//            splitPane.setRightComponent(adminUni);
+
+            SystemAdminGovernmentJPanel adminUni = new SystemAdminGovernmentJPanel(splitPane, conn);
             splitPane.setRightComponent(adminUni);
         }else{
             selectedStudent = uniStudents.searchBySevisId(txtUsername.getText());
