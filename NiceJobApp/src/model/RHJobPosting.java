@@ -15,10 +15,19 @@ public class RHJobPosting {
     private Integer id;
     private String postName;
     private CompDepartment companyDepartment;
+    private String compName;
     private LocalDate postingValidFrom;
     private LocalDate postingValidTill;
     private String description;
     private String salaryRange;
+
+    public String getCompName() {
+        return compName;
+    }
+
+    public void setCompName(String compName) {
+        this.compName = compName;
+    }
 
     public Integer getId() {
         return id;

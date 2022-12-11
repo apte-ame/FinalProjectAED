@@ -101,6 +101,16 @@ public class RHJobPostingDir {
         return null;
     }
     
+    public ArrayList<RHJobPosting> searchByCompanyName(String companyName){
+        ArrayList<RHJobPosting> newRHJobPostings = new ArrayList<>();
+        for(RHJobPosting rhJobPosting : rhJobPostingList){
+            if(rhJobPosting.getCompName().equals(companyName)){
+                newRHJobPostings.add(rhJobPosting);
+            }
+        }
+        return newRHJobPostings;
+    }
+    
     public ArrayList<RHJobPosting> updateRHJobPosting(RHJobPosting oldRHJobPosting,RHJobPosting updateRHJobPosting){
         Integer ind = rhJobPostingList.indexOf(oldRHJobPosting);
         rhJobPostingList.set(ind, updateRHJobPosting);

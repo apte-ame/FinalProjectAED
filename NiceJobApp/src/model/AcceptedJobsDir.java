@@ -84,4 +84,15 @@ public class AcceptedJobsDir {
         }
         return newAcceptedJobs;
     }
+    
+    public ArrayList<AcceptedJobs> searchByCompanyId(Integer compId){
+        ArrayList<AcceptedJobs> newAcceptedJobs = new ArrayList<AcceptedJobs>();
+        for(AcceptedJobs acceptedJobs : acceptedJobsList){
+            if(acceptedJobs.getCompanyId().equals(compId)){
+                newAcceptedJobs.add(acceptedJobs);
+            }
+        }
+        return newAcceptedJobs;
+    }
+    
 }
