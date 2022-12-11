@@ -1109,6 +1109,15 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
             }
             stAcptDel.close();
             
+            Statement stAcptDelNew = conn.createStatement();
+            for(AcceptedJobs acptDelElement:acptDel){
+                String queryDelAcceptedJob = "UPDATE uni_student SET jd_watch_eligible = '1' WHERE student_gov_id = '"
+                        + acptDelElement.getSevisId()+ "'";
+
+                stAcptDelNew.executeUpdate(queryDelAcceptedJob);
+            }
+            stAcptDelNew.close();
+            
             Statement stJobAptDel = conn.createStatement();
             for(JobAppointments jobAptDelElement:jobAptDel){
                 String queryDelJobAppointment = "DELETE FROM appointments WHERE "
@@ -1231,6 +1240,7 @@ public class SystemAdminCompanyJPanel extends javax.swing.JPanel {
                     AcceptedJobs acptJobs = acptJobDir.addAcceptedJobs();
                     
                     acptJobs.setCompanyId(rs.getInt("company_id"));
+                    acptJobs.setSevisId(rs.getString("student_gov_id"));
                     
                 }
                 st.close();
