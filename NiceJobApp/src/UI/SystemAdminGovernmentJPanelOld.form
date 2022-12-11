@@ -81,7 +81,7 @@
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="lblStudentName" min="-2" pref="162" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtGovernmentName" linkSize="3" min="-2" pref="180" max="-2" attributes="0"/>
+                                          <Component id="txtCompanyName" linkSize="3" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel9" min="-2" pref="162" max="-2" attributes="0"/>
@@ -99,7 +99,7 @@
                                           <Component id="txtLocation" linkSize="3" min="-2" pref="119" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                                   <Component id="btnSave" linkSize="9" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="btnUpdate" linkSize="9" min="-2" max="-2" attributes="0"/>
@@ -151,7 +151,7 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblStudentName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtGovernmentName" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCompanyName" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -192,10 +192,10 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblGovernmentDetails">
+            <Component class="javax.swing.JTable" name="tblStudentDetails">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Trebuchet MS" size="15" style="1"/>
+                  <Font name="Trebuchet MS" size="18" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -276,7 +276,6 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/icon_6.png"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
@@ -334,7 +333,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewSelectedActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtGovernmentName">
+        <Component class="javax.swing.JTextField" name="txtCompanyName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="0"/>

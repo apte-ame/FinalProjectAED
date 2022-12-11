@@ -71,6 +71,16 @@ public class GovernmentDir {
         return null;
     }
     
+    public ArrayList<Government> searchByGovName(String name){
+        ArrayList<Government> newGovernment = new ArrayList<>();
+        for(Government government : governmentList){
+            if(government.getName().equals(name)){
+                newGovernment.add(government);
+            }
+        }
+        return newGovernment;
+    }
+    
     public Government searchByState(String state){
         for(Government government : governmentList){
             if(government.getState().equals(state)){

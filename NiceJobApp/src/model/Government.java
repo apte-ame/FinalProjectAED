@@ -77,6 +77,11 @@ public class Government {
     public void setPincode(String pincode) {
         this.pincode = pincode;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
     
     
 }
