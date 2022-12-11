@@ -765,7 +765,8 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         txtUniversity.setText("");
         txtApplicationDate.setText("");
         txtAreaComments.setText("");
-        
+        lblImage.setIcon(null);
+        lblImage.setText("No image");
         cmbStatus.setSelectedIndex(0);
     }
 
@@ -1169,7 +1170,7 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
 //        HashMap<String,Integer> myInp = data.dataConn();
 //        
         //for (String myKey:myInp.keySet()){
-            count+=10;
+//            count+=10;
 //            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp.get(myKey)));
 //        }
         

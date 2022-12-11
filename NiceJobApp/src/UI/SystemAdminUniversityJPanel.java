@@ -8,12 +8,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.security.SecureRandom;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -36,11 +34,14 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.UniCareerAdvisor;
+import model.UniCareerAdvisorDir;
 import model.UniCollege;
 import model.UniCollegeDir;
 import model.UniDepartment;
 import model.UniDepartmentDir;
 import model.UniExamCell;
+import model.UniExamCellDir;
 import model.UniStudent;
 import model.UniStudentDir;
 import model.University;
@@ -66,24 +67,34 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     Integer selectedCollegeId = 0;
     Integer selectedDepartmentId = 0;
     Integer selectedRow = -1;
+    University selectedUni = new University();
+    
+    UniCareerAdvisorDir advisors = new UniCareerAdvisorDir();
+    UniExamCellDir examCell = new UniExamCellDir();
     
     Connection conn = null;
     
-    public SystemAdminUniversityJPanel(JSplitPane splitPane, Connection conn, UniExamCell selectedUniExamCell) {
+    public SystemAdminUniversityJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
         
         this.splitPane = splitPane;
         this.conn = conn;
         
-        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
-        this.selectedUniExamCell = selectedUniExamCell;
+        tblUniversity.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
+//        this.selectedUniExamCell = selectedUniExamCell;
         lblHeading2.setText(this.selectedUniExamCell.getName());
         getAllUniversityData();
         
         selectedCollegeId = 1;
         getAllStudents();
+        getAllExamCells();
+        getAllAdvisors();
         clearAllFields();
-        populateStudentTable(uniStudents);
+        populateCompaniesTable(universities);
+//        populateStudentTable(uniStudents);
+
+        btnAdvisor.setEnabled(false);
+        btnExamCell.setEnabled(false);
     }
 
     /**
@@ -97,7 +108,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblStudentDetails = new javax.swing.JTable();
+        tblUniversity = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         btnAdd = new button.Button();
         btnDelete = new button.Button();
@@ -106,12 +117,12 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         btnClear = new button.Button();
         btnViewSelected = new button.Button();
         txtUniversityName = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
+        txtPasswordExam = new javax.swing.JTextField();
         btnLogOut = new button.Button();
         lblStudentName = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        txtUsernameExam = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         lblHeading2 = new javax.swing.JLabel();
@@ -122,6 +133,12 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         lblStudentName1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtUsernameAdvisor = new javax.swing.JTextField();
+        txtPasswordAdvisor = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        btnExamCell = new javax.swing.JButton();
+        btnAdvisor = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 650));
 
@@ -130,8 +147,8 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 51, 51));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1005, 700));
 
-        tblStudentDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblUniversity.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        tblUniversity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -139,7 +156,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "University Name", "Username", "Password", "Location"
+                "University Id", "University Name", "Career Advisor", "Exam Cell Manager"
             }
         ) {
             Class[] types = new Class [] {
@@ -157,7 +174,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblStudentDetails);
+        jScrollPane1.setViewportView(tblUniversity);
 
         jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,7 +234,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
 
         txtUniversityName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
-        txtPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtPasswordExam.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
         btnLogOut.setBackground(new java.awt.Color(204, 204, 255));
         btnLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
@@ -243,10 +260,10 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("UNIVERSITY DETAILS");
 
-        txtUsername.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+        txtUsernameExam.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtUsernameExam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
+                txtUsernameExamActionPerformed(evt);
             }
         });
 
@@ -280,6 +297,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         txtExamCellName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
         txtDepartmentName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtDepartmentName.setEnabled(false);
         txtDepartmentName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDepartmentNameActionPerformed(evt);
@@ -300,6 +318,41 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Advisor Name");
+
+        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Username");
+
+        txtUsernameAdvisor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtUsernameAdvisor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameAdvisorActionPerformed(evt);
+            }
+        });
+
+        txtPasswordAdvisor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setText("Password");
+
+        btnExamCell.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnExamCell.setText("<html>Login As <br>Exam Cell</html>");
+        btnExamCell.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExamCellActionPerformed(evt);
+            }
+        });
+
+        btnAdvisor.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnAdvisor.setText("<html>Login As <br>Exam Cell</html>");
+        btnAdvisor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdvisorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -331,12 +384,8 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
                                 .addGap(237, 237, 237)
                                 .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
+                                .addGap(64, 64, 64)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -344,22 +393,38 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(lblStudentName1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtExamCellName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtExamCellName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtAdvisorName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(87, 87, 87)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(txtAdvisorName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 19, Short.MAX_VALUE)))
+                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtUsernameExam, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPasswordExam, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel1Layout.createSequentialGroup()
+                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtUsernameAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPasswordAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnExamCell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -371,9 +436,11 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPassword, txtUniversityName});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPasswordExam, txtUniversityName});
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSave, btnUpdate});
+
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPasswordAdvisor, txtUsernameAdvisor});
 
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,26 +471,42 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStudentName)
-                    .addComponent(txtUniversityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(28, 28, 28)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStudentName1)
-                    .addComponent(txtExamCellName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtAdvisorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblStudentName)
+                        .addComponent(txtUniversityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDepartmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblStudentName1)
+                            .addComponent(txtExamCellName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsernameExam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtPasswordExam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(btnExamCell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9))
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addComponent(txtAdvisorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUsernameAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(btnAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtPasswordAdvisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -432,7 +515,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtPassword, txtUniversityName});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtPasswordExam, txtUniversityName});
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSave, btnUpdate});
 
@@ -440,7 +523,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1002, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,29 +533,42 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
 
     private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
         // TODO add your handling code here:
-        selectedRow = tblStudentDetails.getSelectedRow();
+        selectedRow = tblUniversity.getSelectedRow();
         if(selectedRow < 0){
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }else{
-            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-            UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
-            displayStudent(student);
-            selectedStudent = student;
+            DefaultTableModel tableModel = (DefaultTableModel) tblUniversity.getModel();
+            University uni = (University) tableModel.getValueAt(selectedRow, 0);
+            displayUniversity(uni);
+            selectedUni = uni;
+            btnAdvisor.setEnabled(true);
+            btnExamCell.setEnabled(true);
         }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        selectedRow = tblStudentDetails.getSelectedRow();
+        selectedRow = tblUniversity.getSelectedRow();
         if(selectedRow < 0){
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }else{
-            DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-            UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
-            deleteStudent(student);
-            selectedStudent = student;
+            DefaultTableModel tableModel = (DefaultTableModel) tblUniversity.getModel();
+            University uni = (University) tableModel.getValueAt(selectedRow, 0);
+            deleteUniversity(uni);
+            selectedUni = uni;
+            universities.clearAll();
+            uniColleges.clearAll();
+            uniDepartments.clearAll();
+            advisors.clearAll();
+            examCell.clearAll();
+            getAllUniversityData();
+            selectedCollegeId = 1;
+            getAllExamCells();
+            getAllAdvisors();
+            clearAllFields();
+            populateCompaniesTable(universities);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -480,6 +576,9 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         clearAllFields();
         btnSave.setEnabled(true);
+        txtDepartmentName.setEnabled(true);
+        btnExamCell.setEnabled(false);
+        btnAdvisor.setEnabled(false);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
@@ -497,11 +596,13 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         clearAllFields();
+        btnAdvisor.setEnabled(false);
+        btnExamCell.setEnabled(false);
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
         // TODO add your handling code here:
-        populateStudentTable(uniStudents);
+        populateCompaniesTable(universities);
     }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -510,11 +611,9 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         panel.add(new JLabel("Please select a field:"));
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("Name");
-        model.addElement("Sevis Id");
-        model.addElement("Intake");
-        model.addElement("Course");
-        model.addElement("Semester");
-        model.addElement("Department");
+        model.addElement("Career Advisor");
+        model.addElement("Exam Cell Manager");
+        
         JComboBox comboBox = new JComboBox(model);
         panel.add(comboBox);
 
@@ -522,115 +621,65 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         if(resultField == JOptionPane.OK_OPTION){
             String fieldSelected = comboBox.getSelectedItem().toString();
 
-            DefaultComboBoxModel modelIntake = new DefaultComboBoxModel();
-            
-            LocalDate today = LocalDate.now();
-            Integer year = today.getYear();
-            ArrayList<Integer> listYears = new ArrayList<Integer>();
-            for(int i = year - 2; i < year+1; i++){
-                listYears.add(i);
-            }
 
-            ArrayList<String> terms = new ArrayList<String>();
-            terms.add("Spring");
-            terms.add("Summer");
-            terms.add("Fall");
-
-            ArrayList<String> termsYears = new ArrayList<String>();
-            for(Integer i : listYears){
-                for(String j: terms){
-                    termsYears.add(j + " " + String.valueOf(i));
-                }
-            }
-
-            for(String str : termsYears){
-                modelIntake.addElement(str);
-            }
             
-            JComboBox comboBoxIntake = new JComboBox(modelIntake);
-            
-            DefaultComboBoxModel depts = new DefaultComboBoxModel();
-            for(UniDepartment dept : uniDepartments.getUniDepartmentList()){
-                if(dept.getCollege().getId() == selectedCollegeId){
-                    depts.addElement(dept.getName());
-                }
-            }
-            JComboBox comboBoxDepts = new JComboBox(depts);
-
-            DefaultComboBoxModel sems = new DefaultComboBoxModel();
-            for(Integer i = 1; i < 5; i++){
-                sems.addElement(i.toString());
-            }
-            JComboBox comboBoxSems = new JComboBox(sems);
-            
-            JTextField txtField = new JTextField("");
+            JTextField txtFieldName = new JTextField("");
+            JTextField txtFieldAdv = new JTextField("");
+            JTextField txtFieldExam = new JTextField("");
             
             panel.add(new JLabel("Value:"));
             
-            if(fieldSelected.equalsIgnoreCase("Intake")){
+            if(fieldSelected.equalsIgnoreCase("Name")){
                 comboBox.setEnabled(false);
-                panel.add(comboBoxIntake);
-            }else if(fieldSelected.equalsIgnoreCase("Department")){
+                panel.add(txtFieldName);
+            }else if(fieldSelected.equalsIgnoreCase("Location")){
                 comboBox.setEnabled(false);
-                panel.add(comboBoxDepts);
-            }else if(fieldSelected.equalsIgnoreCase("Semester")){
-                comboBox.setEnabled(false);
-                panel.add(comboBoxSems);
+                panel.add(txtFieldAdv);
             }else{
                 comboBox.setEnabled(false);
-                panel.add(txtField);
+                panel.add(txtFieldExam);
             }
 
             int resultValue = JOptionPane.showConfirmDialog(null, panel, "Search by Field", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(resultValue == JOptionPane.OK_OPTION) {
 
-                String fieldValue;
-                if(fieldSelected.equalsIgnoreCase("Intake")){
-                    fieldValue = comboBoxIntake.getSelectedItem().toString();
-                } else if(fieldSelected.equalsIgnoreCase("Department")){
-                    fieldValue = comboBoxDepts.getSelectedItem().toString();
-                } else if(fieldSelected.equalsIgnoreCase("Semester")){
-                    fieldValue = comboBoxSems.getSelectedItem().toString();
-                } else {
-                    fieldValue = txtField.getText();
+                String fieldValue=null;
+                if(fieldSelected.equalsIgnoreCase("Name")){
+                    fieldValue = txtFieldName.getText();
+                } else if(fieldSelected.equalsIgnoreCase("Location")){
+                    fieldValue = txtFieldAdv.getText();
+                } else{
+                    fieldValue = txtFieldExam.getText();
                 }
 
                 if(fieldValue.equalsIgnoreCase("")){
                     JOptionPane.showMessageDialog(this, "Please enter a value");
-                }else if(fieldSelected.equalsIgnoreCase("Sevis Id") && !isSevisIdValid(fieldValue)){
-                    JOptionPane.showMessageDialog(this, "Please enter a valid Sevis Id");
                 }else if(fieldSelected.equalsIgnoreCase("Name") && !isNameValid(fieldValue)){
                     JOptionPane.showMessageDialog(this, "Please enter a valid Name");
-                }else if(fieldSelected.equalsIgnoreCase("Course") && !isCourseNameValid(fieldValue)){
-                    JOptionPane.showMessageDialog(this, "Please enter a valid Course Name");
+                }else if(fieldSelected.equalsIgnoreCase("Exam Cell Manager") && !isNameValid(fieldValue)){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid Name");
+                }else if(fieldSelected.equalsIgnoreCase("Career Advisor") && !isNameValid(fieldValue)){
+                    JOptionPane.showMessageDialog(this, "Please enter a valid Name");
                 }else{
-                    UniStudentDir resultStudentDir = new UniStudentDir();
-                    ArrayList<UniStudent> resultStudents = new ArrayList<UniStudent>();
+                    UniversityDir resultUniDir = new UniversityDir();
+                    ArrayList<University> resultUnis = new ArrayList<University>();
                     
                     if(fieldSelected.equalsIgnoreCase("Name")){
-                        resultStudents = uniStudents.searchByName(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("Sevis Id")){
-                        resultStudents.add(uniStudents.searchBySevisId(fieldValue));
-                    }else if(fieldSelected.equalsIgnoreCase("Intake")){
-                        resultStudents = uniStudents.searchByIntake(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("Course")){
-                        resultStudents = uniStudents.searchByCourse(fieldValue);
-                    }else if(fieldSelected.equalsIgnoreCase("Semester")){
-                        resultStudents = uniStudents.searchBySemester(Integer.valueOf(fieldValue));
-                    }else if(fieldSelected.equalsIgnoreCase("Department")){
-                        UniDepartment department = uniDepartments.searchByName(fieldValue);
-                        resultStudents = uniStudents.searchByDepartment(department);
+                        resultUnis = universities.searchByNameMany(fieldValue);
+                    }else if(fieldSelected.equalsIgnoreCase("Career Advisor")){
+                        resultUnis.add(universities.searchById(advisors.searchByName(fieldValue).getUniversityId()));
                     }else{
-                        resultStudents = null;
+                        resultUnis.add(universities.searchById(examCell.searchByName(fieldValue).getUniversityId()));
                     }
 
-                    if(resultStudents.isEmpty()){
+                    if(resultUnis.isEmpty()){
                         JOptionPane.showMessageDialog(this, "No Results Found");
-                        populateStudentTable(uniStudents);
+                        populateCompaniesTable(universities);
                     }else{
                         JOptionPane.showMessageDialog(this, "Entries found");
-                        resultStudentDir.setUniStudentList(resultStudents);
-                        populateStudentTable(resultStudentDir);
+                        
+                        resultUniDir.setUniversityList(resultUnis);
+                        populateCompaniesTable(resultUniDir);
                     }
                 }
             }else{
@@ -643,20 +692,20 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
-        UniStudent student = (UniStudent) tableModel.getValueAt(selectedRow, 0);
-        updateStudent(student);
+        DefaultTableModel tableModel = (DefaultTableModel) tblUniversity.getModel();
+        University uni = (University) tableModel.getValueAt(selectedRow, 0);
+        updateUniversity(uni);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         saveStudentDetails();
-
+        populateCompaniesTable(universities);
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+    private void txtUsernameExamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameExamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
+    }//GEN-LAST:event_txtUsernameExamActionPerformed
 
     private void txtAdvisorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdvisorNameActionPerformed
         // TODO add your handling code here:
@@ -666,11 +715,29 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDepartmentNameActionPerformed
 
+    private void txtUsernameAdvisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameAdvisorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameAdvisorActionPerformed
+
+    private void btnExamCellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExamCellActionPerformed
+        // TODO add your handling code here:
+        UniExamCellJPanel examCellPanel = new UniExamCellJPanel(splitPane, conn, examCell.searchByUniversityId(selectedUni.getId()));
+        splitPane.setRightComponent(examCellPanel);
+    }//GEN-LAST:event_btnExamCellActionPerformed
+
+    private void btnAdvisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdvisorActionPerformed
+        // TODO add your handling code here:
+        UniCareerAdvisorJPanel advisorPanel = new UniCareerAdvisorJPanel(splitPane, conn, advisors.searchByUniversityId(selectedUni.getId()));
+        splitPane.setRightComponent(advisorPanel);
+    }//GEN-LAST:event_btnAdvisorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdd;
+    private javax.swing.JButton btnAdvisor;
     private button.Button btnClear;
     private button.Button btnDelete;
+    private javax.swing.JButton btnExamCell;
     private button.Button btnLogOut;
     private button.Button btnRefreshTable;
     private javax.swing.JButton btnSave;
@@ -678,6 +745,8 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnUpdate;
     private button.Button btnViewSelected;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -688,35 +757,39 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblHeading2;
     private javax.swing.JLabel lblStudentName;
     private javax.swing.JLabel lblStudentName1;
-    private javax.swing.JTable tblStudentDetails;
+    private javax.swing.JTable tblUniversity;
     private javax.swing.JTextField txtAdvisorName;
     private javax.swing.JTextField txtDepartmentName;
     private javax.swing.JTextField txtExamCellName;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtPasswordAdvisor;
+    private javax.swing.JTextField txtPasswordExam;
     private javax.swing.JTextField txtUniversityName;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtUsernameAdvisor;
+    private javax.swing.JTextField txtUsernameExam;
     // End of variables declaration//GEN-END:variables
 
     public void getAllUniversityData(){
          try {
                 //Universities
-                String queryUniversity = "SELECT * FROM university WHERE id='"+selectedUniExamCell.getUniversityId()+"'";
+                String queryUniversity = "SELECT * FROM university";
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(queryUniversity);                
                 while (rs.next())
                 {
                     University university = universities.addUniversity();
+                    
                     university.setId(rs.getInt("id"));
                     university.setName(rs.getString("name"));
                     university.setDistrict(rs.getString("district"));
                     university.setState(rs.getString("state"));
                     university.setCountry(rs.getString("country"));
                     university.setPincode(rs.getLong("pincode"));
+                    university.setVisible(rs.getBoolean("visible"));
                 }
                 st.close();
-                lblHeading1.setText(universities.searchById(selectedUniExamCell.getUniversityId()).getName());
+
                 //Colleges
-                String queryCollege = "SELECT * FROM uni_college WHERE university_id='"+selectedUniExamCell.getId()+"'";
+                String queryCollege = "SELECT * FROM uni_college";
                 Statement stCollege = conn.createStatement();
                 ResultSet rsCollege = stCollege.executeQuery(queryCollege);                
                 while (rsCollege.next())
@@ -737,7 +810,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
                 //Departments
                 Statement stDepartment = conn.createStatement();
                 for(UniCollege college:uniColleges.getUniCollegeList()){
-                    String queryDepartment = "SELECT * FROM uni_department WHERE uni_college_id='"+college.getId()+"'";
+                    String queryDepartment = "SELECT * FROM uni_department WHERE uni_college_id = '" + college.getId() + "'";
 
                     ResultSet rsDepartment = stDepartment.executeQuery(queryDepartment);                
                     while (rsDepartment.next())
@@ -765,18 +838,19 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     
     public void clearAllFields(){
         txtUniversityName.setText("");
+        txtDepartmentName.setText("");
         
-        txtPassword.setText("");
-        txtUsername.setText("");
+        txtExamCellName.setText("");
+        txtPasswordExam.setText("");
+        txtUsernameExam.setText("");
         
-        
-        populateCmbBoxDepartments(selectedCollegeId);
-        populateCmbBoxIntake();
-        
+        txtAdvisorName.setText("");
+        txtPasswordAdvisor.setText("");
+        txtUsernameAdvisor.setText("");
         
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(false);
-        txtUsername.setEnabled(true);
+        txtDepartmentName.setEnabled(false);
     }
     
     public void populateCmbBoxDepartments(Integer selectedCollegeId){
@@ -830,6 +904,15 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
         return matcher.matches();
     }
     
+    public static boolean isUsernameValid(String str) { 
+        String regex = "^[a-zA-Z0-9._]{0,100}$";
+        Pattern pattern = Pattern.compile(regex);
+        
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+    
+    
     public static boolean isEmailValid(String str){
         String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{1,})$";
         Pattern pattern = Pattern.compile(regex);
@@ -873,38 +956,44 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     }
     
     public void saveStudentDetails(){
-        if( txtUniversityName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
-                txtPassword.getText().equalsIgnoreCase("") 
-                ){
+        if( txtUniversityName.getText().equalsIgnoreCase("") || txtUsernameExam.getText().equalsIgnoreCase("") || 
+                txtPasswordExam.getText().equalsIgnoreCase("") ||  txtUsernameAdvisor.getText().equalsIgnoreCase("") || 
+                txtPasswordAdvisor.getText().equalsIgnoreCase("") || txtDepartmentName.getText().equalsIgnoreCase("") ||
+                txtAdvisorName.getText().equalsIgnoreCase("") || txtExamCellName.getText().equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
             if(!isNameValid(txtUniversityName.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Name");
-            }else if(!isSevisIdValid(txtUsername.getText())){
-                JOptionPane.showMessageDialog(this, "Please enter a valid Sevid Id of form ABC123456789");
-            }else if(!isSevisIdUnique(txtUsername.getText())){
-                JOptionPane.showMessageDialog(this, "Sevid Id already exists. Please enter a unique Sevid Id.");
-            }else if(!isCellNumberValid(txtPassword.getText())){
-                JOptionPane.showMessageDialog(this, "Please enter a valid Contact Number");
+            }else if(!isNameUnique(txtUniversityName.getText())){
+                JOptionPane.showMessageDialog(this, "University already exists. Please enter a valid Name");
+            }else if(!isUsernameValid(txtUsernameAdvisor.getText())){
+                JOptionPane.showMessageDialog(this, "Please ensure your Advisor Username only contains \nletters, numbers and symbols from . or _");
+            }else if(!isUsernameValid(txtUsernameExam.getText())){
+                JOptionPane.showMessageDialog(this, "Please ensure your Exam Cell Username only contains \nletters, numbers and symbols from . or _");
+            }else if(!isUsernameUniqueAdvisor(txtUsernameAdvisor.getText())){
+                JOptionPane.showMessageDialog(this, "Advisor username already exists. Please enter another username.");
+            }else if(!isUsernameUniqueExamCell(txtUsernameExam.getText())){
+                JOptionPane.showMessageDialog(this, "Exam Cell username already exists. Please enter another username.");
+            }else if(!isNameValid(txtPasswordExam.getText())){
+                JOptionPane.showMessageDialog(this, "Exam Cell password invalid. Please use only numbers and alphabets.");
+            }else if(!isNameValid(txtPasswordAdvisor.getText())){
+                JOptionPane.showMessageDialog(this, "Advisor password invalid. Please use only numbers and alphabets.");
             }else{
-                UniStudent student = uniStudents.addUniStudent();
-                student.setName(txtUniversityName.getText());
-                student.setSevisId(txtUsername.getText());
-                student.setContactNo(Long.valueOf(txtPassword.getText()));
+                saveUniversityDetails();
                 
-               
-                student.setPassword(generateRandomPassword(8));
-                
-                
-                
-                
-                saveStudentToDb(student);
-                sendEmail(student);
                 clearAllFields();
                 populateStudentTable(uniStudents);
                 
             }
         }   
+    }
+    
+    public void saveUniDetails(){
+        {
+//            query
+//            clear
+//            repopulate
+        }
     }
     
     public void sendEmail(UniStudent recepient){
@@ -982,7 +1071,7 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     }
     
     public void populateStudentTable(UniStudentDir uniStudents){
-        DefaultTableModel tableModel = (DefaultTableModel) tblStudentDetails.getModel();
+        DefaultTableModel tableModel = (DefaultTableModel) tblUniversity.getModel();
         tableModel.setRowCount(0);
         
         for(UniStudent student : uniStudents.getUniStudentList()){
@@ -1037,34 +1126,34 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
     public void displayStudent(UniStudent student){
         txtUniversityName.setText(student.getName());
         
-        txtPassword.setText(student.getContactNo().toString());
-        txtUsername.setText(student.getSevisId());
+        txtPasswordExam.setText(student.getContactNo().toString());
+        txtUsernameExam.setText(student.getSevisId());
         
         
         
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(true);
         
-        txtUsername.setEnabled(false);
+        txtUsernameExam.setEnabled(false);
     }
     
     public void updateStudent(UniStudent oldStudent){
-        if( txtUniversityName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
-                txtPassword.getText().equalsIgnoreCase("") 
+        if( txtUniversityName.getText().equalsIgnoreCase("") || txtUsernameExam.getText().equalsIgnoreCase("") || 
+                txtPasswordExam.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
             if(!isNameValid(txtUniversityName.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Name");
-            }else if(!isSevisIdValid(txtUsername.getText())){
+            }else if(!isSevisIdValid(txtUsernameExam.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Sevid Id of form ABC123456789");
-            }else if(!isCellNumberValid(txtPassword.getText())){
+            }else if(!isCellNumberValid(txtPasswordExam.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Contact Number");
             }else{
                 UniStudent student = new UniStudent();
                 student.setName(txtUniversityName.getText());
-                student.setSevisId(txtUsername.getText());
-                student.setContactNo(Long.valueOf(txtPassword.getText()));
+                student.setSevisId(txtUsernameExam.getText());
+                student.setContactNo(Long.valueOf(txtPasswordExam.getText()));
                 
             
                 student.setPassword(generateRandomPassword(8));
@@ -1118,6 +1207,302 @@ public class SystemAdminUniversityJPanel extends javax.swing.JPanel {
             st.close();
         } catch (SQLException ex) {
             Logger.getLogger(SystemAdminUniversityJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void populateCompaniesTable(UniversityDir uniDir){
+        DefaultTableModel tableModel = (DefaultTableModel) tblUniversity.getModel();
+        tableModel.setRowCount(0);
+        
+        for(University uni : uniDir.getUniversityList()){
+            if(uni.getVisible()){
+                Object row[] = new Object[4];
+            
+                row[0] = uni;
+                row[1] = uni.getName();
+                row[2] = advisors.searchByUniversityId(uni.getId()).getName();
+                row[3] = examCell.searchByUniversityId(uni.getId()).getName();
+
+
+                tableModel.addRow(row);
+            }
+            
+        }
+    }
+    
+    public void getAllAdvisors(){
+        try {
+            String queryAdvisors = "SELECT * FROM uni_career_advisor";
+            Statement stAdv = conn.createStatement();
+            ResultSet rs = stAdv.executeQuery(queryAdvisors);                
+                while (rs.next())
+                {
+                    UniCareerAdvisor advisor = advisors.addUniCareerAdvisor();
+//                    UniDepartment filteredDept = uniDepartments.searchByAdvisorId(rs.getInt("id"));
+//                    advisor.setDepartment(filteredDept);
+                    advisor.setId(rs.getInt("id"));
+                    advisor.setName(rs.getString("name"));
+                    advisor.setPassword(rs.getString("password"));
+                    advisor.setUsername(rs.getString("username"));
+                    advisor.setUniversityId(rs.getInt("university_id"));
+                }
+                stAdv.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void getAllExamCells(){
+        try {
+            String queryExamCells = "SELECT * FROM uni_exam_center";
+            Statement stExamcell = conn.createStatement();
+            ResultSet rs = stExamcell.executeQuery(queryExamCells);                
+                while (rs.next())
+                {
+                    UniExamCell uniExamCellNew = examCell.addUniExamCell();
+                    uniExamCellNew.setEmail(rs.getString("email"));
+                    uniExamCellNew.setId(rs.getInt("id"));
+                    uniExamCellNew.setName(rs.getString("name"));
+                    uniExamCellNew.setPassword(rs.getString("password"));
+                    uniExamCellNew.setUsername(rs.getString("username"));
+                    uniExamCellNew.setUniversityId(rs.getInt("university_id"));
+                    
+                }
+                stExamcell.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void displayUniversity(University uni){
+        txtUniversityName.setText(uni.getName());
+        ArrayList<UniDepartment> depts = uniDepartments.searchByIdArray(uni.getId());
+        
+        String deptString = "";
+        for(UniDepartment dep : depts){
+            if(deptString.equalsIgnoreCase("")){
+                deptString = deptString + dep.getName();
+            }else{
+                deptString = deptString + "," + dep.getName();
+            }
+        }
+        
+        txtDepartmentName.setText(deptString);
+        txtAdvisorName.setText(advisors.searchByUniversityId(uni.getId()).getName());
+        txtUsernameAdvisor.setText(advisors.searchByUniversityId(uni.getId()).getUsername());
+        txtPasswordAdvisor.setText(advisors.searchByUniversityId(uni.getId()).getPassword());
+        txtExamCellName.setText(examCell.searchByUniversityId(uni.getId()).getName());
+        txtUsernameExam.setText(examCell.searchByUniversityId(uni.getId()).getUsername());
+        txtPasswordExam.setText(examCell.searchByUniversityId(uni.getId()).getPassword());
+        
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+    }
+    
+    public boolean isUsernameUniqueAdvisor(String str) { 
+        for(UniCareerAdvisor adv : advisors.getUniCareerAdvisorList()){
+            if(adv.getUsername().equalsIgnoreCase(str)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean isUsernameUniqueExamCell(String str) { 
+        for(UniExamCell ec : examCell.getUniExamCells()){
+            if(ec.getUsername().equalsIgnoreCase(str)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean isNameUnique(String str) { 
+        for(University uni : universities.getUniversityList()){
+            if(uni.getName().equalsIgnoreCase(str)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void updateUniversity(University uni){
+        updateUniversityDetails(uni);
+        updateUniversityDetailsJobs(uni);
+        updateAdvisorDetails(uni);
+        updateExamCellDetails(uni);
+        universities.clearAll();
+        uniColleges.clearAll();
+        uniDepartments.clearAll();
+        advisors.clearAll();
+        examCell.clearAll();
+        getAllUniversityData();
+        selectedCollegeId = 1;
+        getAllExamCells();
+        getAllAdvisors();
+        clearAllFields();
+        populateCompaniesTable(universities);
+//      
+    }
+    
+    public void updateUniversityDetails(University uni){
+        try {
+            String queryNewStudent = "UPDATE university SET name = '"+ txtUniversityName.getText() +"' WHERE id = '"+ uni.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminUniversityJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateUniversityDetailsJobs(University uni){
+        try {
+            String queryNewStudent = "UPDATE accepted_jobs SET university = '"+ txtUniversityName.getText() +"' WHERE university = '"+ uni.getName() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminUniversityJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateAdvisorDetails(University uni){
+        try {
+            String queryNewStudent = "UPDATE uni_career_advisor SET name = '"+ txtAdvisorName.getText() +"', username = '"+txtUsernameAdvisor.getText()+"', password = '"+txtPasswordAdvisor.getText()+"' WHERE university_id = '"+ uni.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminUniversityJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateExamCellDetails(University uni){
+        try {
+            String queryNewStudent = "UPDATE uni_exam_center SET name = '"+ txtExamCellName.getText() +"', username = '"+txtUsernameExam.getText()+"', password = '"+txtPasswordExam.getText()+"' WHERE university_id = '"+ uni.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminUniversityJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteUniversity(University uni){
+        try {
+            String queryNewStudent = "UPDATE university SET visible = '0' WHERE id = '"+ uni.getId().toString() +"'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminUniversityJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveUniversityDetails(){
+        saveUniversityDetailsDb();
+        universities.clearAll();
+        uniColleges.clearAll();
+        uniDepartments.clearAll();
+        advisors.clearAll();
+        examCell.clearAll();
+        getAllUniversityData();
+        selectedCollegeId = 1;
+        getAllExamCells();
+        getAllAdvisors();
+//        
+        String uniId = universities.searchByName(txtUniversityName.getText()).getId().toString();
+        saveCollegeDetailsDb(uniId);
+        saveAdvisorDetailsDb(uniId);
+        saveExamCellDetailsDb(uniId);
+        
+        universities.clearAll();
+        uniColleges.clearAll();
+        uniDepartments.clearAll();
+        advisors.clearAll();
+        examCell.clearAll();
+        getAllUniversityData();
+        selectedCollegeId = 1;
+        getAllExamCells();
+        getAllAdvisors();
+        
+        String collegeId = uniColleges.searchByUniversity(universities.searchByName(txtUniversityName.getText())).getId().toString();
+        String[] depts = txtDepartmentName.getText().split(",");
+        for (String st : depts){
+            saveDeptDetailsDb(collegeId, st);
+        }
+//        saveDeptsDb();
+
+        universities.clearAll();
+        uniColleges.clearAll();
+        uniDepartments.clearAll();
+        advisors.clearAll();
+        examCell.clearAll();
+        getAllUniversityData();
+        selectedCollegeId = 1;
+        getAllExamCells();
+        getAllAdvisors();
+        populateCompaniesTable(universities);
+    }
+    
+    public void saveUniversityDetailsDb(){
+        try {
+            String queryNewStudent = "INSERT into university (name, district, state, country, pincode, visible) VALUES "
+                    + "('" + txtUniversityName.getText() + "', 'Mumbai', 'Maharashtra', 'India', '400080', '1')";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveCollegeDetailsDb(String id){
+        try {
+            String queryNewStudent = "INSERT into uni_college(name, university_id) VALUES "
+                    + "('Mumbai', '"+id+"')";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveAdvisorDetailsDb(String id){
+        try {
+            String queryNewStudent = "INSERT into uni_career_advisor(name, university_id, username, password, uni_department_id) VALUES "
+                    + "('"+txtAdvisorName.getText()+"', '"+id+"' , '"+txtUsernameAdvisor.getText()+"' , '"+txtPasswordAdvisor.getText()+"' , '1')";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveExamCellDetailsDb(String id){
+        try {
+            String queryNewStudent = "INSERT into uni_exam_center(name, university_id, username, password, email) VALUES "
+                    + "('"+txtExamCellName.getText()+"', '"+id+"' , '"+txtUsernameExam.getText()+"' , '"+txtPasswordExam.getText()+"' , '1')";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void saveDeptDetailsDb(String id, String name){
+        try {
+            String queryNewStudent = "INSERT into uni_department(name, uni_college_id, uni_advisor_id) VALUES "
+                    + "('"+name+"', '"+id+"' , '1')";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewStudent); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
