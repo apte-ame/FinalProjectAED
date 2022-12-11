@@ -43,6 +43,7 @@ import model.CompanyDir;
 import model.JobAppointments;
 import model.JobAppointmentsDir;
 import model.NgoRentals;
+import model.NgoRentalsDir;
 import model.RHJobPosting;
 import model.RHJobPostingDir;
 import model.UniCollege;
@@ -80,6 +81,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     AcceptedJobsDir acptJobDir = new AcceptedJobsDir();
     JobAppointmentsDir jobAptDir = new JobAppointmentsDir();
     RHJobPostingDir jobPosting = new RHJobPostingDir();
+    NgoRentalsDir ngoRentalsDir = new NgoRentalsDir();
     Connection conn = null;
     
     public SystemAdminHousingJPanel(JSplitPane splitPane, Connection conn) {
@@ -97,7 +99,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 //        getAllStudents();
         getAllHousing();
         clearAllFields();
-        populateCompaniesTable(companyDir);
+        populateHousingTable(ngoRentalsDir);
 //        populateStudentTable(uniStudents);
     }
 
@@ -120,7 +122,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         btnRefreshTable = new button.Button();
         btnClear = new button.Button();
         btnViewSelected = new button.Button();
-        txtCompanyName = new javax.swing.JTextField();
+        txtHousingName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         txtLocation = new javax.swing.JTextField();
         btnLogOut = new button.Button();
@@ -188,6 +190,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(204, 255, 204));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_6.png"))); // NOI18N
+        btnDelete.setEnabled(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -226,7 +229,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtCompanyName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtHousingName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
@@ -244,7 +247,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         lblStudentName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblStudentName.setForeground(new java.awt.Color(255, 255, 255));
         lblStudentName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblStudentName.setText("Company Name");
+        lblStudentName.setText("Housing Name");
 
         jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -259,7 +262,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("COMPANY DETAILS");
+        jLabel14.setText("HOUSING DETAILS");
 
         txtUsername.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -323,7 +326,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtHousingName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12)
@@ -346,7 +349,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtCompanyName, txtLocation, txtPassword});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtHousingName, txtLocation, txtPassword});
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSave, btnUpdate});
 
@@ -381,7 +384,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStudentName)
-                    .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHousingName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -406,7 +409,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtCompanyName, txtLocation, txtPassword});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtHousingName, txtLocation, txtPassword});
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSave, btnUpdate});
 
@@ -430,8 +433,8 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             return;
         }else{
             DefaultTableModel tableModel = (DefaultTableModel) tblHousingDetails.getModel();
-            Company company = (Company) tableModel.getValueAt(selectedRow, 0);
-            displayCompany(company);
+            NgoRentals ngoRentals = (NgoRentals) tableModel.getValueAt(selectedRow, 0);
+            displayHousing(ngoRentals);
        
         }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
@@ -481,7 +484,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 
     private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
         // TODO add your handling code here:
-        populateCompaniesTable(companyDir);
+        populateHousingTable(ngoRentalsDir);
     }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -490,7 +493,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         panel.add(new JLabel("Please select a field:"));
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("Name");
-        model.addElement("Location");
+//        model.addElement("Location");
         
         JComboBox comboBox = new JComboBox(model);
         panel.add(comboBox);
@@ -526,28 +529,28 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
 
                 if(fieldValue.equalsIgnoreCase("")){
                     JOptionPane.showMessageDialog(this, "Please enter a value");
-                }else if(fieldSelected.equalsIgnoreCase("Name") && !isNameValid(fieldValue)){
-                    JOptionPane.showMessageDialog(this, "Please enter a valid Name");
-                }else if(fieldSelected.equalsIgnoreCase("Location") && !isNameValid(fieldValue)){
-                    JOptionPane.showMessageDialog(this, "Please enter a valid Company Name");
+//                }else if(fieldSelected.equalsIgnoreCase("Name") && !isNameValid(fieldValue)){
+//                    JOptionPane.showMessageDialog(this, "Please enter a valid Name");
+//                }else if(fieldSelected.equalsIgnoreCase("Location") && !isNameValid(fieldValue)){
+//                    JOptionPane.showMessageDialog(this, "Please enter a valid Company Name");
                 }else{
-                    CompanyDir resultStudentDir = new CompanyDir();
-                    ArrayList<Company> resultStudents = new ArrayList<Company>();
+                    NgoRentalsDir resultStudentDir = new NgoRentalsDir();
+                    ArrayList<NgoRentals> resultStudents = new ArrayList<NgoRentals>();
                     
                     if(fieldSelected.equalsIgnoreCase("Name")){
-                        resultStudents = companyDir.searchByName(fieldValue);
+                        resultStudents = ngoRentalsDir.searchByNgoName(fieldValue);
                     }else{
-                        resultStudents = companyDir.searchByCountry(fieldValue);
+//                        resultStudents = companyDir.searchByCountry(fieldValue);
                     }
 
                     if(resultStudents.isEmpty()){
                         JOptionPane.showMessageDialog(this, "No Results Found");
-                        populateCompaniesTable(companyDir);
+                        populateHousingTable(resultStudentDir);
                     }else{
                         JOptionPane.showMessageDialog(this, "Entries found");
                         
-                        resultStudentDir.setCompanyList(resultStudents);
-                        populateCompaniesTable(resultStudentDir);
+                        resultStudentDir.setNgoRentalsList(resultStudents);
+                        populateHousingTable(resultStudentDir);
                     }
                 }
             }else{
@@ -561,14 +564,14 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tableModel = (DefaultTableModel) tblHousingDetails.getModel();
-        Company company = (Company) tableModel.getValueAt(selectedRow, 0);
-        updateCompany(company);
+        NgoRentals ngo = (NgoRentals) tableModel.getValueAt(selectedRow, 0);
+        updateNgo(ngo);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         
-        saveCompanyDetails();
+        saveHousingDetails();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
@@ -596,7 +599,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblHeading2;
     private javax.swing.JLabel lblStudentName;
     private javax.swing.JTable tblHousingDetails;
-    private javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtHousingName;
     private javax.swing.JTextField txtLocation;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
@@ -669,7 +672,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     }
     
     public void clearAllFields(){
-        txtCompanyName.setText("");
+        txtHousingName.setText("");
         
         txtPassword.setText("");
         txtUsername.setText("");
@@ -776,14 +779,14 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     }
     public void saveCompanyDetails(){
     
-        if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtHousingName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
             
                 Company comp = companyDir.addCompany();
-                comp.setName(txtCompanyName.getText());
+                comp.setName(txtHousingName.getText());
                 comp.setUsername(txtUsername.getText());
                 comp.setPassword(txtPassword.getText());
                 comp.setCountry(txtLocation.getText());
@@ -805,12 +808,12 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         
     }
     public void saveStudentDetails(){
-        if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtHousingName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
-            if(!isNameValid(txtCompanyName.getText())){
+            if(!isNameValid(txtHousingName.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Name");
             }else if(!isSevisIdValid(txtUsername.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Sevid Id of form ABC123456789");
@@ -822,7 +825,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please enter a valid Email Id");
             }else{
                 UniStudent student = uniStudents.addUniStudent();
-                student.setName(txtCompanyName.getText());
+                student.setName(txtHousingName.getText());
                 student.setSevisId(txtUsername.getText());
                 student.setContactNo(Long.valueOf(txtPassword.getText()));
                 student.setEmailId(txtLocation.getText());
@@ -994,7 +997,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     }
     
     public void displayStudent(UniStudent student){
-        txtCompanyName.setText(student.getName());
+        txtHousingName.setText(student.getName());
         
         txtPassword.setText(student.getContactNo().toString());
         txtUsername.setText(student.getSevisId());
@@ -1008,12 +1011,12 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     }
     
     public void updateStudent(UniStudent oldStudent){
-        if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtHousingName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
-            if(!isNameValid(txtCompanyName.getText())){
+            if(!isNameValid(txtHousingName.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Name");
             }else if(!isSevisIdValid(txtUsername.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Sevid Id of form ABC123456789");
@@ -1024,7 +1027,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             
             }else{
                 UniStudent student = new UniStudent();
-                student.setName(txtCompanyName.getText());
+                student.setName(txtHousingName.getText());
                 student.setSevisId(txtUsername.getText());
                 student.setContactNo(Long.valueOf(txtPassword.getText()));
                 student.setEmailId(txtLocation.getText());
@@ -1170,7 +1173,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     }
     
     public void displayCompany(Company company){
-        txtCompanyName.setText(company.getName());
+        txtHousingName.setText(company.getName());
         
         txtPassword.setText(company.getPassword());
         txtUsername.setText(company.getUsername());
@@ -1183,8 +1186,22 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         txtUsername.setEnabled(false);
     }
     
+    public void displayHousing(NgoRentals ngo){
+        txtHousingName.setText(ngo.getName());
+        
+        txtPassword.setText(ngo.getPassword());
+        txtUsername.setText(ngo.getUsername());
+        txtLocation.setText(ngo.getLocation());
+        
+        
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        
+//        txtUsername.setEnabled(false);
+    }
+    
     public void updateCompany(Company oldCompany){
-        if( txtCompanyName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtHousingName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
@@ -1192,7 +1209,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 Company comp = new Company();
                 
                
-                comp.setName(txtCompanyName.getText());
+                comp.setName(txtHousingName.getText());
                 comp.setUsername(txtUsername.getText());
                 comp.setPassword(txtPassword.getText());
                 comp.setCountry(txtLocation.getText());
@@ -1286,17 +1303,13 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             ResultSet rs = st.executeQuery(queryStudents);                
                 while (rs.next())
                 {
-//                    NgoRentals ngoRentals = companyDir.addCompany();
-//                    
-//                    comp.setId(rs.getInt("id"));
-//                    comp.setName(rs.getString("company_name"));
-//                    comp.setCountry(rs.getString("country"));
-//                    comp.setState(rs.getString("state"));
-//                    comp.setDistrict(rs.getString("district"));
-//                    comp.setPincode(rs.getString("pincode"));
-//                    comp.setUsername(rs.getString("username"));
-//                    comp.setPassword(rs.getString("password"));
-//                    
+                    NgoRentals ngoRentals = ngoRentalsDir.addNgoRentals();
+                    ngoRentals.setId(rs.getInt("id"));
+                    ngoRentals.setName(rs.getString("name"));
+                    ngoRentals.setUsername(rs.getString("username"));
+                    ngoRentals.setPassword(rs.getString("password"));
+                    ngoRentals.setLocation(rs.getString("location"));
+                    
                 }
                 st.close();
         } catch (SQLException ex) {
@@ -1304,5 +1317,105 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         }
     }
     
+    public void populateHousingTable(NgoRentalsDir ngoRentalsDir){
+        DefaultTableModel tableModel = (DefaultTableModel) tblHousingDetails.getModel();
+        tableModel.setRowCount(0);
+        
+        for(NgoRentals ngoRentalsElement : ngoRentalsDir.getCompanyList()){
+            Object row[] = new Object[5];
+            
+            row[0] = ngoRentalsElement;
+            row[1] = ngoRentalsElement.getUsername();
+            row[2] = ngoRentalsElement.getPassword();
+            row[3] = ngoRentalsElement.getLocation();
+            
+            
+            tableModel.addRow(row);
+        }
+    }
+    
+    public void saveHousingDetails(){
+    
+        if( txtHousingName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+                txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
+                ){
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else{
+            
+                NgoRentals ngo = ngoRentalsDir.addNgoRentals();
+                ngo.setName(txtHousingName.getText());
+                ngo.setUsername(txtUsername.getText());
+                ngo.setPassword(txtPassword.getText());
+                ngo.setLocation(txtLocation.getText());
+                ngo.setCountry("India");
+                
+               
+                
+                
+                
+                
+                saveNgoToDb(ngo);
+                
+                clearAllFields();
+                populateHousingTable(ngoRentalsDir);
+        
+            }
+           
+        
+    }
+    
+    
+    public void saveNgoToDb(NgoRentals ngo){
+        try {
+            String queryNewCompany = "INSERT into ngo_rentals (name,country, location, username, password) VALUES "
+                    + "('" + ngo.getName() + "', '" + ngo.getCountry()+ "' , '" + ngo.getLocation()+ "' "
+                    + ", '" + ngo.getUsername()+ "' , '" + ngo.getPassword()+ "' )";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryNewCompany); 
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminHousingJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public void updateNgo(NgoRentals oldCompany){
+        if( txtHousingName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+                txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
+                ){
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else{
+                NgoRentals ngo = new NgoRentals();
+                
+               
+                ngo.setName(txtHousingName.getText());
+                ngo.setUsername(txtUsername.getText());
+                ngo.setPassword(txtPassword.getText());
+                ngo.setLocation(txtLocation.getText());
+                ngo.setCountry("India");
+                
+                
+                ngoRentalsDir.updateNgoRentals(oldCompany, ngo);
+                             
+                updateNgoToDb(oldCompany, ngo);
+                clearAllFields();
+                populateHousingTable(ngoRentalsDir);
+                
+            }
+        }
+    
+    
+    public void updateNgoToDb(NgoRentals oldCompany, NgoRentals company){
+        try {
+            String queryUpdateCompany = "UPDATE ngo_rentals SET name = '" + company.getName() + "' , country = '" + company.getCountry() + "'"
+                    + ", location = '" + company.getLocation()+ "', username = '" + company.getUsername()+ "', password = '" + company.getPassword()+ "' WHERE "
+                    + "id = '" + oldCompany.getId()+ "'";
+            Statement st = conn.createStatement();
+            st.executeUpdate(queryUpdateCompany);   
+            st.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemAdminHousingJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }
