@@ -73,20 +73,20 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
     Government selectedGov = new Government();
     
     
-    public AnalyticsJPanel(JSplitPane splitPaneMain,Connection conn,Company selectedComp) {
+    public AnalyticsJPanel(JSplitPane splitPaneMain,Connection conn) {
         this.conn = conn;
         initComponents();
 //        btnPostListing.setEnabled(false);
         splitPane = splitPaneMain;
         
-        this.selectedComp = selectedComp;
+//        this.selectedComp = selectedComp;
 //        lblHeading.setText(this.selectedComp.getName());
-        getAllDepartments();
+//        getAllDepartments();
 //        populateJobListingsTable(compDeptDir);
 //        clearAllFields();
         getAllUniversityData();
         getAllStudents();
-        findAllJobAppsOfStudent(selectedComp);
+//        findAllJobAppsOfStudent(selectedComp);
 //        populateStudentDetilsTable(jobAppDir);
 //        Test test = new Test();
 //        test.setVisible(true);
@@ -108,6 +108,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
         kGradientPanel7 = new keeptoo.KGradientPanel();
+        jLabel9 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         kGradientPanel8 = new keeptoo.KGradientPanel();
@@ -119,7 +120,6 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         back_btn = new button.Button();
-        jLabel9 = new javax.swing.JLabel();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
 
@@ -128,29 +128,28 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         kGradientPanel7.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel7.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel7.setPreferredSize(new java.awt.Dimension(1000, 630));
-        kGradientPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        jLabel9.setText("Analytics Dashboard");
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 204, 255));
-        jTabbedPane1.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
 
         kGradientPanel8.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel8.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel8.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel8.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 840, 430));
+        kGradientPanel8.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 840, 430));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(kGradientPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("GRAPHS", jPanel1);
@@ -159,36 +158,33 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         kGradientPanel9.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel9.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel9.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, 330, 330));
-        kGradientPanel9.add(polarAreaChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 360, 330));
+        kGradientPanel9.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 330, 330));
+        kGradientPanel9.add(polarAreaChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 360, 330));
 
         jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Average Hourly Rate by City");
-        kGradientPanel9.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 330, -1));
+        kGradientPanel9.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 330, -1));
 
         jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Segregation by Nationality");
-        kGradientPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 330, -1));
+        kGradientPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 330, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PIE CHARTS", jPanel2);
-
-        kGradientPanel7.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1000, 520));
 
         back_btn.setBackground(new java.awt.Color(204, 204, 255));
         back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
@@ -197,23 +193,47 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
                 back_btnActionPerformed(evt);
             }
         });
-        kGradientPanel7.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 70, 60));
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel9.setText("Analytics Dashboard");
-        kGradientPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        javax.swing.GroupLayout kGradientPanel7Layout = new javax.swing.GroupLayout(kGradientPanel7);
+        kGradientPanel7.setLayout(kGradientPanel7Layout);
+        kGradientPanel7Layout.setHorizontalGroup(
+            kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel7Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 642, Short.MAX_VALUE)
+                .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jTabbedPane1)
+                    .addContainerGap()))
+        );
+        kGradientPanel7Layout.setVerticalGroup(
+            kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(580, 580, 580))
+            .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel7Layout.createSequentialGroup()
+                    .addGap(75, 75, 75)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(30, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
+            .addComponent(kGradientPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(kGradientPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(kGradientPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -221,7 +241,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
-            ChoiceJPanel choicePanel = new ChoiceJPanel(splitPane, conn);
+            GovernmentChoiceJPanel choicePanel = new GovernmentChoiceJPanel(splitPane, conn);
             splitPane.setRightComponent(choicePanel);
         }
         else{
@@ -247,36 +267,36 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
     private UI.PolarAreaChart polarAreaChart2;
     // End of variables declaration//GEN-END:variables
     
-    public void getAllDepartments(){
-        try {
-            String queryDepartments = "SELECT * FROM job_listings WHERE company_name='"+selectedComp.getName()+"'";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(queryDepartments); 
-                while (rs.next())
-                {
-                    
-                    CompDepartment dept = compDeptDir.addCompDepartment();
-                    
-                    dept.setJobId(rs.getInt("id"));
-                    dept.setCompany(selectedComp);                 
-                    dept.setJobDescription(rs.getString("job_description"));
-                    dept.setLevel(rs.getString("level"));
-                    dept.setLocation(rs.getString("location"));
-                    dept.setPosition(rs.getString("position"));
-                    dept.setRole(rs.getString("role"));
-                    dept.setSalaryPerHr(rs.getDouble("salary_offered"));
-                    dept.setStartDate(LocalDate.parse(rs.getString("start_date")));
-                    dept.setTitle(rs.getString("job_title"));
-                    dept.setVisible(rs.getBoolean("visible"));
-                    
-                    
-                }
-                st.close();
-//                stCompany.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void getAllDepartments(){
+//        try {
+//            String queryDepartments = "SELECT * FROM job_listings WHERE company_name='"+selectedComp.getName()+"'";
+//            Statement st = conn.createStatement();
+//            ResultSet rs = st.executeQuery(queryDepartments); 
+//                while (rs.next())
+//                {
+//                    
+//                    CompDepartment dept = compDeptDir.addCompDepartment();
+//                    
+//                    dept.setJobId(rs.getInt("id"));
+//                    dept.setCompany(selectedComp);                 
+//                    dept.setJobDescription(rs.getString("job_description"));
+//                    dept.setLevel(rs.getString("level"));
+//                    dept.setLocation(rs.getString("location"));
+//                    dept.setPosition(rs.getString("position"));
+//                    dept.setRole(rs.getString("role"));
+//                    dept.setSalaryPerHr(rs.getDouble("salary_offered"));
+//                    dept.setStartDate(LocalDate.parse(rs.getString("start_date")));
+//                    dept.setTitle(rs.getString("job_title"));
+//                    dept.setVisible(rs.getBoolean("visible"));
+//                    
+//                    
+//                }
+//                st.close();
+////                stCompany.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
       
     
     public void updateDepartmentToDb(CompDepartment oldCompDepartment, CompDepartment newCompDepartment){
@@ -298,25 +318,25 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
     
 //   
     
-    public void saveDepartmentToDb(CompDepartment department){
-        try {
-            String queryNewDepartment = "INSERT into job_listings (company_name, role, level, position, job_description, job_title, start_date, salary_offered, location, visible) VALUES "
-                    + "('"+ selectedComp.getName()+ "', '"  + department.getRole()+ "' , '" + department.getLevel() + "' "
-                    + ", '" + department.getPosition()+ "' , '" + department.getJobDescription()+ "' , '" + department.getTitle()+ "' , '" + department.getStartDate().toString() + "' "
-                    + ", '" + department.getSalaryPerHr().toString() + "' , '" + department.getLocation() + "' , '1' )";
-            Statement st = conn.createStatement();
-            st.executeUpdate(queryNewDepartment); 
-            st.close();
-            
-            compDeptDir.removeAllCompDepartment();
-            getAllDepartments();
-//            populateJobListingsTable(compDeptDir);
-//            clearAllFields();
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void saveDepartmentToDb(CompDepartment department){
+//        try {
+//            String queryNewDepartment = "INSERT into job_listings (company_name, role, level, position, job_description, job_title, start_date, salary_offered, location, visible) VALUES "
+//                    + "('"+ selectedComp.getName()+ "', '"  + department.getRole()+ "' , '" + department.getLevel() + "' "
+//                    + ", '" + department.getPosition()+ "' , '" + department.getJobDescription()+ "' , '" + department.getTitle()+ "' , '" + department.getStartDate().toString() + "' "
+//                    + ", '" + department.getSalaryPerHr().toString() + "' , '" + department.getLocation() + "' , '1' )";
+//            Statement st = conn.createStatement();
+//            st.executeUpdate(queryNewDepartment); 
+//            st.close();
+//            
+//            compDeptDir.removeAllCompDepartment();
+//            getAllDepartments();
+////            populateJobListingsTable(compDeptDir);
+////            clearAllFields();
+//        
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     public void deleteDepartment(CompDepartment dept){
         int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this entry?", "Confirm Deletion", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -569,25 +589,25 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         }
     }
     
-    public void saveAcceptedJobToDb(JobAppointments jobApp){
-        try {
-            String queryNewDepartment = "INSERT into accepted_jobs (job_listings_id, student_gov_id, company_id, company_name, expected_grad_date, start_date, position, salary, course, job_title, nationality, level, role, student_name, university, gov_status, gov_issues, location) VALUES "
-                    + "('"+ jobApp.getJobListingsId().toString() + "', '"  + jobApp.getSevisId() + "' , '" + jobApp.getCompanyId().toString() + "' "
-                    + ", '" + selectedComp.getName() + "' , '" + getExpectedEndDate(uniStudents.searchBySevisId(jobApp.getSevisId())).toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getStartDate().toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getPosition() + "' "
-                    + ", '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getSalaryPerHr().toString() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getTitle() + "', '"+ uniStudents.searchBySevisId(jobApp.getSevisId()).getCountryOfOrigin() +"' , '"+ compDeptDir.searchByJobId(jobApp.getJobListingsId()).getLevel() +"' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getRole() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getName() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName() + "' , 'Pending with HR' , 'Pending Gov. Approval' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getLocation() + "')";
-            Statement st = conn.createStatement();
-            st.executeUpdate(queryNewDepartment); 
-            st.close();
-            
-            compDeptDir.removeAllCompDepartment();
-            getAllDepartments();
-//            populateJobListingsTable(compDeptDir);
-//            clearAllFields();
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void saveAcceptedJobToDb(JobAppointments jobApp){
+//        try {
+//            String queryNewDepartment = "INSERT into accepted_jobs (job_listings_id, student_gov_id, company_id, company_name, expected_grad_date, start_date, position, salary, course, job_title, nationality, level, role, student_name, university, gov_status, gov_issues, location) VALUES "
+//                    + "('"+ jobApp.getJobListingsId().toString() + "', '"  + jobApp.getSevisId() + "' , '" + jobApp.getCompanyId().toString() + "' "
+//                    + ", '" + selectedComp.getName() + "' , '" + getExpectedEndDate(uniStudents.searchBySevisId(jobApp.getSevisId())).toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getStartDate().toString() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getPosition() + "' "
+//                    + ", '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getSalaryPerHr().toString() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getCourse() + "' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getTitle() + "', '"+ uniStudents.searchBySevisId(jobApp.getSevisId()).getCountryOfOrigin() +"' , '"+ compDeptDir.searchByJobId(jobApp.getJobListingsId()).getLevel() +"' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getRole() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getName() + "' , '" + uniStudents.searchBySevisId(jobApp.getSevisId()).getDepartment().getCollege().getUniversity().getName() + "' , 'Pending with HR' , 'Pending Gov. Approval' , '" + compDeptDir.searchByJobId(jobApp.getJobListingsId()).getLocation() + "')";
+//            Statement st = conn.createStatement();
+//            st.executeUpdate(queryNewDepartment); 
+//            st.close();
+//            
+//            compDeptDir.removeAllCompDepartment();
+//            getAllDepartments();
+////            populateJobListingsTable(compDeptDir);
+////            clearAllFields();
+//        
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     public void deleteAcceptedJobToDb(JobAppointments jobApp){
         try {
@@ -597,7 +617,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
             st.close();
             
             compDeptDir.removeAllCompDepartment();
-            getAllDepartments();
+//            getAllDepartments();
 //            populateJobListingsTable(compDeptDir);
 //            clearAllFields();
         
