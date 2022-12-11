@@ -1312,22 +1312,30 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
     }
     
     public void updateDepartment(CompDepartment oldDept){
-        CompDepartment newDept = new CompDepartment();
-        newDept = oldDept;
-        
-        newDept.setStartDate(LocalDate.parse(txtStartDate.getText()));
-        newDept.setJobDescription(txtAreaJobDescription.getText());
-        newDept.setLevel(cmbLevel.getSelectedItem().toString());
-        newDept.setLocation(cmbLocation.getSelectedItem().toString());
-        newDept.setPosition(cmbPosition.getSelectedItem().toString());
-        newDept.setRole(cmbRole.getSelectedItem().toString());
-        newDept.setTitle(txtJobTitle.getText());
-        newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
-        compDeptDir.updateCompDepartment(oldDept, newDept);
-        
-        updateDepartmentToDb(oldDept, newDept);
-        clearAllFields();
-        populateJobListingsTable(compDeptDir);
+        if( txtJobTitle.getText().equalsIgnoreCase("") || txtAreaJobDescription.getText().equalsIgnoreCase("") || 
+                txtSalaryOffered.getText().equalsIgnoreCase("") || txtStartDate.getText().equalsIgnoreCase("")
+                ){
+            JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else if(isSalaryValid(txtSalaryOffered.getText())){
+            JOptionPane.showMessageDialog(this, "Salary should be a number greater than 0");
+        }else{
+            CompDepartment newDept = new CompDepartment();
+            newDept = oldDept;
+
+            newDept.setStartDate(LocalDate.parse(txtStartDate.getText()));
+            newDept.setJobDescription(txtAreaJobDescription.getText());
+            newDept.setLevel(cmbLevel.getSelectedItem().toString());
+            newDept.setLocation(cmbLocation.getSelectedItem().toString());
+            newDept.setPosition(cmbPosition.getSelectedItem().toString());
+            newDept.setRole(cmbRole.getSelectedItem().toString());
+            newDept.setTitle(txtJobTitle.getText());
+            newDept.setSalaryPerHr(Double.parseDouble(txtSalaryOffered.getText()));
+            compDeptDir.updateCompDepartment(oldDept, newDept);
+
+            updateDepartmentToDb(oldDept, newDept);
+            clearAllFields();
+            populateJobListingsTable(compDeptDir);
+        }
     }
     
     public void updateDepartmentToDb(CompDepartment oldCompDepartment, CompDepartment newCompDepartment){
@@ -1352,6 +1360,8 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
                 txtSalaryOffered.getText().equalsIgnoreCase("") || txtStartDate.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
+        }else if(isSalaryValid(txtSalaryOffered.getText())){
+            JOptionPane.showMessageDialog(this, "Salary should be a number greater than 0");
         }else{
                 CompDepartment newDept = compDeptDir.addCompDepartment();
                 
@@ -1843,6 +1853,19 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
         
         polarAreaChart1.start();
     
+    }
+
+    public static boolean isSalaryValid(String str) { 
+        try {  
+          Long.valueOf(str);
+          if(Long.valueOf(str)<0){
+            return false;
+          }else{
+            return true;
+          }
+        } catch(NumberFormatException e){  
+          return false;  
+        }  
     }
     
 }

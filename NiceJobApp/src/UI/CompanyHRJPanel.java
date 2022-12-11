@@ -747,7 +747,7 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         if(acceptedJob.getGovName()==null){
             setGovCmb(false);
         }else{
-            setGovCmb(true);
+            setGovCmb(false);
             cmbGov.setSelectedItem(acceptedJob.getGovName());
         }
         
@@ -759,6 +759,8 @@ public class CompanyHRJPanel extends javax.swing.JPanel {
         }
         
         if(acceptedJob.getGovIssues().equalsIgnoreCase("Approved")){
+            setGovCmb(true);
+            cmbGov.setSelectedItem(acceptedJob.getGovName());
             cmbGov.setEnabled(false);
             txtGovComments.setEnabled(false);
             cmbLevel.setEnabled(false);
