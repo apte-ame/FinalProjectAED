@@ -1042,7 +1042,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        studentTabbedPane.addTab("JD WATCH", panelJDWatch);
+        studentTabbedPane.addTab("JOB WATCH", panelJDWatch);
 
         kGradientPanel6.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel6.setkStartColor(new java.awt.Color(204, 255, 204));

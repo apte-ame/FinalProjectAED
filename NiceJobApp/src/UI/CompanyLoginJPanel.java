@@ -73,6 +73,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
 
         lblTopLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Company small.png"))); // NOI18N
 
+        kGradientPanel2.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         kGradientPanel2.setkEndColor(new java.awt.Color(255, 255, 255));
         kGradientPanel2.setkStartColor(new java.awt.Color(255, 255, 255));
         kGradientPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,7 +118,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         lblUsername.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login and pass 1.png"))); // NOI18N
         kGradientPanel2.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
 
-        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitment Team", "Interview Panel", "Human Resources", "Analytics Panel", "System Admin" }));
+        cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitment Team", "Interview Panel", "Human Resources" }));
         cmbRoleSelection.setSelectedIndex(-1);
         cmbRoleSelection.setLabeText("Role Selection");
         kGradientPanel2.add(cmbRoleSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 190, 240, -1));
@@ -155,9 +156,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
                             .addComponent(lblCompanyAccessLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(58, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

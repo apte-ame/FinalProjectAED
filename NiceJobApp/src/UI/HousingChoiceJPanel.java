@@ -59,7 +59,7 @@ public class HousingChoiceJPanel extends javax.swing.JPanel {
 
         btnStudent.setBackground(new java.awt.Color(204, 0, 255));
         btnStudent.setForeground(new java.awt.Color(255, 255, 255));
-        btnStudent.setText("House Rentals");
+        btnStudent.setText("HOUSE RENTALS");
         btnStudent.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

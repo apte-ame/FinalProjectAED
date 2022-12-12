@@ -182,7 +182,7 @@ public class HousingPostListingsJPanel extends javax.swing.JPanel {
         lblLocation.setText("Location");
 
         lblWelcome.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        lblWelcome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Housing init.png"))); // NOI18N
+        lblWelcome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/House init.png"))); // NOI18N
 
         lblTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
         lblTitle.setText("Title");
@@ -456,9 +456,9 @@ public class HousingPostListingsJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
