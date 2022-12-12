@@ -1333,7 +1333,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jLabel14.setText("Employee Details");
 
         jLabel15.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel15.setText("Employee Details");
+        jLabel15.setText("Employer Details");
 
         txtCompanyName1.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCompanyName1.setEnabled(false);
@@ -1714,7 +1714,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         jLabel6.setText("Status");
 
         jLabel13.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel13.setText("Name of Leasee");
+        jLabel13.setText("Name of Lessee");
 
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnUpdate.setText("Request");
@@ -1791,7 +1791,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                                 .addGroup(kGradientPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel10)

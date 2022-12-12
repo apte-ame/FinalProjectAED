@@ -1980,7 +1980,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Trebuchet MS" size="24" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Employee Details"/>
+                            <Property name="text" type="java.lang.String" value="Employer Details"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtCompanyName1">
@@ -2324,7 +2324,7 @@
                                                       <Component id="txtTitle" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="cmbStatus" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="43" max="32767" attributes="0"/>
                                                   <Group type="103" groupAlignment="1" attributes="0">
                                                       <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -2749,7 +2749,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Trebuchet MS" size="15" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Name of Leasee"/>
+                            <Property name="text" type="java.lang.String" value="Name of Lessee"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnUpdate">
