@@ -1883,93 +1883,83 @@
                                           <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="btnViewSelected1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="180" max="-2" attributes="0"/>
-                                          <Component id="btnViewSelected1" min="-2" pref="51" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtCompanyName1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblCompanyName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="lblLevel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="cmbLevel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtJobTitle1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblTitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtStartDate1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblStartDate1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtSalary1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblSalary" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtStudentName1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtUniversity1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblUniversity1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtSevisId1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblUniversity2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtExpGradDate1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblUniversity3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="txtCourse1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblCourse1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblSalary2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="cmbGov1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtCompanyName1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblCompanyName" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="lblSalary1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtGovComments1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblSalary3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtStatus2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblLevel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="cmbLevel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtJobTitle1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtStartDate1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblStartDate1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtSalary1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblSalary" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtStudentName1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtUniversity1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblUniversity1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtSevisId1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblUniversity2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtExpGradDate1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblUniversity3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="txtCourse1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblCourse1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblSalary2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmbGov1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblSalary1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtGovComments1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblSalary3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtStatus2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="130" max="32767" attributes="0"/>
                               </Group>
@@ -1977,19 +1967,6 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="button.Button" name="btnViewSelected1">
-                          <Properties>
-                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="cc" green="ff" red="cc" type="rgb"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/Images/icon_9.png"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewSelected1ActionPerformed"/>
-                          </Events>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="jLabel14">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
