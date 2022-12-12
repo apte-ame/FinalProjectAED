@@ -16,9 +16,9 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
  *
  * @author naini
  */
-public class MapJPanel extends javax.swing.JFrame {
+public class MapPanel extends javax.swing.JFrame {
 
-     public MapJPanel() {
+     public MapPanel() {
         initComponents();
         init();
     }
