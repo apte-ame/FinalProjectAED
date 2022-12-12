@@ -16,9 +16,9 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
  *
  * @author naini
  */
-public class mapJPanel extends javax.swing.JFrame {
+public class MapJPanel extends javax.swing.JFrame {
 
-     public mapJPanel() {
+     public MapJPanel() {
         initComponents();
         init();
     }
@@ -51,8 +51,6 @@ public class mapJPanel extends javax.swing.JFrame {
 
         jXMapViewer = new org.jxmapviewer.JXMapViewer();
 
-        setPreferredSize(new java.awt.Dimension(1000, 630));
-
         javax.swing.GroupLayout jXMapViewerLayout = new javax.swing.GroupLayout(jXMapViewer);
         jXMapViewer.setLayout(jXMapViewerLayout);
         jXMapViewerLayout.setHorizontalGroup(
@@ -64,8 +62,8 @@ public class mapJPanel extends javax.swing.JFrame {
             .addGap(0, 618, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

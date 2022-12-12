@@ -19,7 +19,7 @@ import model.NgoRentalsDir;
  *
  * @author naini
  */
-public class CityServiceLoginJPanel extends javax.swing.JPanel {
+public class HousingLoginJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Choice_JPanel
@@ -31,7 +31,7 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
     NgoRentals selectedRental = null;
     String masterPassword = "#monga235";
     
-    public CityServiceLoginJPanel(JSplitPane splitPane, String choice, Connection conn) {
+    public HousingLoginJPanel(JSplitPane splitPane, String choice, Connection conn) {
         initComponents();
         
         this.splitPane = splitPane;
@@ -54,13 +54,13 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         btnLogin = new button.Button();
         txtUsername = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        clock2 = new clock.Clock();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        back_btn = new button.Button();
+        clkDisplay = new clock.Clock();
+        lblHousingLoginDesk = new javax.swing.JLabel();
+        lblTopLogo = new javax.swing.JLabel();
+        btnBack = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 665));
 
@@ -82,29 +82,29 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
         txtUsername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsername.setPreferredSize(new java.awt.Dimension(250, 60));
 
-        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Password");
+        lblPassword.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPassword.setText("Password");
 
-        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Username");
+        lblUsername.setFont(new java.awt.Font("Trebuchet MS", 1, 20)); // NOI18N
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsername.setText("Username");
 
         passwordField.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Central Login Desk");
+        lblHousingLoginDesk.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        lblHousingLoginDesk.setForeground(new java.awt.Color(255, 255, 255));
+        lblHousingLoginDesk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHousingLoginDesk.setText("Housing Login Desk");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Housing small.png"))); // NOI18N
+        lblTopLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Housing small.png"))); // NOI18N
 
-        back_btn.setBackground(new java.awt.Color(204, 204, 255));
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setBackground(new java.awt.Color(204, 204, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -114,47 +114,47 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                 .addGap(124, 124, 124)
-                .addComponent(clock2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addComponent(clkDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(passwordField)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblHousingLoginDesk, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(101, 101, 101))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTopLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTopLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(lblHousingLoginDesk)
                         .addGap(24, 24, 24)
-                        .addComponent(jLabel5)
+                        .addComponent(lblUsername)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel4)
+                        .addComponent(lblPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
-                    .addComponent(clock2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clkDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(128, 128, 128))
         );
 
@@ -166,7 +166,7 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,7 +181,7 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
             clearAllFields();
         }else{
             if(selectedRental.getPassword().equals(new String(passwordField.getPassword())) || masterPassword.equals(new String(passwordField.getPassword()))){
-                CityServiceEmployerJPanel rentalPanel = new CityServiceEmployerJPanel(splitPane,conn,selectedRental);
+                HousingPostListingsJPanel rentalPanel = new HousingPostListingsJPanel(splitPane,conn,selectedRental);
                 splitPane.setRightComponent(rentalPanel);
             }else{
                 JOptionPane.showMessageDialog(this, "Password incorrect. Please try again.");
@@ -191,23 +191,23 @@ public class CityServiceLoginJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        CityServicesChoiceJPanel choicePanel = new CityServicesChoiceJPanel(splitPane, conn);
+        HousingChoiceJPanel choicePanel = new HousingChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(choicePanel);
         
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button back_btn;
+    private button.Button btnBack;
     private button.Button btnLogin;
-    private clock.Clock clock2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
+    private clock.Clock clkDisplay;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblHousingLoginDesk;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblTopLogo;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

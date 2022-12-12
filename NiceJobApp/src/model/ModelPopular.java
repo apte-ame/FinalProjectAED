@@ -2,7 +2,7 @@ package model;
 
 import javax.swing.Icon;
 
-public class Model_Popular {
+public class ModelPopular {
 
     public Icon getImage() {
         return image;
@@ -28,13 +28,13 @@ public class Model_Popular {
         this.description = description;
     }
 
-    public Model_Popular(Icon image, String title, String description) {
+    public ModelPopular(Icon image, String title, String description) {
         this.image = image;
         this.title = title;
         this.description = description;
     }
 
-    public Model_Popular() {
+    public ModelPopular() {
     }
 
     private Icon image;

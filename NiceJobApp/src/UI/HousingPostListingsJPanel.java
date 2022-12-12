@@ -57,7 +57,7 @@ import waypoint.WaypointRender;
  *
  * @author Aditya, Ameya, Nainil
  */
-public class CityServiceEmployerJPanel extends javax.swing.JPanel {
+public class HousingPostListingsJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Choice_JPanel
@@ -81,9 +81,9 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
     
     MouseInputListener mm;
     
-    public CityServiceEmployerJPanel(JSplitPane splitPane, Connection conn, NgoRentals ngoRental){
+    public HousingPostListingsJPanel(JSplitPane splitPane, Connection conn, NgoRentals ngoRental){
         initComponents();
-        mm = new PanMouseInputListener(jXMapViewer);
+        mm = new PanMouseInputListener(mapViewer);
         latitude = 42.3145186;
         longitude = -71.1103689;
         init(42.3145186,-71.1103689);
@@ -100,11 +100,11 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
     private void init(Double mainLat,Double mainLong) {
         TileFactoryInfo info = new OSMTileFactoryInfo();
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        jXMapViewer.setTileFactory(tileFactory);
+        mapViewer.setTileFactory(tileFactory);
 //        geo = new GeoPosition(42.342428194183036, -71.10145032405853);
         geo = new GeoPosition(mainLat, mainLong);
-        jXMapViewer.setAddressLocation(geo);
-        jXMapViewer.setZoom(0);
+        mapViewer.setAddressLocation(geo);
+        mapViewer.setZoom(0);
 
         //  Create event mouse move
         addMouseListener();
@@ -121,27 +121,27 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblDescription = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        lblAvailability = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
         lblWelcome = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        lblRent = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
         txtLeasee = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        lblMoveDate = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaComments = new javax.swing.JTextArea();
-        jLabel10 = new javax.swing.JLabel();
+        lblCoords = new javax.swing.JLabel();
         txtCoords = new javax.swing.JTextField();
         txtMoveDate = new javax.swing.JTextField();
         cmbStatus = new javax.swing.JComboBox<>();
         cmbLocation = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
+        lblLeaseeName = new javax.swing.JLabel();
         cmbAvailability = new javax.swing.JComboBox<>();
         txtRent = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        lblComments = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaDescription = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -152,10 +152,10 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         btnAdd = new button.Button();
         btnDelete = new button.Button();
         btnSearch = new button.Button();
-        jXMapViewer = new org.jxmapviewer.JXMapViewer();
+        mapViewer = new org.jxmapviewer.JXMapViewer();
         btnUpdate = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        back_btn = new button.Button();
+        btnLogout = new button.Button();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
         dateChooser2.setEnabled(false);
@@ -168,53 +168,58 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 153, 0));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1000, 630));
 
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel1.setText("Description");
+        lblDescription.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblDescription.setText("Description");
 
-        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel2.setText("Status");
+        lblStatus.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblStatus.setText("Status");
 
-        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Availability");
+        lblAvailability.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblAvailability.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAvailability.setText("Availability");
 
-        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel5.setText("Location");
+        lblLocation.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblLocation.setText("Location");
 
         lblWelcome.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         lblWelcome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Housing init.png"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel3.setText("Title");
+        lblTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblTitle.setText("Title");
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel7.setText("Rent");
+        lblRent.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblRent.setText("Rent");
 
+        txtTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTitleActionPerformed(evt);
             }
         });
 
+        txtLeasee.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtLeasee.setEnabled(false);
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel9.setText("Move-in Date");
+        lblMoveDate.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblMoveDate.setText("Move-in Date");
 
         txtAreaComments.setColumns(20);
+        txtAreaComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaComments.setRows(5);
         txtAreaComments.setEnabled(false);
         jScrollPane1.setViewportView(txtAreaComments);
 
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel10.setText("Coordinates");
+        lblCoords.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblCoords.setText("Coordinates");
 
+        txtCoords.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCoords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCoordsActionPerformed(evt);
             }
         });
 
+        txtMoveDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtMoveDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMoveDateActionPerformed(evt);
@@ -233,22 +238,24 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel6.setText("Name of Leasee");
+        lblLeaseeName.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblLeaseeName.setText("Name of Lessee");
 
         cmbAvailability.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         cmbAvailability.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Deal in progress", "Deal offered", "Rented" }));
 
+        txtRent.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtRent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRentActionPerformed(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
-        jLabel11.setText("Comments");
+        lblComments.setFont(new java.awt.Font("Trebuchet MS", 1, 15)); // NOI18N
+        lblComments.setText("Comments");
 
         txtAreaDescription.setColumns(20);
+        txtAreaDescription.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaDescription.setRows(5);
         jScrollPane2.setViewportView(txtAreaDescription);
 
@@ -267,9 +274,16 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(tblListings);
@@ -325,20 +339,20 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             }
         });
 
-        jXMapViewer.addMouseListener(new java.awt.event.MouseAdapter() {
+        mapViewer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jXMapViewerMouseClicked(evt);
+                mapViewerMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jXMapViewerLayout = new javax.swing.GroupLayout(jXMapViewer);
-        jXMapViewer.setLayout(jXMapViewerLayout);
-        jXMapViewerLayout.setHorizontalGroup(
-            jXMapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout mapViewerLayout = new javax.swing.GroupLayout(mapViewer);
+        mapViewer.setLayout(mapViewerLayout);
+        mapViewerLayout.setHorizontalGroup(
+            mapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 310, Short.MAX_VALUE)
         );
-        jXMapViewerLayout.setVerticalGroup(
-            jXMapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mapViewerLayout.setVerticalGroup(
+            mapViewerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 263, Short.MAX_VALUE)
         );
 
@@ -360,11 +374,11 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             }
         });
 
-        back_btn.setBackground(new java.awt.Color(204, 204, 255));
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setBackground(new java.awt.Color(204, 204, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -393,11 +407,11 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
+                                    .addComponent(lblStatus)
+                                    .addComponent(lblLeaseeName)
+                                    .addComponent(lblRent)
+                                    .addComponent(lblDescription)
+                                    .addComponent(lblTitle))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtLeasee, javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,11 +421,11 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                                     .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11))
+                                    .addComponent(lblMoveDate)
+                                    .addComponent(lblCoords)
+                                    .addComponent(lblLocation)
+                                    .addComponent(lblAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblComments))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(cmbAvailability, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,7 +435,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(26, 26, 26)))
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jXMapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(btnSave)
                                 .addGap(45, 45, 45)
@@ -434,7 +448,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -443,18 +457,17 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jXMapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(mapViewer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,49 +481,49 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
+                                        .addComponent(lblDescription)
                                         .addGap(54, 54, 54))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3))
+                                            .addComponent(lblTitle))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtRent, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
+                                    .addComponent(lblRent))
                                 .addGap(35, 35, 35)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtLeasee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblLeaseeName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbLocation))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtCoords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblCoords, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtMoveDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblMoveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
+                                    .addComponent(lblAvailability)
                                     .addComponent(cmbAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(33, 33, 33)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(9, 9, 9))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                                        .addComponent(lblComments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(38, 38, 38)))))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbAvailability, cmbLocation, txtCoords, txtMoveDate});
@@ -695,15 +708,15 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void jXMapViewerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jXMapViewerMouseClicked
+    private void mapViewerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mapViewerMouseClicked
         // TODO add your handling code here:
-        geo = jXMapViewer.convertPointToGeoPosition(jXMapViewer.getMousePosition());
+        geo = mapViewer.convertPointToGeoPosition(mapViewer.getMousePosition());
         addWaypoint(new MyWaypoint("Test 001", event, new GeoPosition(geo.getLatitude(), geo.getLongitude())));
         initWaypoint();
         txtCoords.setText(String.valueOf(geo.getLatitude()) +"," + String.valueOf(geo.getLongitude()));
         latitude = geo.getLatitude();
         longitude = geo.getLongitude();
-    }//GEN-LAST:event_jXMapViewerMouseClicked
+    }//GEN-LAST:event_mapViewerMouseClicked
 
     private void cmbLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLocationActionPerformed
         // TODO add your handling code here:
@@ -764,24 +777,24 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
-            CityServicesChoiceJPanel choicePanel = new CityServicesChoiceJPanel(splitPane, conn);
+            HousingChoiceJPanel choicePanel = new HousingChoiceJPanel(splitPane, conn);
             splitPane.setRightComponent(choicePanel);
         }
         else{
             //Pressed No
         }
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button back_btn;
     private button.Button btnAdd;
     private button.Button btnClear;
     private button.Button btnDelete;
+    private button.Button btnLogout;
     private button.Button btnRefreshTable;
     private javax.swing.JButton btnSave;
     private button.Button btnSearch;
@@ -791,22 +804,22 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbLocation;
     private javax.swing.JComboBox<String> cmbStatus;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private org.jxmapviewer.JXMapViewer jXMapViewer;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblAvailability;
+    private javax.swing.JLabel lblComments;
+    private javax.swing.JLabel lblCoords;
+    private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblLeaseeName;
+    private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblMoveDate;
+    private javax.swing.JLabel lblRent;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblWelcome;
+    private org.jxmapviewer.JXMapViewer mapViewer;
     private javax.swing.JTable tblListings;
     private javax.swing.JTextArea txtAreaComments;
     private javax.swing.JTextArea txtAreaDescription;
@@ -819,7 +832,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
 
     private void addWaypoint(MyWaypoint waypoint) {
         for (MyWaypoint d : waypoints) {
-            jXMapViewer.remove(d.getButton());
+            mapViewer.remove(d.getButton());
         }
         waypoints.clear();
         waypoints.add(waypoint);
@@ -829,9 +842,9 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
     private void initWaypoint() {
         WaypointPainter<MyWaypoint> wp = new WaypointRender();
         wp.setWaypoints(waypoints);
-        jXMapViewer.setOverlayPainter(wp);
+        mapViewer.setOverlayPainter(wp);
         for (MyWaypoint d : waypoints) {
-            jXMapViewer.add(d.getButton());
+            mapViewer.add(d.getButton());
         }
     }
     
@@ -849,20 +862,20 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         cmbStatus.setSelectedIndex(0);
         txtAreaComments.setText("");
         
-        jXMapViewer.setEnabled(false);
+        mapViewer.setEnabled(false);
         removeMouseListener();
     }
     
     public void addMouseListener(){   
-        jXMapViewer.addMouseListener(mm);
-        jXMapViewer.addMouseMotionListener(mm);
-        jXMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer));
+        mapViewer.addMouseListener(mm);
+        mapViewer.addMouseMotionListener(mm);
+        mapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCenter(mapViewer));
     }
     
     public void removeMouseListener(){
-        jXMapViewer.removeMouseListener(mm);
-        jXMapViewer.removeMouseMotionListener(mm);
-        jXMapViewer.removeMouseWheelListener(new ZoomMouseWheelListenerCenter(jXMapViewer));
+        mapViewer.removeMouseListener(mm);
+        mapViewer.removeMouseMotionListener(mm);
+        mapViewer.removeMouseWheelListener(new ZoomMouseWheelListenerCenter(mapViewer));
     }
     
     public void updateMap(String selectedCity){
@@ -931,7 +944,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         cmbStatus.setEnabled(false);
         txtAreaComments.setEnabled(false);
         
-        jXMapViewer.setEnabled(false);
+        mapViewer.setEnabled(false);
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(false);
     }
@@ -950,20 +963,24 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         cmbStatus.setEnabled(true);
         txtAreaComments.setEnabled(true);
         
-        jXMapViewer.setEnabled(true);
+        mapViewer.setEnabled(true);
         btnSave.setEnabled(true);
         btnUpdate.setEnabled(true);
     }
     
     public void saveDetails(){
         try {
-            String queryNewStudent = "INSERT into rentals (title, description, rent, availability, latitude, longitude, location, status, ngo_rental_id, start_date) VALUES "
+            if(!isSalaryValid(txtRent.getText())){
+                JOptionPane.showMessageDialog(this, "Rent should be a number");
+            }else{
+                String queryNewStudent = "INSERT into rentals (title, description, rent, availability, latitude, longitude, location, status, ngo_rental_id, start_date) VALUES "
                     + "('" + txtTitle.getText() + "', '" + txtAreaDescription.getText() + "' , '" + txtRent.getText() + "' "
                     + ", '" + cmbAvailability.getSelectedItem().toString() + "' , '" + latitude + "' , '" + longitude + "' , '" + cmbLocation.getSelectedItem().toString() + "' "
                     + ", '" + cmbStatus.getSelectedItem() + "' , '" + ngoRental.getId().toString() + "' , '"  + txtMoveDate.getText() + "' )";
-            Statement st = conn.createStatement();
-            st.executeUpdate(queryNewStudent); 
-            st.close();
+                Statement st = conn.createStatement();
+                st.executeUpdate(queryNewStudent); 
+                st.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1057,6 +1074,9 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
     
     public void updateDetails(){
         try {
+            if(!isSalaryValid(txtRent.getText())){
+                JOptionPane.showMessageDialog(this, "Rent should be a number");
+            }else{
             String queryNewStudent = "UPDATE rentals SET title = '" + txtTitle.getText() + "', description = '"+ txtAreaDescription.getText() +"', "
                     + "rent = '"+txtRent.getText()+"', availability = '"+cmbAvailability.getSelectedItem().toString()+"', "
                     + "latitude = '"+latitude+"', longitude = '"+ longitude +"', location = '"+cmbLocation.getSelectedItem().toString()+"', "
@@ -1065,6 +1085,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewStudent); 
             st.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1072,6 +1093,9 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
     
     public void updateDetailsAvailable(){
         try {
+            if(!isSalaryValid(txtRent.getText())){
+                JOptionPane.showMessageDialog(this, "Rent should be a number");
+            }else{
             String queryNewStudent = "UPDATE rentals SET title = '" + txtTitle.getText() + "', description = '"+ txtAreaDescription.getText() +"', "
                     + "rent = '"+txtRent.getText()+"', availability = '"+cmbAvailability.getSelectedItem().toString()+"', "
                     + "latitude = '"+latitude+"', longitude = '"+ longitude +"', location = '"+cmbLocation.getSelectedItem().toString()+"', "
@@ -1080,6 +1104,7 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
             Statement st = conn.createStatement();
             st.executeUpdate(queryNewStudent); 
             st.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1106,5 +1131,18 @@ public class CityServiceEmployerJPanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(UniExamCellJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static boolean isSalaryValid(String str) { 
+        try {  
+          Long.valueOf(str);
+          if(Long.valueOf(str)<0){
+            return false;
+          }else{
+            return true;
+          }
+        } catch(NumberFormatException e){  
+          return false;  
+        }  
     }
 }

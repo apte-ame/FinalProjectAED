@@ -86,6 +86,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     NgoRentalsDir ngoRentalsDir = new NgoRentalsDir();
     GovernmentDir govDir = new GovernmentDir();
     Connection conn = null;
+    Government selectedGov = new Government();
     
     public SystemAdminGovernmentJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
@@ -118,26 +119,28 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGovernmentDetails = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         btnAdd = new button.Button();
         btnDelete = new button.Button();
         btnSearch = new button.Button();
         btnRefreshTable = new button.Button();
         btnClear = new button.Button();
         btnViewSelected = new button.Button();
-        txtGovernmentName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         txtLocation = new javax.swing.JTextField();
         btnLogOut = new button.Button();
-        lblStudentName = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         lblHeading2 = new javax.swing.JLabel();
         lblHeading1 = new javax.swing.JLabel();
+        btnVerify = new javax.swing.JButton();
+        btnAnalytics = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 650));
 
@@ -175,10 +178,10 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblGovernmentDetails);
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Password");
+        lblPassword.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPassword.setText("Password");
 
         btnAdd.setBackground(new java.awt.Color(204, 255, 204));
         btnAdd.setForeground(new java.awt.Color(0, 0, 255));
@@ -231,7 +234,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtGovernmentName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txtName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
 
@@ -246,20 +249,20 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblStudentName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblStudentName.setForeground(new java.awt.Color(255, 255, 255));
-        lblStudentName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblStudentName.setText("Government Name");
+        lblName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblName.setText("Government Name");
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Username");
+        lblUsername.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblUsername.setText("Username");
 
-        jLabel17.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Location");
+        lblLocation.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblLocation.setForeground(new java.awt.Color(255, 255, 255));
+        lblLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblLocation.setText("Location");
 
         jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -293,6 +296,24 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
 
         lblHeading1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
 
+        btnVerify.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnVerify.setText("<html><center>Login to<br>Verification Panel</html>\n");
+        btnVerify.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVerify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerifyActionPerformed(evt);
+            }
+        });
+
+        btnAnalytics.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnAnalytics.setText("<html><center>Login to<br>Analytics Panel</html> ");
+        btnAnalytics.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAnalytics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnalyticsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -323,40 +344,41 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                                 .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(304, 304, 304)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(401, 401, 401)
-                                .addComponent(btnSave)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnUpdate))
+                                .addComponent(btnVerify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAnalytics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(304, 304, 304)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtGovernmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12)
                                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(50, 50, 50)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtGovernmentName, txtLocation, txtPassword});
-
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSave, btnUpdate});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtLocation, txtName, txtPassword});
 
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +390,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 17, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,30 +407,32 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStudentName)
-                    .addComponent(txtGovernmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUsername)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(lblPassword)
+                    .addComponent(btnUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(40, 40, 40)
+                    .addComponent(lblLocation))
+                .addGap(18, 18, 18)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                    .addComponent(btnVerify, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAnalytics, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
 
-        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtGovernmentName, txtLocation, txtPassword});
+        kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtLocation, txtName, txtPassword});
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSave, btnUpdate});
 
@@ -434,7 +458,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
             DefaultTableModel tableModel = (DefaultTableModel) tblGovernmentDetails.getModel();
             Government ngoRentals = (Government) tableModel.getValueAt(selectedRow, 0);
             displayGovernment(ngoRentals);
-       
+            selectedGov = ngoRentals;
         }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
 
@@ -573,9 +597,23 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
+    private void btnVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyActionPerformed
+        // TODO add your handling code here:
+        GovernmentVerifyJPanel companyPanel = new GovernmentVerifyJPanel(splitPane, conn, selectedGov);
+        splitPane.setRightComponent(companyPanel);
+    }//GEN-LAST:event_btnVerifyActionPerformed
+
+    private void btnAnalyticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalyticsActionPerformed
+        // TODO add your handling code here:
+        AnalyticsJPanel analyticsPanel = new AnalyticsJPanel(splitPane,conn);
+        splitPane.setRightComponent(analyticsPanel);
+
+    }//GEN-LAST:event_btnAnalyticsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdd;
+    private javax.swing.JButton btnAnalytics;
     private button.Button btnClear;
     private button.Button btnDelete;
     private button.Button btnLogOut;
@@ -583,19 +621,20 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSave;
     private button.Button btnSearch;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnVerify;
     private button.Button btnViewSelected;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel lblHeading1;
     private javax.swing.JLabel lblHeading2;
-    private javax.swing.JLabel lblStudentName;
+    private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JTable tblGovernmentDetails;
-    private javax.swing.JTextField txtGovernmentName;
     private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
@@ -667,7 +706,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void clearAllFields(){
-        txtGovernmentName.setText("");
+        txtName.setText("");
         
         txtPassword.setText("");
         txtUsername.setText("");
@@ -678,6 +717,9 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(false);
         txtUsername.setEnabled(true);
+        
+        btnVerify.setEnabled(false);
+        btnAnalytics.setEnabled(false);
     }
     
     public void populateCmbBoxDepartments(Integer selectedCollegeId){
@@ -774,14 +816,14 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     public void saveCompanyDetails(){
     
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
             
                 Company comp = companyDir.addCompany();
-                comp.setName(txtGovernmentName.getText());
+                comp.setName(txtName.getText());
                 comp.setUsername(txtUsername.getText());
                 comp.setPassword(txtPassword.getText());
                 comp.setCountry(txtLocation.getText());
@@ -803,12 +845,12 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
         
     }
     public void saveStudentDetails(){
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
-            if(!isNameValid(txtGovernmentName.getText())){
+            if(!isNameValid(txtName.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Name");
             }else if(!isSevisIdValid(txtUsername.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Sevid Id of form ABC123456789");
@@ -820,7 +862,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please enter a valid Email Id");
             }else{
                 UniStudent student = uniStudents.addUniStudent();
-                student.setName(txtGovernmentName.getText());
+                student.setName(txtName.getText());
                 student.setSevisId(txtUsername.getText());
                 student.setContactNo(Long.valueOf(txtPassword.getText()));
                 student.setEmailId(txtLocation.getText());
@@ -992,7 +1034,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void displayStudent(UniStudent student){
-        txtGovernmentName.setText(student.getName());
+        txtName.setText(student.getName());
         
         txtPassword.setText(student.getContactNo().toString());
         txtUsername.setText(student.getSevisId());
@@ -1006,12 +1048,12 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void updateStudent(UniStudent oldStudent){
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
-            if(!isNameValid(txtGovernmentName.getText())){
+            if(!isNameValid(txtName.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Name");
             }else if(!isSevisIdValid(txtUsername.getText())){
                 JOptionPane.showMessageDialog(this, "Please enter a valid Sevid Id of form ABC123456789");
@@ -1022,7 +1064,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
             
             }else{
                 UniStudent student = new UniStudent();
-                student.setName(txtGovernmentName.getText());
+                student.setName(txtName.getText());
                 student.setSevisId(txtUsername.getText());
                 student.setContactNo(Long.valueOf(txtPassword.getText()));
                 student.setEmailId(txtLocation.getText());
@@ -1168,7 +1210,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void displayCompany(Company company){
-        txtGovernmentName.setText(company.getName());
+        txtName.setText(company.getName());
         
         txtPassword.setText(company.getPassword());
         txtUsername.setText(company.getUsername());
@@ -1182,7 +1224,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void displayHousing(NgoRentals ngo){
-        txtGovernmentName.setText(ngo.getName());
+        txtName.setText(ngo.getName());
         
         txtPassword.setText(ngo.getPassword());
         txtUsername.setText(ngo.getUsername());
@@ -1196,7 +1238,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void updateCompany(Company oldCompany){
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
@@ -1204,7 +1246,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                 Company comp = new Company();
                 
                
-                comp.setName(txtGovernmentName.getText());
+                comp.setName(txtName.getText());
                 comp.setUsername(txtUsername.getText());
                 comp.setPassword(txtPassword.getText());
                 comp.setCountry(txtLocation.getText());
@@ -1331,14 +1373,14 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     
     public void saveHousingDetails(){
     
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
             
                 NgoRentals ngo = ngoRentalsDir.addNgoRentals();
-                ngo.setName(txtGovernmentName.getText());
+                ngo.setName(txtName.getText());
                 ngo.setUsername(txtUsername.getText());
                 ngo.setPassword(txtPassword.getText());
                 ngo.setLocation(txtLocation.getText());
@@ -1375,7 +1417,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     
     
     public void updateNgo(NgoRentals oldCompany){
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
@@ -1383,7 +1425,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                 NgoRentals ngo = new NgoRentals();
                 
                
-                ngo.setName(txtGovernmentName.getText());
+                ngo.setName(txtName.getText());
                 ngo.setUsername(txtUsername.getText());
                 ngo.setPassword(txtPassword.getText());
                 ngo.setLocation(txtLocation.getText());
@@ -1455,14 +1497,14 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     
     public void saveGovernmentDetails(){
     
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("") 
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
         }else{
             
                 Government ngo = govDir.addGovernment();
-                ngo.setName(txtGovernmentName.getText());
+                ngo.setName(txtName.getText());
                 ngo.setUsername(txtUsername.getText());
                 ngo.setPassword(txtPassword.getText());
                 ngo.setState(txtLocation.getText());
@@ -1477,6 +1519,8 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                 saveGovernmentToDb(ngo);
                 
                 clearAllFields();
+                govDir.clearAll();
+                getAllGovernment();
                 populateGovernmentTable(govDir);
         
             }
@@ -1500,7 +1544,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     
     
     public void updateGovernment(Government oldCompany){
-        if( txtGovernmentName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
+        if( txtName.getText().equalsIgnoreCase("") || txtUsername.getText().equalsIgnoreCase("") || 
                 txtPassword.getText().equalsIgnoreCase("") || txtLocation.getText().equalsIgnoreCase("")
                 ){
             JOptionPane.showMessageDialog(this, "Please fill all fields");
@@ -1508,7 +1552,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                 Government ngo = new Government();
                 
                
-                ngo.setName(txtGovernmentName.getText());
+                ngo.setName(txtName.getText());
                 ngo.setUsername(txtUsername.getText());
                 ngo.setPassword(txtPassword.getText());
                 ngo.setState(txtLocation.getText());
@@ -1520,6 +1564,8 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
                              
                 updateGovernmentToDb(oldCompany, ngo);
                 clearAllFields();
+                govDir.clearAll();
+                getAllGovernment();
                 populateGovernmentTable(govDir);
                 
             }
@@ -1540,7 +1586,7 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
     }
     
     public void displayGovernment(Government ngo){
-        txtGovernmentName.setText(ngo.getName());
+        txtName.setText(ngo.getName());
         
         txtPassword.setText(ngo.getPassword());
         txtUsername.setText(ngo.getUsername());
@@ -1550,6 +1596,8 @@ public class SystemAdminGovernmentJPanel extends javax.swing.JPanel {
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(true);
         
+        btnAnalytics.setEnabled(true);
+        btnVerify.setEnabled(true);
 //        txtUsername.setEnabled(false);
     }
     

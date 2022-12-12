@@ -445,6 +445,8 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblAge.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblAge.setText("Age");
 
+        txtAge.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
+
         nxtSavebtn.setText("Update");
         nxtSavebtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         nxtSavebtn.addActionListener(new java.awt.event.ActionListener() {
@@ -458,6 +460,11 @@ public class UniStudentJPanel extends javax.swing.JPanel {
 
         txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtStudentName.setEnabled(false);
+        txtStudentName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtStudentNameActionPerformed(evt);
+            }
+        });
 
         txtCollege.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCollege.setEnabled(false);
@@ -481,6 +488,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         txtGPA.setEnabled(false);
 
         lblImage.setBackground(new java.awt.Color(150, 150, 150));
+        lblImage.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setText("No Image");
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -510,6 +518,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblAcadSummary.setText("Summary");
 
         txtAreaAcadSummary.setColumns(20);
+        txtAreaAcadSummary.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaAcadSummary.setRows(5);
         jScrollPane2.setViewportView(txtAreaAcadSummary);
 
@@ -654,7 +663,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAcadSummary))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -749,9 +758,16 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblJobListings.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -795,6 +811,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblJobDescription.setText("Job Description");
 
         txtAreaJobDescription.setColumns(20);
+        txtAreaJobDescription.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaJobDescription.setRows(5);
         txtAreaJobDescription.setEnabled(false);
         jScrollPane1.setViewportView(txtAreaJobDescription);
@@ -1049,9 +1066,16 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane4.setViewportView(tblJobListingsApps);
@@ -1096,6 +1120,7 @@ public class UniStudentJPanel extends javax.swing.JPanel {
         lblJobDescription1.setText("Job Description");
 
         txtAreaJobDescriptionMyApp.setColumns(20);
+        txtAreaJobDescriptionMyApp.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaJobDescriptionMyApp.setRows(5);
         txtAreaJobDescriptionMyApp.setEnabled(false);
         jScrollPane5.setViewportView(txtAreaJobDescriptionMyApp);
@@ -1605,9 +1630,16 @@ public class UniStudentJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane8.setViewportView(tblListings);
@@ -2419,6 +2451,10 @@ public class UniStudentJPanel extends javax.swing.JPanel {
     private void cmbGov1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGov1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbGov1ActionPerformed
+
+    private void txtStudentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStudentNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStudentNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

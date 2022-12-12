@@ -41,15 +41,15 @@ public class MainJPanel extends javax.swing.JPanel {
         kGradientPanel4 = new keeptoo.KGradientPanel();
         jLabel2 = new javax.swing.JLabel();
         btnUniversity = new button.Button();
-        btnRecruitmentHub = new button.Button();
+        btnRentals = new button.Button();
         btnGovernment = new button.Button();
         btnCompany = new button.Button();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblGovernment = new javax.swing.JLabel();
+        lblUniversity = new javax.swing.JLabel();
+        lblCompany = new javax.swing.JLabel();
+        lblRentals = new javax.swing.JLabel();
+        lblMainLogo = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -73,13 +73,13 @@ public class MainJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnRecruitmentHub.setBackground(new java.awt.Color(254, 93, 124));
-        btnRecruitmentHub.setForeground(new java.awt.Color(255, 255, 255));
-        btnRecruitmentHub.setText("Housing Rentals");
-        btnRecruitmentHub.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
-        btnRecruitmentHub.addActionListener(new java.awt.event.ActionListener() {
+        btnRentals.setBackground(new java.awt.Color(254, 93, 124));
+        btnRentals.setForeground(new java.awt.Color(255, 255, 255));
+        btnRentals.setText("Housing Rentals");
+        btnRentals.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
+        btnRentals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecruitmentHubActionPerformed(evt);
+                btnRentalsActionPerformed(evt);
             }
         });
 
@@ -103,13 +103,13 @@ public class MainJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/2.png"))); // NOI18N
+        lblGovernment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/2.png"))); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/1.png"))); // NOI18N
+        lblUniversity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/1.png"))); // NOI18N
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/3.png"))); // NOI18N
+        lblCompany.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/3.png"))); // NOI18N
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/4.png"))); // NOI18N
+        lblRentals.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/4.png"))); // NOI18N
 
         javax.swing.GroupLayout kGradientPanel4Layout = new javax.swing.GroupLayout(kGradientPanel4);
         kGradientPanel4.setLayout(kGradientPanel4Layout);
@@ -118,14 +118,14 @@ public class MainJPanel extends javax.swing.JPanel {
             .addGroup(kGradientPanel4Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5))
+                    .addComponent(lblGovernment)
+                    .addComponent(lblUniversity)
+                    .addComponent(lblRentals)
+                    .addComponent(lblCompany))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRecruitmentHub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRentals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUniversity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGovernment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -139,29 +139,29 @@ public class MainJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnGovernment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblGovernment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(kGradientPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRentals, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel4Layout.createSequentialGroup()
-                        .addComponent(btnRecruitmentHub, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRentals, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(btnCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Nice Job Logo Main.png"))); // NOI18N
+        lblMainLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Nice Job Logo Main.png"))); // NOI18N
 
-        jLabel6.setBackground(new java.awt.Color(254, 93, 194));
-        jLabel6.setForeground(new java.awt.Color(255, 255, 204));
-        jLabel6.setText("Compiled by : Aditya Sawant (002762104) | Ameya Apte (002764540) | Nainil Maladkar (002780019)");
+        lblName.setBackground(new java.awt.Color(254, 93, 194));
+        lblName.setForeground(new java.awt.Color(255, 255, 204));
+        lblName.setText("Compiled by : Aditya Sawant (002762104) | Ameya Apte (002764540) | Nainil Maladkar (002780019)");
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -171,12 +171,12 @@ public class MainJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jLabel1)
+                        .addComponent(lblMainLogo)
                         .addGap(27, 27, 27)
                         .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel6)))
+                        .addComponent(lblName)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -185,12 +185,12 @@ public class MainJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblMainLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(kGradientPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addComponent(lblName)
                 .addContainerGap())
         );
 
@@ -218,11 +218,11 @@ public class MainJPanel extends javax.swing.JPanel {
         splitPane.setRightComponent(companychoicePanel);
     }//GEN-LAST:event_btnCompanyActionPerformed
 
-    private void btnRecruitmentHubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecruitmentHubActionPerformed
+    private void btnRentalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentalsActionPerformed
         // TODO add your handling code here:
-        CityServicesChoiceJPanel cscPanel = new  CityServicesChoiceJPanel(splitPane, conn);
+        HousingChoiceJPanel cscPanel = new  HousingChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(cscPanel);
-    }//GEN-LAST:event_btnRecruitmentHubActionPerformed
+    }//GEN-LAST:event_btnRentalsActionPerformed
 
     private void btnGovernmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGovernmentActionPerformed
         // TODO add your handling code here:
@@ -234,16 +234,16 @@ public class MainJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnCompany;
     private button.Button btnGovernment;
-    private button.Button btnRecruitmentHub;
+    private button.Button btnRentals;
     private button.Button btnUniversity;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel4;
+    private javax.swing.JLabel lblCompany;
+    private javax.swing.JLabel lblGovernment;
+    private javax.swing.JLabel lblMainLogo;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblRentals;
+    private javax.swing.JLabel lblUniversity;
     // End of variables declaration//GEN-END:variables
 }

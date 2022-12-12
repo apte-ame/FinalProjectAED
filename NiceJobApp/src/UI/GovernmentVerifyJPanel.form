@@ -48,10 +48,8 @@
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="592" max="-2" attributes="0"/>
+                                  <Component id="lblEmployerDetails" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnSearch" linkSize="2" min="-2" max="-2" attributes="0"/>
@@ -69,13 +67,13 @@
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="1" attributes="0">
                                                       <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="lblUniversity1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="lblSevisID" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="txtSevisId" min="-2" pref="163" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="1" attributes="0">
                                                           <Group type="103" groupAlignment="1" attributes="0">
-                                                              <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="lblName" alignment="1" min="-2" max="-2" attributes="0"/>
                                                               <Component id="lblUniversity" alignment="1" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -85,13 +83,13 @@
                                                           </Group>
                                                       </Group>
                                                       <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="lblUniversity2" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="lblExpGradDate" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="txtExpGradDate" min="-2" pref="163" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="1" attributes="0">
                                                           <Group type="103" groupAlignment="1" attributes="0">
-                                                              <Component id="lblSalary3" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="lblStatus" min="-2" max="-2" attributes="0"/>
                                                               <Component id="lblCourse" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -99,6 +97,10 @@
                                                               <Component id="txtCourse" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
                                                               <Component id="cmbStatus" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
                                                           </Group>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                                                          <Component id="lblEmployeeDetails" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
@@ -133,7 +135,7 @@
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-                                                  <Component id="lblSalary1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblComments" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="jScrollPane2" min="-2" pref="192" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
@@ -149,7 +151,7 @@
                       <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="back_btn" min="-2" pref="59" max="-2" attributes="0"/>
+                          <Component id="btnLogout" min="-2" pref="59" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -160,7 +162,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="back_btn" min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="btnLogout" min="-2" pref="55" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Component id="jScrollPane6" min="-2" pref="135" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -174,15 +176,15 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEmployeeDetails" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEmployerDetails" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtStudentName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -192,12 +194,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtSevisId" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblUniversity1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSevisID" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtExpGradDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblUniversity2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblExpGradDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -235,11 +237,11 @@
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cmbStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSalary3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblSalary1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblComments" min="-2" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" alignment="0" min="-2" pref="62" max="-2" attributes="0"/>
                       <Component id="btnUpdateStatus" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -263,13 +265,47 @@
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
-                    <Column editable="true" title="Sevis Id" type="java.lang.String"/>
-                    <Column editable="true" title="Company Name" type="java.lang.String"/>
-                    <Column editable="true" title="Position" type="java.lang.String"/>
-                    <Column editable="true" title="Role" type="java.lang.String"/>
-                    <Column editable="true" title="Salary" type="java.lang.String"/>
-                    <Column editable="true" title="Status" type="java.lang.String"/>
+                    <Column editable="false" title="Sevis Id" type="java.lang.String"/>
+                    <Column editable="false" title="Company Name" type="java.lang.String"/>
+                    <Column editable="false" title="Position" type="java.lang.String"/>
+                    <Column editable="false" title="Role" type="java.lang.String"/>
+                    <Column editable="false" title="Salary" type="java.lang.String"/>
+                    <Column editable="false" title="Status" type="java.lang.String"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -330,7 +366,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewSelectedActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblEmployeeDetails">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="24" style="1"/>
@@ -338,7 +374,7 @@
             <Property name="text" type="java.lang.String" value="Employee Details"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lblEmployerDetails">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="24" style="1"/>
@@ -449,7 +485,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateStatusActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblSalary1">
+        <Component class="javax.swing.JLabel" name="lblComments">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="1"/>
@@ -457,7 +493,7 @@
             <Property name="text" type="java.lang.String" value="Comments"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblSalary3">
+        <Component class="javax.swing.JLabel" name="lblStatus">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="1"/>
@@ -473,7 +509,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel9">
+        <Component class="javax.swing.JLabel" name="lblName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="1"/>
@@ -505,7 +541,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblUniversity1">
+        <Component class="javax.swing.JLabel" name="lblSevisID">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="1"/>
@@ -521,7 +557,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblUniversity2">
+        <Component class="javax.swing.JLabel" name="lblExpGradDate">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="1"/>
@@ -575,12 +611,15 @@
             <Component class="javax.swing.JTextArea" name="txtGovComments">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Trebuchet MS" size="15" style="0"/>
+                </Property>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="button.Button" name="back_btn">
+        <Component class="button.Button" name="btnLogout">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
@@ -590,7 +629,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="back_btnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

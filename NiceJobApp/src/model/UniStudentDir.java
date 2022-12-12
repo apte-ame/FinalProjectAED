@@ -27,7 +27,9 @@ public class UniStudentDir {
         this.uniStudentList = uniStudentList;
     }
     
-    
+    public void clearAll(){
+        uniStudentList.clear();
+    }
     
     public UniStudent addUniStudent(){
         UniStudent newUniStudent = new UniStudent();

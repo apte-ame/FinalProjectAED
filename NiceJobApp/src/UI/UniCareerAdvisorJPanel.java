@@ -114,25 +114,25 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         txtGPA = new javax.swing.JTextField();
         btnLogout = new button.Button();
         lblStudentName = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblIntake = new javax.swing.JLabel();
         lblSemester = new javax.swing.JLabel();
         lblCollegeId = new javax.swing.JLabel();
         lblGPA = new javax.swing.JLabel();
         lblComments = new javax.swing.JLabel();
         txtExpectedEndDate = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lblExpEndDate = new javax.swing.JLabel();
+        lblExpStartDate = new javax.swing.JLabel();
         txtExpectedStartDate = new javax.swing.JTextField();
         radioBtnJdwEl = new javax.swing.JRadioButton();
         lblStudentName1 = new javax.swing.JLabel();
         lblStudentName2 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
+        lblWatchEligible = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtAreaComments = new javax.swing.JTextArea();
-        lblSemester1 = new javax.swing.JLabel();
+        lblDepartment = new javax.swing.JLabel();
         txtDepartment = new javax.swing.JTextField();
-        lblSemester2 = new javax.swing.JLabel();
+        lblCourse = new javax.swing.JLabel();
         txtCourse = new javax.swing.JTextField();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
@@ -173,9 +173,16 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblStudentDetails);
@@ -256,10 +263,10 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
         lblStudentName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblStudentName.setText("Student Name");
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Intake");
+        lblIntake.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblIntake.setForeground(new java.awt.Color(255, 255, 255));
+        lblIntake.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblIntake.setText("Intake");
 
         lblSemester.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblSemester.setForeground(new java.awt.Color(255, 255, 255));
@@ -283,15 +290,15 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
 
         txtExpectedEndDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel14.setText("Expected End Date");
+        lblExpEndDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblExpEndDate.setForeground(new java.awt.Color(255, 255, 255));
+        lblExpEndDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblExpEndDate.setText("Expected End Date");
 
-        jLabel15.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel15.setText("Expected Start Date");
+        lblExpStartDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblExpStartDate.setForeground(new java.awt.Color(255, 255, 255));
+        lblExpStartDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblExpStartDate.setText("Expected Start Date");
 
         txtExpectedStartDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtExpectedStartDate.addActionListener(new java.awt.event.ActionListener() {
@@ -321,20 +328,20 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel16.setText("JDWatch Eligible");
+        lblWatchEligible.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblWatchEligible.setForeground(new java.awt.Color(255, 255, 255));
+        lblWatchEligible.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblWatchEligible.setText("Job Watch Eligible");
 
         txtAreaComments.setColumns(20);
         txtAreaComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaComments.setRows(5);
         jScrollPane3.setViewportView(txtAreaComments);
 
-        lblSemester1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSemester1.setForeground(new java.awt.Color(255, 255, 255));
-        lblSemester1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSemester1.setText("Department");
+        lblDepartment.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblDepartment.setForeground(new java.awt.Color(255, 255, 255));
+        lblDepartment.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDepartment.setText("Department");
 
         txtDepartment.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtDepartment.setEnabled(false);
@@ -344,10 +351,10 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblSemester2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSemester2.setForeground(new java.awt.Color(255, 255, 255));
-        lblSemester2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSemester2.setText("Course");
+        lblCourse.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblCourse.setForeground(new java.awt.Color(255, 255, 255));
+        lblCourse.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCourse.setText("Course");
 
         txtCourse.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCourse.setEnabled(false);
@@ -377,9 +384,9 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                                     .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblGPA, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(lblSemester1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSemester2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblIntake)
+                                    .addComponent(lblDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtSemester, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
@@ -398,9 +405,9 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblComments, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblExpEndDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblExpStartDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblWatchEligible, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(12, 12, 12)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtExpectedStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -455,7 +462,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                             .addComponent(lblGPA))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
+                            .addComponent(lblIntake)
                             .addComponent(txtIntake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,21 +471,21 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSemester1))
+                            .addComponent(lblDepartment))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSemester2))
+                            .addComponent(lblCourse))
                         .addContainerGap(125, Short.MAX_VALUE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(lblStudentName1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
+                            .addComponent(lblExpStartDate)
                             .addComponent(txtExpectedStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
+                            .addComponent(lblExpEndDate)
                             .addComponent(txtExpectedEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -486,7 +493,7 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
+                            .addComponent(lblWatchEligible)
                             .addComponent(radioBtnJdwEl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -744,22 +751,22 @@ public class UniCareerAdvisorJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField course_txt1;
     private com.raven.datechooser.DateChooser dateChooser1;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel lblCollegeId;
     private javax.swing.JLabel lblComments;
+    private javax.swing.JLabel lblCourse;
+    private javax.swing.JLabel lblDepartment;
+    private javax.swing.JLabel lblExpEndDate;
+    private javax.swing.JLabel lblExpStartDate;
     private javax.swing.JLabel lblGPA;
+    private javax.swing.JLabel lblIntake;
     private javax.swing.JLabel lblSemester;
-    private javax.swing.JLabel lblSemester1;
-    private javax.swing.JLabel lblSemester2;
     private javax.swing.JLabel lblStudentName;
     private javax.swing.JLabel lblStudentName1;
     private javax.swing.JLabel lblStudentName2;
+    private javax.swing.JLabel lblWatchEligible;
     private javax.swing.JRadioButton radioBtnJdwEl;
     private javax.swing.JTable tblStudentDetails;
     private javax.swing.JTextArea txtAreaComments;

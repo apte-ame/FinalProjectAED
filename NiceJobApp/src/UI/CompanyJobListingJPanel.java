@@ -92,7 +92,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
 //        test.setVisible(true);
         tblJobListings.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         
-        createPieChart();
+//        createPieChart();
 //        Charts charts2 = new Charts(conn);
         
     }
@@ -121,9 +121,9 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         lblJobDescription = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaJobDescription = new javax.swing.JTextArea();
-        lblSalaryOffered1 = new javax.swing.JLabel();
-        lblSalaryOffered2 = new javax.swing.JLabel();
-        lblSalaryOffered3 = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
+        lblRole = new javax.swing.JLabel();
+        lblLevel = new javax.swing.JLabel();
         lblStartDate = new javax.swing.JLabel();
         txtStartDate = new javax.swing.JTextField();
         cmbPosition = new javax.swing.JComboBox<>();
@@ -136,7 +136,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         btnClear = new button.Button();
         lblJobTitle = new javax.swing.JLabel();
         txtJobTitle = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        lblJobListingsPanel = new javax.swing.JLabel();
         back_btn = new button.Button();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
@@ -149,7 +149,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         kGradientPanel5.setPreferredSize(new java.awt.Dimension(850, 531));
 
         cmbLevel.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst", " " }));
+        cmbLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Specialist", "Associate", "Senior Associate", "Manager", "Analyst" }));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         jLabel31.setText("JOB PROFILE");
@@ -183,15 +183,19 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane3.setViewportView(tblJobListings);
-        if (tblJobListings.getColumnModel().getColumnCount() > 0) {
-            tblJobListings.getColumnModel().getColumn(0).setResizable(false);
-        }
 
         txtSalaryOffered.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtSalaryOffered.addActionListener(new java.awt.event.ActionListener() {
@@ -213,20 +217,21 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         lblJobDescription.setText("Job Description");
 
         txtAreaJobDescription.setColumns(20);
+        txtAreaJobDescription.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtAreaJobDescription.setRows(5);
         jScrollPane1.setViewportView(txtAreaJobDescription);
 
-        lblSalaryOffered1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSalaryOffered1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSalaryOffered1.setText("Location");
+        lblLocation.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblLocation.setText("Location");
 
-        lblSalaryOffered2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSalaryOffered2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSalaryOffered2.setText("Role");
+        lblRole.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblRole.setText("Role");
 
-        lblSalaryOffered3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSalaryOffered3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSalaryOffered3.setText("Level");
+        lblLevel.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblLevel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblLevel.setText("Level");
 
         lblStartDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         lblStartDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -240,7 +245,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         });
 
         cmbPosition.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
-        cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Intern", "Full-Time ", " " }));
+        cmbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Intern", "Full-Time" }));
 
         btnUpdate.setText("Update Opening");
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -312,8 +317,8 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel8.setText("Job Listings Panel");
+        lblJobListingsPanel.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        lblJobListingsPanel.setText("Job Listings Panel");
 
         back_btn.setBackground(new java.awt.Color(204, 204, 255));
         back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
@@ -331,7 +336,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblJobListingsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3)
@@ -360,9 +365,9 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblSalaryOffered1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -402,7 +407,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel8))
+                        .addComponent(lblJobListingsPanel))
                     .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,15 +426,15 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered1))
+                            .addComponent(lblLocation))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSalaryOffered3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblLevel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -474,7 +479,7 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+            .addComponent(kGradientPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -678,17 +683,17 @@ public class CompanyJobListingJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbRole;
     private com.raven.datechooser.DateChooser dateChooser2;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private keeptoo.KGradientPanel kGradientPanel5;
     private javax.swing.JLabel lblJobDescription;
+    private javax.swing.JLabel lblJobListingsPanel;
     private javax.swing.JLabel lblJobTitle;
+    private javax.swing.JLabel lblLevel;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblSalaryOffered;
-    private javax.swing.JLabel lblSalaryOffered1;
-    private javax.swing.JLabel lblSalaryOffered2;
-    private javax.swing.JLabel lblSalaryOffered3;
     private javax.swing.JLabel lblStartDate;
     private javax.swing.JTable tblJobListings;
     private javax.swing.JTextArea txtAreaJobDescription;

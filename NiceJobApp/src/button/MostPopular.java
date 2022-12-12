@@ -1,6 +1,6 @@
 package button;
 
-import model.Model_Popular;
+import model.ModelPopular;
 
 public class MostPopular extends javax.swing.JLayeredPane {
 
@@ -44,7 +44,7 @@ public class MostPopular extends javax.swing.JLayeredPane {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addImage(Model_Popular data) {
+    public void addImage(ModelPopular data) {
         ItemImage item = new ItemImage();
         item.setData(data);
         panel.add(item);

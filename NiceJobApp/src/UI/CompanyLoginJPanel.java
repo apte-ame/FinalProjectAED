@@ -51,18 +51,18 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jLabel2 = new javax.swing.JLabel();
-        clock1 = new clock.Clock();
+        lblTopLogo = new javax.swing.JLabel();
+        clkDisplay = new clock.Clock();
         kGradientPanel2 = new keeptoo.KGradientPanel();
         txtUsername = new com.raven.swing.TextField();
         passfieldPassword = new com.raven.swing.PasswordField();
         btnLogin = new button.ButtonGradient();
         show = new javax.swing.JLabel();
         hide = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         cmbRoleSelection = new button.Combobox();
-        jLabel1 = new javax.swing.JLabel();
-        back_btn = new button.Button();
+        lblCompanyAccessLogin = new javax.swing.JLabel();
+        btnBack = new button.Button();
 
         setPreferredSize(new java.awt.Dimension(1000, 630));
 
@@ -71,7 +71,7 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkStartColor(new java.awt.Color(217, 247, 228));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(100, 630));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Company small.png"))); // NOI18N
+        lblTopLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title Company small.png"))); // NOI18N
 
         kGradientPanel2.setkEndColor(new java.awt.Color(255, 255, 255));
         kGradientPanel2.setkStartColor(new java.awt.Color(255, 255, 255));
@@ -114,24 +114,24 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         });
         kGradientPanel2.add(hide, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login and pass 1.png"))); // NOI18N
-        kGradientPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
+        lblUsername.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login and pass 1.png"))); // NOI18N
+        kGradientPanel2.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
 
         cmbRoleSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recruitment Team", "Interview Panel", "Human Resources", "Analytics Panel", "System Admin" }));
         cmbRoleSelection.setSelectedIndex(-1);
         cmbRoleSelection.setLabeText("Role Selection");
         kGradientPanel2.add(cmbRoleSelection, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 190, 240, -1));
 
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("COMMON ACCESS LOGIN");
+        lblCompanyAccessLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        lblCompanyAccessLogin.setForeground(new java.awt.Color(0, 0, 255));
+        lblCompanyAccessLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCompanyAccessLogin.setText("COMMON ACCESS LOGIN");
 
-        back_btn.setBackground(new java.awt.Color(204, 204, 255));
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setBackground(new java.awt.Color(204, 204, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -143,37 +143,35 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(131, 131, 131)
-                        .addComponent(clock1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(clkDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(lblTopLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCompanyAccessLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(kGradientPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(58, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel1)))
-                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(lblCompanyAccessLogin))
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTopLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(kGradientPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-                    .addComponent(clock1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(clkDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -254,24 +252,24 @@ public class CompanyLoginJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_showMousePressed
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         CompanyChoiceJPanel choicePanel = new CompanyChoiceJPanel(splitPane, conn);
         splitPane.setRightComponent(choicePanel);
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button back_btn;
+    private button.Button btnBack;
     private button.ButtonGradient btnLogin;
-    private clock.Clock clock1;
+    private clock.Clock clkDisplay;
     private button.Combobox cmbRoleSelection;
     private javax.swing.JLabel hide;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
+    private javax.swing.JLabel lblCompanyAccessLogin;
+    private javax.swing.JLabel lblTopLogo;
+    private javax.swing.JLabel lblUsername;
     private com.raven.swing.PasswordField passfieldPassword;
     private javax.swing.JLabel show;
     private com.raven.swing.TextField txtUsername;

@@ -39,34 +39,41 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="104" pref="940" max="32767" attributes="0"/>
-                  <Component id="btnLogout" min="-2" pref="54" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
               <Group type="102" attributes="0">
-                  <EmptySpace pref="153" max="32767" attributes="0"/>
-                  <Component id="clkDisplay" min="-2" pref="321" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                  <EmptySpace min="104" pref="153" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnLogin" max="32767" attributes="0"/>
-                              <Component id="passwordField" pref="200" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+                          <Component id="btnBack" min="-2" pref="54" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtUsername" min="-2" pref="200" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="lblUsername" max="32767" attributes="0"/>
-                              <Component id="lblCentralLoginDesk" pref="300" max="32767" attributes="0"/>
-                              <Component id="lblPassword" max="32767" attributes="0"/>
+                          <Component id="clkDisplay" min="-2" pref="321" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="btnLogin" max="32767" attributes="0"/>
+                                              <Component id="passwordField" pref="200" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="lblUsername" max="32767" attributes="0"/>
+                                              <Component id="lblAdminLoginDesk" pref="300" max="32767" attributes="0"/>
+                                              <Component id="lblPassword" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
+                                  <Component id="txtUsername" min="-2" pref="200" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -76,20 +83,20 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnLogout" min="-2" pref="53" max="-2" attributes="0"/>
+                  <Component id="btnBack" min="-2" pref="53" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="lblCentralLoginDesk" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="lblAdminLoginDesk" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lblUsername" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtUsername" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lblPassword" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="passwordField" min="-2" pref="37" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="btnLogin" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                       <Component id="clkDisplay" min="-2" pref="307" max="-2" attributes="0"/>
@@ -163,7 +170,7 @@
             <Property name="useNullLayout" type="boolean" value="true"/>
           </Layout>
         </Container>
-        <Component class="javax.swing.JLabel" name="lblCentralLoginDesk">
+        <Component class="javax.swing.JLabel" name="lblAdminLoginDesk">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="30" style="1"/>
@@ -175,7 +182,7 @@
             <Property name="text" type="java.lang.String" value="Admin Login Desk"/>
           </Properties>
         </Component>
-        <Component class="button.Button" name="btnLogout">
+        <Component class="button.Button" name="btnBack">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
@@ -188,7 +195,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

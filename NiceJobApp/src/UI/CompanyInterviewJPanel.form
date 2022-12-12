@@ -65,7 +65,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="btnSearch2" linkSize="5" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSearch" linkSize="5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="41" pref="920" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -73,7 +73,7 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblStudentName" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblPhoto" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblUniversity" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -89,12 +89,12 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                  <Component id="btnRefreshTable2" min="-2" pref="74" max="-2" attributes="0"/>
+                                  <Component id="btnRefreshTable" min="-2" pref="74" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="378" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPersonalDetails" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="175" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -115,18 +115,18 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="btnClear1" linkSize="5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnClear" linkSize="5" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  <Component id="btnViewSelected1" linkSize="5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnViewSelected" linkSize="5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblApplicationDetails" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="nxtSavebtn" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Component id="btnUpdate" min="-2" pref="158" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -135,9 +135,9 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="jLabel8" min="-2" pref="342" max="-2" attributes="0"/>
+                  <Component id="lblInterviewPanel" min="-2" pref="342" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="back_btn" min="-2" pref="59" max="-2" attributes="0"/>
+                  <Component id="btnLogout" min="-2" pref="59" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -145,29 +145,29 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="back_btn" min="-2" pref="55" max="-2" attributes="0"/>
-                      <Component id="jLabel8" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btnLogout" min="-2" pref="55" max="-2" attributes="0"/>
+                      <Component id="lblInterviewPanel" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane6" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnSearch2" linkSize="6" min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="btnClear1" linkSize="6" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="btnViewSelected1" linkSize="6" min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="btnRefreshTable2" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnSearch" linkSize="6" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnClear" linkSize="6" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnViewSelected" linkSize="6" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnRefreshTable" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPersonalDetails" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblApplicationDetails" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtApplicationDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblAppDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtStudentName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblStudentName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -185,7 +185,7 @@
                               <Component id="lblPhoto" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="nxtSavebtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="lblImage" min="-2" pref="124" max="-2" attributes="0"/>
                   </Group>
@@ -203,7 +203,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
+        <Component class="javax.swing.JLabel" name="lblPersonalDetails">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="22" style="1"/>
@@ -211,7 +211,7 @@
             <Property name="text" type="java.lang.String" value="Personal Details"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="lblInterviewPanel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="30" style="1"/>
@@ -219,7 +219,7 @@
             <Property name="text" type="java.lang.String" value="JOB INTERVIEW PANEL"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel9">
+        <Component class="javax.swing.JLabel" name="lblStudentName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="1"/>
@@ -227,7 +227,7 @@
             <Property name="text" type="java.lang.String" value="Student Name"/>
           </Properties>
         </Component>
-        <Component class="button.Button" name="nxtSavebtn">
+        <Component class="button.Button" name="btnUpdate">
           <Properties>
             <Property name="text" type="java.lang.String" value="Update"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -235,7 +235,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nxtSavebtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblUniversity">
@@ -292,13 +292,13 @@
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="7" rowCount="4">
-                    <Column editable="true" title="Application No" type="java.lang.String"/>
-                    <Column editable="true" title="Job Listing Id" type="java.lang.String"/>
-                    <Column editable="true" title="Student Name" type="java.lang.String"/>
-                    <Column editable="true" title="University" type="java.lang.String"/>
-                    <Column editable="true" title="Course" type="java.lang.String"/>
-                    <Column editable="true" title="GPA" type="java.lang.String"/>
-                    <Column editable="true" title="Status" type="java.lang.String"/>
+                    <Column editable="false" title="Application No" type="java.lang.String"/>
+                    <Column editable="false" title="Job Listing Id" type="java.lang.String"/>
+                    <Column editable="false" title="Student Name" type="java.lang.String"/>
+                    <Column editable="false" title="University" type="java.lang.String"/>
+                    <Column editable="false" title="Course" type="java.lang.String"/>
+                    <Column editable="false" title="GPA" type="java.lang.String"/>
+                    <Column editable="false" title="Status" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -347,7 +347,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="button.Button" name="btnSearch2">
+        <Component class="button.Button" name="btnSearch">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="cc" type="rgb"/>
@@ -357,10 +357,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearch2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
           </Events>
         </Component>
-        <Component class="button.Button" name="btnClear1">
+        <Component class="button.Button" name="btnClear">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="cc" type="rgb"/>
@@ -370,10 +370,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClear1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
           </Events>
         </Component>
-        <Component class="button.Button" name="btnViewSelected1">
+        <Component class="button.Button" name="btnViewSelected">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="cc" type="rgb"/>
@@ -383,7 +383,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewSelected1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewSelectedActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblStatus">
@@ -440,7 +440,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="button.Button" name="btnRefreshTable2">
+        <Component class="button.Button" name="btnRefreshTable">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="cc" type="rgb"/>
@@ -450,10 +450,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshTable2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshTableActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
+        <Component class="javax.swing.JLabel" name="lblApplicationDetails">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="22" style="1"/>
@@ -461,7 +461,7 @@
             <Property name="text" type="java.lang.String" value="Application Details"/>
           </Properties>
         </Component>
-        <Component class="button.Button" name="back_btn">
+        <Component class="button.Button" name="btnLogout">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
@@ -471,7 +471,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="back_btnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblImage">
