@@ -650,8 +650,8 @@
             <Container class="javax.swing.JPanel" name="panelJDWatch">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="JD WATCH">
-                    <Property name="tabTitle" type="java.lang.String" value="JD WATCH"/>
+                  <JTabbedPaneConstraints tabName="JOB WATCH">
+                    <Property name="tabTitle" type="java.lang.String" value="JOB WATCH"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
