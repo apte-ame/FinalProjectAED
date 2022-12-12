@@ -36,7 +36,7 @@ Our application has 4 features integrated namely -- email notification, webcam i
 We have used MySQL online database hosted by remotemysql.com which can be accessed using PHPMyAdmin
 
 ## Class and Sequence Diagram -
-Below are the Class Diagram and Sequence for our application.
+Below are the Class Diagram and Sequence Diagram for our application.
 
 **CLASS DIAGRAM**
 
