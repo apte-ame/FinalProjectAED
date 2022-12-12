@@ -70,7 +70,7 @@ public class NgoRentalsDir {
     public ArrayList<NgoRentals> searchByNgoName(String name){
         ArrayList<NgoRentals> newNgo = new ArrayList<>();
         for(NgoRentals ngoRentals : ngoRentalsList){
-            if(ngoRentals.getName().equals(name)){
+            if(ngoRentals.getName().equalsIgnoreCase(name)){
                newNgo.add(ngoRentals);
             }
         }

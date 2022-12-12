@@ -83,6 +83,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
     RHJobPostingDir jobPosting = new RHJobPostingDir();
     NgoRentalsDir ngoRentalsDir = new NgoRentalsDir();
     Connection conn = null;
+    NgoRentals selectedRental = new NgoRentals();
     
     public SystemAdminHousingJPanel(JSplitPane splitPane, Connection conn) {
         initComponents();
@@ -115,7 +116,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHousingDetails = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         btnAdd = new button.Button();
         btnDelete = new button.Button();
         btnSearch = new button.Button();
@@ -126,15 +127,16 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         txtPassword = new javax.swing.JTextField();
         txtLocation = new javax.swing.JTextField();
         btnLogOut = new button.Button();
-        lblStudentName = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
+        lblDetails = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         lblHeading2 = new javax.swing.JLabel();
         lblHeading1 = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 650));
 
@@ -172,10 +174,10 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblHousingDetails);
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Password");
+        lblPassword.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPassword.setText("Password");
 
         btnAdd.setBackground(new java.awt.Color(204, 255, 204));
         btnAdd.setForeground(new java.awt.Color(0, 0, 255));
@@ -243,25 +245,25 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblStudentName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblStudentName.setForeground(new java.awt.Color(255, 255, 255));
-        lblStudentName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblStudentName.setText("Housing Name");
+        lblName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblName.setText("Housing Name");
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel9.setText("Username");
+        lblUsername.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblUsername.setText("Username");
 
-        jLabel17.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Location");
+        lblLocation.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblLocation.setForeground(new java.awt.Color(255, 255, 255));
+        lblLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblLocation.setText("Location");
 
-        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("HOUSING DETAILS");
+        lblDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        lblDetails.setForeground(new java.awt.Color(255, 255, 255));
+        lblDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDetails.setText("HOUSING DETAILS");
 
         txtUsername.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -289,6 +291,14 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         lblHeading2.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
 
         lblHeading1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+
+        btnLogin.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -321,35 +331,35 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(397, 397, 397)
-                                .addComponent(btnSave)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnUpdate))
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGap(290, 290, 290)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtHousingName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12)
                                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnSave)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnUpdate)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(btnLogin))))
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGap(313, 313, 313)
+                                .addComponent(lblDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(313, 313, 313)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
@@ -368,7 +378,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHeading2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -382,28 +392,32 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDetails)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStudentName)
+                    .addComponent(lblName)
                     .addComponent(txtHousingName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                    .addComponent(lblUsername)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(lblPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
+                    .addComponent(lblLocation))
                 .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(389, 389, 389))
         );
 
         kGradientPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnClear, btnDelete, btnRefreshTable, btnSearch, btnViewSelected});
@@ -420,7 +434,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -434,7 +448,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
             DefaultTableModel tableModel = (DefaultTableModel) tblHousingDetails.getModel();
             NgoRentals ngoRentals = (NgoRentals) tableModel.getValueAt(selectedRow, 0);
             displayHousing(ngoRentals);
-       
+            selectedRental = ngoRentals;
         }
     }//GEN-LAST:event_btnViewSelectedActionPerformed
 
@@ -464,7 +478,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
-            CityServicesChoiceJPanel choicePanel = new CityServicesChoiceJPanel(splitPane, conn);
+            HousingChoiceJPanel choicePanel = new HousingChoiceJPanel(splitPane, conn);
             splitPane.setRightComponent(choicePanel);
         }
         else{
@@ -573,26 +587,33 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        HousingPostListingsJPanel rentalPanel = new HousingPostListingsJPanel(splitPane,conn,selectedRental);
+        splitPane.setRightComponent(rentalPanel);
+    }//GEN-LAST:event_btnLoginActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private button.Button btnAdd;
     private button.Button btnClear;
     private button.Button btnDelete;
     private button.Button btnLogOut;
+    private javax.swing.JButton btnLogin;
     private button.Button btnRefreshTable;
     private javax.swing.JButton btnSave;
     private button.Button btnSearch;
     private javax.swing.JButton btnUpdate;
     private button.Button btnViewSelected;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblHeading1;
     private javax.swing.JLabel lblHeading2;
-    private javax.swing.JLabel lblStudentName;
+    private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JTable tblHousingDetails;
     private javax.swing.JTextField txtHousingName;
     private javax.swing.JTextField txtLocation;
@@ -678,6 +699,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(false);
         txtUsername.setEnabled(true);
+        btnLogin.setEnabled(false);
     }
     
     public void populateCmbBoxDepartments(Integer selectedCollegeId){
@@ -1191,7 +1213,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
         
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(true);
-        
+        btnLogin.setEnabled(true);
 //        txtUsername.setEnabled(false);
     }
     
@@ -1346,6 +1368,7 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 ngo.setPassword(txtPassword.getText());
                 ngo.setLocation(txtLocation.getText());
                 ngo.setCountry("India");
+                ngo.setVisible(true);
                 
                
                 
@@ -1353,7 +1376,8 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 
                 
                 saveNgoToDb(ngo);
-                
+                ngoRentalsDir.clearAll();
+                getAllHousing();
                 clearAllFields();
                 populateHousingTable(ngoRentalsDir);
         
@@ -1396,6 +1420,8 @@ public class SystemAdminHousingJPanel extends javax.swing.JPanel {
                 ngoRentalsDir.updateNgoRentals(oldCompany, ngo);
                              
                 updateNgoToDb(oldCompany, ngo);
+                ngoRentalsDir.clearAll();
+                getAllHousing();
                 clearAllFields();
                 populateHousingTable(ngoRentalsDir);
                 

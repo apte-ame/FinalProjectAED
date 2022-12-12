@@ -33,7 +33,7 @@ import model.UniStudentDir;
  *
  * @author naini
  */
-public class GovernmentCompanyJPanel extends javax.swing.JPanel {
+public class GovernmentVerifyJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Choice_JPanel
@@ -48,7 +48,7 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
     AcceptedJobs selectedJob = new AcceptedJobs();
     Government selectedGov = new Government();
     
-    public GovernmentCompanyJPanel(JSplitPane splitPane, Connection conn, Government selectedGov) {
+    public GovernmentVerifyJPanel(JSplitPane splitPane, Connection conn, Government selectedGov) {
         initComponents();
         this.splitPane = splitPane;
         this.conn = conn;
@@ -77,8 +77,8 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
         btnRefreshTable = new button.Button();
         btnClear = new button.Button();
         btnViewSelected = new button.Button();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblEmployeeDetails = new javax.swing.JLabel();
+        lblEmployerDetails = new javax.swing.JLabel();
         txtCompanyName = new javax.swing.JTextField();
         lblCompanyName = new javax.swing.JLabel();
         cmbLevel = new javax.swing.JComboBox<>();
@@ -90,22 +90,22 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
         txtSalary = new javax.swing.JTextField();
         lblSalary = new javax.swing.JLabel();
         btnUpdateStatus = new button.Button();
-        lblSalary1 = new javax.swing.JLabel();
-        lblSalary3 = new javax.swing.JLabel();
+        lblComments = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
         txtStudentName = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         txtUniversity = new javax.swing.JTextField();
         lblUniversity = new javax.swing.JLabel();
         txtSevisId = new javax.swing.JTextField();
-        lblUniversity1 = new javax.swing.JLabel();
+        lblSevisID = new javax.swing.JLabel();
         txtExpGradDate = new javax.swing.JTextField();
-        lblUniversity2 = new javax.swing.JLabel();
+        lblExpGradDate = new javax.swing.JLabel();
         txtCourse = new javax.swing.JTextField();
         lblCourse = new javax.swing.JLabel();
         cmbStatus = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtGovComments = new javax.swing.JTextArea();
-        back_btn = new button.Button();
+        btnLogout = new button.Button();
 
         setEnabled(false);
 
@@ -127,9 +127,16 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane6.setViewportView(tblStudentDetails);
@@ -166,11 +173,11 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel1.setText("Employee Details");
+        lblEmployeeDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        lblEmployeeDetails.setText("Employee Details");
 
-        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel3.setText("Employer Details");
+        lblEmployerDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        lblEmployerDetails.setText("Employer Details");
 
         txtCompanyName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCompanyName.setEnabled(false);
@@ -211,17 +218,17 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblSalary1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSalary1.setText("Comments");
+        lblComments.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblComments.setText("Comments");
 
-        lblSalary3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblSalary3.setText("Status");
+        lblStatus.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblStatus.setText("Status");
 
         txtStudentName.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtStudentName.setEnabled(false);
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel9.setText("Name");
+        lblName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblName.setText("Name");
 
         txtUniversity.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtUniversity.setEnabled(false);
@@ -232,14 +239,14 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
         txtSevisId.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtSevisId.setEnabled(false);
 
-        lblUniversity1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblUniversity1.setText("Sevis Id");
+        lblSevisID.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblSevisID.setText("Sevis Id");
 
         txtExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtExpGradDate.setEnabled(false);
 
-        lblUniversity2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        lblUniversity2.setText("Expected Grad Date");
+        lblExpGradDate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblExpGradDate.setText("Expected Grad Date");
 
         txtCourse.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtCourse.setEnabled(false);
@@ -251,14 +258,15 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending Gov. Approval", "Issues with Start Date", "Issues with Salary", "Issues with Level", "Issues with Job Title", "Approved" }));
 
         txtGovComments.setColumns(20);
+        txtGovComments.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtGovComments.setRows(5);
         jScrollPane2.setViewportView(txtGovComments);
 
-        back_btn.setBackground(new java.awt.Color(204, 204, 255));
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setBackground(new java.awt.Color(204, 204, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -272,10 +280,8 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(236, 236, 236)
-                                .addComponent(jLabel1)
-                                .addGap(162, 162, 162)
-                                .addComponent(jLabel3))
+                                .addGap(592, 592, 592)
+                                .addComponent(lblEmployerDetails))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -291,29 +297,32 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                                        .addComponent(lblUniversity1)
+                                                        .addComponent(lblSevisID)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addComponent(txtSevisId, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addComponent(jLabel9)
+                                                            .addComponent(lblName)
                                                             .addComponent(lblUniversity))
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                             .addComponent(txtStudentName)
                                                             .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                                        .addComponent(lblUniversity2)
+                                                        .addComponent(lblExpGradDate)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addComponent(lblSalary3)
+                                                            .addComponent(lblStatus)
                                                             .addComponent(lblCourse))
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                             .addComponent(txtCourse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(cmbStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                            .addComponent(cmbStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel1Layout.createSequentialGroup()
+                                                        .addGap(118, 118, 118)
+                                                        .addComponent(lblEmployeeDetails)))
                                                 .addGap(125, 125, 125)
                                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
@@ -338,7 +347,7 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                                                         .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                                 .addGap(78, 78, 78)
-                                                .addComponent(lblSalary1)
+                                                .addComponent(lblComments)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -347,7 +356,7 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane6)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -357,7 +366,7 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -369,14 +378,14 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                     .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(lblEmployeeDetails)
+                    .addComponent(lblEmployerDetails))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(lblName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtUniversity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,11 +393,11 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSevisId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblUniversity1))
+                            .addComponent(lblSevisID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtExpGradDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblUniversity2))
+                            .addComponent(lblExpGradDate))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,10 +425,10 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSalary3))
+                    .addComponent(lblStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSalary1)
+                    .addComponent(lblComments)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdateStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(51, Short.MAX_VALUE))
@@ -565,7 +574,7 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
         //        btnPostListing.setEnabled(false);
     }//GEN-LAST:event_btnUpdateStatusActionPerformed
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
@@ -576,35 +585,35 @@ public class GovernmentCompanyJPanel extends javax.swing.JPanel {
             //Pressed No
         }
        
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button back_btn;
     private button.Button btnClear;
+    private button.Button btnLogout;
     private button.Button btnRefreshTable;
     private button.Button btnSearch;
     private button.Button btnUpdateStatus;
     private button.Button btnViewSelected;
     private javax.swing.JComboBox<String> cmbLevel;
     private javax.swing.JComboBox<String> cmbStatus;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblComments;
     private javax.swing.JLabel lblCompanyName;
     private javax.swing.JLabel lblCourse;
+    private javax.swing.JLabel lblEmployeeDetails;
+    private javax.swing.JLabel lblEmployerDetails;
+    private javax.swing.JLabel lblExpGradDate;
     private javax.swing.JLabel lblLevel;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSalary;
-    private javax.swing.JLabel lblSalary1;
-    private javax.swing.JLabel lblSalary3;
+    private javax.swing.JLabel lblSevisID;
     private javax.swing.JLabel lblStartDate;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUniversity;
-    private javax.swing.JLabel lblUniversity1;
-    private javax.swing.JLabel lblUniversity2;
     private javax.swing.JTable tblStudentDetails;
     private javax.swing.JTextField txtCompanyName;
     private javax.swing.JTextField txtCourse;

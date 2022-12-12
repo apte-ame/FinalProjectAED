@@ -1,6 +1,6 @@
 package button;
 
-import model.Model_Popular;
+import model.ModelPopular;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,9 +24,9 @@ public class ItemImage extends javax.swing.JPanel {
         setMaximumSize(new Dimension(350, 200));
         setMinimumSize(new Dimension(350, 200));
     }
-    private Model_Popular data;
+    private ModelPopular data;
 
-    public void setData(Model_Popular data) {
+    public void setData(ModelPopular data) {
         this.data = data;
         lbTitle.setText(data.getTitle());
         lbDescription.setText(data.getDescription());

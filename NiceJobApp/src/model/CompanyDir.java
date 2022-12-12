@@ -26,6 +26,10 @@ public class CompanyDir {
         this.companyList = companyList;
     }
     
+    public void clearAll(){
+        companyList.clear();
+    }
+    
     public Company addCompany(){
         Company newCompany = new Company();
         companyList.add(newCompany);
@@ -106,7 +110,7 @@ public class CompanyDir {
     public ArrayList<Company> searchByCountry(String country){
         ArrayList<Company> temp = new ArrayList<>();
         for(Company company : companyList){
-            if(company.getCountry().equals(country)){
+            if(company.getCountry().equalsIgnoreCase(country)){
                 
                 temp.add(company);
             }

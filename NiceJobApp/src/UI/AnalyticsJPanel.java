@@ -94,7 +94,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
 //        tblStudentDetails.getTableHeader().setFont( new Font( "Trebuchet MS" , Font.PLAIN, 18 ));
         createPieChart();
 //        Charts charts2 = new Charts(conn);
-        charts1.getData(conn);
+        charts.getData(conn);
     }
 
     /**
@@ -108,18 +108,18 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
 
         dateChooser2 = new com.raven.datechooser.DateChooser();
         kGradientPanel7 = new keeptoo.KGradientPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        lblDashboard = new javax.swing.JLabel();
+        analyticsTabbedPane = new javax.swing.JTabbedPane();
+        graphsJPanel = new javax.swing.JPanel();
         kGradientPanel8 = new keeptoo.KGradientPanel();
-        charts1 = new UI.Charts();
-        jPanel2 = new javax.swing.JPanel();
+        charts = new UI.Charts();
+        pieChartsJPanel = new javax.swing.JPanel();
         kGradientPanel9 = new keeptoo.KGradientPanel();
-        polarAreaChart1 = new UI.PolarAreaChart();
-        polarAreaChart2 = new UI.PolarAreaChart();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        back_btn = new button.Button();
+        pieChartNationality = new UI.PolarAreaChart();
+        pieChartRate = new UI.PolarAreaChart();
+        lblRate = new javax.swing.JLabel();
+        lblNationality = new javax.swing.JLabel();
+        btnLogout = new button.Button();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
 
@@ -129,68 +129,68 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         kGradientPanel7.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel7.setPreferredSize(new java.awt.Dimension(1000, 630));
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel9.setText("Analytics Dashboard");
+        lblDashboard.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        lblDashboard.setText("Analytics Dashboard");
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 204, 255));
-        jTabbedPane1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        analyticsTabbedPane.setBackground(new java.awt.Color(255, 204, 255));
+        analyticsTabbedPane.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
 
         kGradientPanel8.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel8.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel8.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel8.add(charts1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 840, 430));
+        kGradientPanel8.add(charts, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 840, 430));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout graphsJPanelLayout = new javax.swing.GroupLayout(graphsJPanel);
+        graphsJPanel.setLayout(graphsJPanelLayout);
+        graphsJPanelLayout.setHorizontalGroup(
+            graphsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        graphsJPanelLayout.setVerticalGroup(
+            graphsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("GRAPHS", jPanel1);
+        analyticsTabbedPane.addTab("GRAPHS", graphsJPanel);
 
         kGradientPanel9.setkEndColor(new java.awt.Color(255, 204, 255));
         kGradientPanel9.setkStartColor(new java.awt.Color(204, 255, 204));
         kGradientPanel9.setPreferredSize(new java.awt.Dimension(1000, 630));
         kGradientPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel9.add(polarAreaChart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 330, 330));
-        kGradientPanel9.add(polarAreaChart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 360, 330));
+        kGradientPanel9.add(pieChartNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 330, 330));
+        kGradientPanel9.add(pieChartRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 360, 330));
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Average Hourly Rate by City");
-        kGradientPanel9.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 330, -1));
+        lblRate.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
+        lblRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRate.setText("Average Hourly Rate by City");
+        kGradientPanel9.add(lblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 330, -1));
 
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Segregation by Nationality");
-        kGradientPanel9.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 330, -1));
+        lblNationality.setFont(new java.awt.Font("Trebuchet MS", 1, 25)); // NOI18N
+        lblNationality.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNationality.setText("Segregation by Nationality");
+        kGradientPanel9.add(lblNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 60, 330, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pieChartsJPanelLayout = new javax.swing.GroupLayout(pieChartsJPanel);
+        pieChartsJPanel.setLayout(pieChartsJPanelLayout);
+        pieChartsJPanelLayout.setHorizontalGroup(
+            pieChartsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pieChartsJPanelLayout.setVerticalGroup(
+            pieChartsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pieChartsJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(kGradientPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("PIE CHARTS", jPanel2);
+        analyticsTabbedPane.addTab("PIE CHARTS", pieChartsJPanel);
 
-        back_btn.setBackground(new java.awt.Color(204, 204, 255));
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setBackground(new java.awt.Color(204, 204, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -200,14 +200,14 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
             kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel7Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel9)
+                .addComponent(lblDashboard)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 642, Short.MAX_VALUE)
-                .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(kGradientPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jTabbedPane1)
+                    .addComponent(analyticsTabbedPane)
                     .addContainerGap()))
         );
         kGradientPanel7Layout.setVerticalGroup(
@@ -215,13 +215,13 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
             .addGroup(kGradientPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDashboard))
                 .addGap(580, 580, 580))
             .addGroup(kGradientPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(kGradientPanel7Layout.createSequentialGroup()
                     .addGap(75, 75, 75)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(analyticsTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(30, Short.MAX_VALUE)))
         );
 
@@ -229,7 +229,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE)
+            .addComponent(kGradientPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +237,7 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
@@ -247,24 +247,24 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         else{
             //Pressed No
         }
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button back_btn;
-    private UI.Charts charts1;
+    private javax.swing.JTabbedPane analyticsTabbedPane;
+    private button.Button btnLogout;
+    private UI.Charts charts;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel graphsJPanel;
     private keeptoo.KGradientPanel kGradientPanel7;
     private keeptoo.KGradientPanel kGradientPanel8;
     private keeptoo.KGradientPanel kGradientPanel9;
-    private UI.PolarAreaChart polarAreaChart1;
-    private UI.PolarAreaChart polarAreaChart2;
+    private javax.swing.JLabel lblDashboard;
+    private javax.swing.JLabel lblNationality;
+    private javax.swing.JLabel lblRate;
+    private UI.PolarAreaChart pieChartNationality;
+    private UI.PolarAreaChart pieChartRate;
+    private javax.swing.JPanel pieChartsJPanel;
     // End of variables declaration//GEN-END:variables
     
 //    public void getAllDepartments(){
@@ -760,18 +760,18 @@ public class AnalyticsJPanel extends javax.swing.JPanel {
         for (String myKey:myInp1.keySet()){
             count+=10;
             
-            polarAreaChart1.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp1.get(myKey)));
+            pieChartNationality.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp1.get(myKey)));
             
         }
         for (String myKey:myInp2.keySet()){
             count+=10;
             
             
-            polarAreaChart2.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp2.get(myKey)));
+            pieChartRate.addItem(new ModelPolarAreaChart(new Color((int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0), (int) ((Math.random() * (255 - 0)) + 0)), myKey, myInp2.get(myKey)));
         }
 //        }
-        polarAreaChart1.start();
-        polarAreaChart2.start();
+        pieChartNationality.start();
+        pieChartRate.start();
         
     
     }

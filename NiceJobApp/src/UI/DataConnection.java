@@ -36,7 +36,7 @@ public class DataConnection {
                 st.executeUpdate(queryNewStudent);   
                 st.close();
 //                String query = "SELECT * from test_nation ";
-                String query = "SELECT * from uni_student";
+                String query = "SELECT * from uni_student WHERE country_of_origin is not null";
                 String queryNew = "SELECT location,AVG(salary_offered) as avg_salary FROM job_listings GROUP BY location";
                 ArrayList<String> myArray= new ArrayList<>();
                 

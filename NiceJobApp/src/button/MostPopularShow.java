@@ -4,7 +4,7 @@
  */
 package button;
 
-import model.Model_Popular;
+import model.ModelPopular;
 
 /**
  *
@@ -57,7 +57,7 @@ public class MostPopularShow extends javax.swing.JLayeredPane {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-   public void addImage(Model_Popular data) {
+   public void addImage(ModelPopular data) {
         ItemImage item = new ItemImage();
         item.setData(data);
         panel.add(item);

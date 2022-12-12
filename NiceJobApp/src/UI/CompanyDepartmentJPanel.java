@@ -228,15 +228,19 @@ public class CompanyDepartmentJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane3.setViewportView(tblJobListings);
-        if (tblJobListings.getColumnModel().getColumnCount() > 0) {
-            tblJobListings.getColumnModel().getColumn(0).setResizable(false);
-        }
 
         txtSalaryOffered.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtSalaryOffered.addActionListener(new java.awt.event.ActionListener() {

@@ -79,8 +79,8 @@ public class LoginJPanel extends javax.swing.JPanel {
         lblUsername = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         clkDisplay = new clock.Clock();
-        lblCentralLoginDesk = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblUniversityLoginDesk = new javax.swing.JLabel();
+        lblTopLogo = new javax.swing.JLabel();
         btnLogout = new button.Button();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(0, 255, 204));
@@ -116,12 +116,12 @@ public class LoginJPanel extends javax.swing.JPanel {
         passwordField.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        lblCentralLoginDesk.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        lblCentralLoginDesk.setForeground(new java.awt.Color(255, 255, 255));
-        lblCentralLoginDesk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCentralLoginDesk.setText("Central Login Desk");
+        lblUniversityLoginDesk.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        lblUniversityLoginDesk.setForeground(new java.awt.Color(255, 255, 255));
+        lblUniversityLoginDesk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUniversityLoginDesk.setText("University Login Desk");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title University small.png"))); // NOI18N
+        lblTopLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Title University small.png"))); // NOI18N
 
         btnLogout.setBackground(new java.awt.Color(204, 204, 255));
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
@@ -137,13 +137,12 @@ public class LoginJPanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTopLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
+                .addContainerGap(151, Short.MAX_VALUE)
                 .addComponent(clkDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(107, 107, 107)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,21 +157,22 @@ public class LoginJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCentralLoginDesk, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(lblUniversityLoginDesk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(119, 119, 119))))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(lblCentralLoginDesk)
+                        .addContainerGap()
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTopLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(89, 89, 89)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(lblUniversityLoginDesk)
                         .addGap(31, 31, 31)
                         .addComponent(lblUsername)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -274,10 +274,10 @@ public class LoginJPanel extends javax.swing.JPanel {
     private button.Button btnLogin;
     private button.Button btnLogout;
     private clock.Clock clkDisplay;
-    private javax.swing.JLabel jLabel2;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JLabel lblCentralLoginDesk;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblTopLogo;
+    private javax.swing.JLabel lblUniversityLoginDesk;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField txtUsername;

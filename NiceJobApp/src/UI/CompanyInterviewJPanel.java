@@ -108,10 +108,10 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         dateChooser2 = new com.raven.datechooser.DateChooser();
         kGradientPanel2 = new keeptoo.KGradientPanel();
         txtUniversity = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        nxtSavebtn = new button.Button();
+        lblPersonalDetails = new javax.swing.JLabel();
+        lblInterviewPanel = new javax.swing.JLabel();
+        lblStudentName = new javax.swing.JLabel();
+        btnUpdate = new button.Button();
         lblUniversity = new javax.swing.JLabel();
         txtStudentName = new javax.swing.JTextField();
         lblAppDate = new javax.swing.JLabel();
@@ -119,17 +119,17 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         lblPhoto = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblStudentDetails = new javax.swing.JTable();
-        btnSearch2 = new button.Button();
-        btnClear1 = new button.Button();
-        btnViewSelected1 = new button.Button();
+        btnSearch = new button.Button();
+        btnClear = new button.Button();
+        btnViewSelected = new button.Button();
         lblStatus = new javax.swing.JLabel();
         cmbStatus = new javax.swing.JComboBox<>();
         lblComments = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaComments = new javax.swing.JTextArea();
-        btnRefreshTable2 = new button.Button();
-        jLabel11 = new javax.swing.JLabel();
-        back_btn = new button.Button();
+        btnRefreshTable = new button.Button();
+        lblApplicationDetails = new javax.swing.JLabel();
+        btnLogout = new button.Button();
         lblImage = new javax.swing.JLabel();
 
         dateChooser2.setDateFormat("yyyy-MM-dd");
@@ -143,20 +143,20 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         txtUniversity.setFont(new java.awt.Font("Trebuchet MS", 0, 15)); // NOI18N
         txtUniversity.setEnabled(false);
 
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel10.setText("Personal Details");
+        lblPersonalDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        lblPersonalDetails.setText("Personal Details");
 
-        jLabel8.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel8.setText("JOB INTERVIEW PANEL");
+        lblInterviewPanel.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
+        lblInterviewPanel.setText("JOB INTERVIEW PANEL");
 
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        jLabel9.setText("Student Name");
+        lblStudentName.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        lblStudentName.setText("Student Name");
 
-        nxtSavebtn.setText("Update");
-        nxtSavebtn.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        nxtSavebtn.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Update");
+        btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nxtSavebtnActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -190,34 +190,41 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane6.setViewportView(tblStudentDetails);
 
-        btnSearch2.setBackground(new java.awt.Color(204, 255, 204));
-        btnSearch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
-        btnSearch2.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setBackground(new java.awt.Color(204, 255, 204));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_7.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearch2ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
-        btnClear1.setBackground(new java.awt.Color(204, 255, 204));
-        btnClear1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
-        btnClear1.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setBackground(new java.awt.Color(204, 255, 204));
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_8.png"))); // NOI18N
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClear1ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
-        btnViewSelected1.setBackground(new java.awt.Color(204, 255, 204));
-        btnViewSelected1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
-        btnViewSelected1.addActionListener(new java.awt.event.ActionListener() {
+        btnViewSelected.setBackground(new java.awt.Color(204, 255, 204));
+        btnViewSelected.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_9.png"))); // NOI18N
+        btnViewSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewSelected1ActionPerformed(evt);
+                btnViewSelectedActionPerformed(evt);
             }
         });
 
@@ -236,22 +243,22 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         txtAreaComments.setRows(5);
         jScrollPane2.setViewportView(txtAreaComments);
 
-        btnRefreshTable2.setBackground(new java.awt.Color(204, 255, 204));
-        btnRefreshTable2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
-        btnRefreshTable2.addActionListener(new java.awt.event.ActionListener() {
+        btnRefreshTable.setBackground(new java.awt.Color(204, 255, 204));
+        btnRefreshTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_4.png"))); // NOI18N
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshTable2ActionPerformed(evt);
+                btnRefreshTableActionPerformed(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel11.setText("Application Details");
+        lblApplicationDetails.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        lblApplicationDetails.setText("Application Details");
 
-        back_btn.setBackground(new java.awt.Color(204, 204, 255));
-        back_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setBackground(new java.awt.Color(204, 204, 255));
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icon_3.png"))); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -271,14 +278,14 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane6)
                         .addContainerGap())
                     .addGroup(kGradientPanel2Layout.createSequentialGroup()
-                        .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 920, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
+                                    .addComponent(lblStudentName)
                                     .addComponent(lblPhoto)
                                     .addComponent(lblUniversity))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -290,11 +297,11 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
                                 .addGap(108, 108, 108))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel2Layout.createSequentialGroup()
                                 .addGap(80, 80, 80)
-                                .addComponent(btnRefreshTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 378, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel2Layout.createSequentialGroup()
                                 .addGap(193, 193, 193)
-                                .addComponent(jLabel10)
+                                .addComponent(lblPersonalDetails)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)))
                         .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel2Layout.createSequentialGroup()
@@ -310,49 +317,49 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
                                             .addComponent(txtApplicationDate, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                         .addGap(53, 53, 53))
-                                    .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(1, 1, 1)
-                                .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addComponent(lblApplicationDetails)
                                 .addGap(172, 172, 172))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel2Layout.createSequentialGroup()
-                                .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(64, 64, 64))))))
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblInterviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear1, btnSearch2, btnViewSelected1});
+        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear, btnSearch, btnViewSelected});
 
         kGradientPanel2Layout.setVerticalGroup(
             kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel2Layout.createSequentialGroup()
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(back_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInterviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnViewSelected1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefreshTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(lblPersonalDetails)
+                    .addComponent(lblApplicationDetails))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtApplicationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAppDate)
                     .addComponent(txtStudentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(lblStudentName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,12 +374,12 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
                             .addComponent(lblComments)
                             .addComponent(lblPhoto))
                         .addGap(44, 44, 44)
-                        .addComponent(nxtSavebtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear1, btnSearch2, btnViewSelected1});
+        kGradientPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear, btnSearch, btnViewSelected});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -386,12 +393,12 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRefreshTable2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTable2ActionPerformed
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
         // TODO add your handling code here:
         populateStudentDetilsTable(jobAppDir);
-    }//GEN-LAST:event_btnRefreshTable2ActionPerformed
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
 
-    private void btnViewSelected1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelected1ActionPerformed
+    private void btnViewSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewSelectedActionPerformed
         // TODO add your handling code here:
         selectedRowStudent = tblStudentDetails.getSelectedRow();
         if(selectedRowStudent < 0){
@@ -403,14 +410,14 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
             viewJobAppointment(jobApp);
             selectedJob = jobApp;
         }
-    }//GEN-LAST:event_btnViewSelected1ActionPerformed
+    }//GEN-LAST:event_btnViewSelectedActionPerformed
 
-    private void btnClear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClear1ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         clearAllFieldsViewApplicants();
-    }//GEN-LAST:event_btnClear1ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnSearch2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch2ActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         JPanel panel = new JPanel(new GridLayout(0, 1));
         panel.add(new JLabel("Please select a field:"));
@@ -492,14 +499,14 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this, "Search Cancelled");
         }
-    }//GEN-LAST:event_btnSearch2ActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void nxtSavebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nxtSavebtnActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         updateStatus(selectedJob);
-    }//GEN-LAST:event_nxtSavebtnActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(res == 0) {
@@ -509,31 +516,31 @@ public class CompanyInterviewJPanel extends javax.swing.JPanel {
         else{
             //Pressed No
         }     
-    }//GEN-LAST:event_back_btnActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private button.Button back_btn;
-    private button.Button btnClear1;
-    private button.Button btnRefreshTable2;
-    private button.Button btnSearch2;
-    private button.Button btnViewSelected1;
+    private button.Button btnClear;
+    private button.Button btnLogout;
+    private button.Button btnRefreshTable;
+    private button.Button btnSearch;
+    private button.Button btnUpdate;
+    private button.Button btnViewSelected;
     private javax.swing.JComboBox<String> cmbStatus;
     private com.raven.datechooser.DateChooser dateChooser2;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
     private keeptoo.KGradientPanel kGradientPanel2;
     private javax.swing.JLabel lblAppDate;
+    private javax.swing.JLabel lblApplicationDetails;
     private javax.swing.JLabel lblComments;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblInterviewPanel;
+    private javax.swing.JLabel lblPersonalDetails;
     private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblStudentName;
     private javax.swing.JLabel lblUniversity;
-    private button.Button nxtSavebtn;
     private javax.swing.JTable tblStudentDetails;
     private javax.swing.JTextField txtApplicationDate;
     private javax.swing.JTextArea txtAreaComments;
