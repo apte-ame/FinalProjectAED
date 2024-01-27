@@ -1,6 +1,6 @@
 # AED Final Project
 
-## Team Members - Ameya Apte, Aditya Sawant, Nainil Maladkar
+## Team Members - `Ameya Apte`, `Aditya Sawant`, `Nainil Maladkar`
 
 Nice Job is a one stop solution where students can view and apply to the job listings by the companies and also look for apartments listed by apartment rental enterprises.
 
